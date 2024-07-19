@@ -1,3 +1,8 @@
+$primary-color: rgb(0, 150, 232);
+
+@import "./layout/layout.scss";
+@import "./components/Navbar/Navbar.scss";
+
 * {
     padding: 0;
     margin: 0;

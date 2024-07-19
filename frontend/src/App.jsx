@@ -1,6 +1,10 @@
+import { Navbar } from "./components/Navbar/Navbar"
+
 function App() {
   return (
-    <div><a href="">WarmHands</a></div>
+    <div className="layout">
+      <Navbar />
+    </div>
     
   )
 }

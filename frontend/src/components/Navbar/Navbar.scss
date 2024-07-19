@@ -1,0 +1,72 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px;
+
+  .left {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    a:nth-child(n+2) {
+        transition: all 0.2s ease;
+        border-bottom: 2px solid transparent;
+
+        &:hover {
+            border-bottom: 2px solid $primary-color;
+            color: $primary-color;
+        }
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+
+      .logo {
+        height: 20px;
+        width: 150px;
+      }
+    }
+
+    
+  }
+
+  .right {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    height: 100%;
+    background-color: rgba(0, 149, 231, 0.05);
+
+    a {
+        padding: 10px 22px;
+        border-radius: 12px;
+        margin: 20px;
+        transition: all 0.2s ease;
+    }
+
+    .signin {
+        border: 2px solid $primary-color;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+
+    .register {
+        background-color: $primary-color;
+        color: white; 
+        border: 2px solid $primary-color;
+
+        &:hover {
+            background-color: transparent;
+            color: $primary-color;
+        }
+    }
+  }
+}
