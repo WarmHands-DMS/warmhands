@@ -1,7 +1,13 @@
-$primary-color: rgb(0, 150, 232);
+$primary-color: #007fd4;
+$secondary-color: #eff8ff;
+
+$primary-gradient: linear-gradient(90deg, #75d0ff 0%, #0096e8 35%, #0065ab 100%);
+
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
 @import "./layout/layout.scss";
 @import "./components/Navbar/Navbar.scss";
+@import "./pages/HomePage/HomePage.scss";
 
 * {
     padding: 0;
@@ -15,6 +21,6 @@ a {
 }
 
 body {
-    font-family: 'Roboto', 'Lato', sans-serif;
+    font-family: 'Poppins', 'Roboto', 'Lato', sans-serif;
     overflow: hidden;
 }

@@ -1,72 +1,227 @@
+@import "../../layout/responsive.scss";
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 120px;
+  height: 100px;
 
   .left {
-    flex: 3;
+    flex: 2;
     display: flex;
-    align-items: center;
-    gap: 50px;
-
-    a:nth-child(n+2) {
-        transition: all 0.2s ease;
-        border-bottom: 2px solid transparent;
-
-        &:hover {
-            border-bottom: 2px solid $primary-color;
-            color: $primary-color;
-        }
-    }
-
+ 
+    
+     
     .nav-logo {
       display: flex;
       align-items: center;
       border-bottom: 2px solid transparent;
+      margin-bottom: 10px;
 
       .logo {
         height: 20px;
         width: 150px;
       }
     }
-
-    
   }
+    
 
   .right {
-    flex: 2;
+    flex: 3;
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    gap: 20px;
+    align-items: center;
+    gap: 45px;
     height: 100%;
-    background-color: rgba(0, 149, 231, 0.05);
+    // background-color: $secondary-color;
 
-    a {
-        padding: 10px 22px;
-        border-radius: 12px;
-        margin: 20px;
-        transition: all 0.2s ease;
-    }
 
-    .signin {
-        border: 2px solid $primary-color;
+    @include md {
+        gap: 20px;
+        background-color: transparent;
+      }
+
+    .nav-links {
+      display: flex;
+      gap: 45px;
+
+      @include md {
+        gap: 20px;
+      }
+
+      @include sm {
+        display: none;
+      }
+
+      a {
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid transparent;
+        position: relative;
+        text-decoration: none;
+        
+        &::before {
+          content: attr(data-item);
+          transition: all 0.2s ease-in-out;
+          color: $primary-color;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 0;
+          overflow: hidden;
+          border-bottom: 2px solid $primary-color;
+        }
 
         &:hover {
-            color: $primary-color;
-        }
+          &::before {
+            width: 100%;
+          }
+        }     
+      }
     }
 
-    .register {
-        background-color: $primary-color;
-        color: white; 
-        border: 2px solid $primary-color;
+    .nav-btn {
+      display: flex;
+      margin-bottom: 10px;
 
-        &:hover {
-            background-color: transparent;
-            color: $primary-color;
+      @include sm {
+        display: none;
+      }
+
+   
+    
+      a {
+          padding: 8px 18px;
+          border-radius: 12px;
+          margin-right: 1.5rem; 
+          white-space: nowrap;
+
+          @include md {
+            margin-right: 1rem;
+            
+          }
+      }
+
+      .signin {
+        &:link, 
+        &:visited {
+          text-decoration: none;
+          border: 2px solid $primary-color;
+          position: relative;
+          z-index: 1;    
+          overflow: hidden;
         }
+        
+        &::after {
+          content: "";
+          width: 0;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: $primary-color;
+          transition: all .4s;
+          z-index: -2;
+        }
+        
+        &:hover {
+          color: white;
+          box-shadow: 
+            0rem .5rem 2rem
+            rgba($primary-color, .1)
+        }
+              
+        &:hover::after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: -2;
+        }
+      }
+
+      .register {
+        &:link, 
+        &:visited {
+          background-color: $primary-color;
+          color: white; 
+          border: 2px solid $primary-color;
+          text-decoration: none;
+          position: relative;
+          z-index: 1;
+          overflow: hidden;
+        }
+        
+        &::after {
+          content: "";
+          width: 0;
+          height: 100%;
+          position: absolute; 
+          background-color: #eff8ff;
+          top: 0;
+          right: 0;
+          transition: all .4s;
+          z-index: -2;
+        }
+        
+        &:hover {
+          color: black;
+          box-shadow: 
+            0rem .5rem 2rem
+            rgba($primary-color, .1)
+        }
+              
+        &:hover::after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: -2;
+        }
+      }
+    }
+
+    .mobile-menu {
+      display: none;
+
+      @include sm {
+        display: inline;
+        cursor: pointer;
+        z-index: 2;
+      }
+    }
+
+    .menu {
+      position: absolute;
+      background-color: black;
+      color: white;
+      height: 100%;
+      width: 50%;
+      top: 0;
+      right: -50%;
+      transition: all 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      font-size: 1rem;
+
+      &.active {
+        right: 0;
+      }
+
+      
     }
   }
 }

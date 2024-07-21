@@ -1,0 +1,35 @@
+.homePage {
+    display: flex;
+    height: 100%;
+
+    .textPart {
+        flex: 3;
+
+        .wrapper {
+            padding-right: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 40px;
+            height: 100%;
+
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+    }
+
+    .imagePart {
+        flex: 2;
+        background-color: $secondary-color;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 110%;
+            position: absolute;
+            right: 0;
+        }
+    }
+}
