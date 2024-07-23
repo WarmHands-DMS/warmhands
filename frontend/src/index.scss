@@ -8,6 +8,7 @@ $primary-gradient: linear-gradient(90deg, #75d0ff 0%, #0096e8 35%, #0065ab 100%)
 @import "./layout/layout.scss";
 @import "./components/Navbar/Navbar.scss";
 @import "./pages/HomePage/HomePage.scss";
+@import "./pages/NewsPage/NewsPage.scss";
 
 * {
     padding: 0;

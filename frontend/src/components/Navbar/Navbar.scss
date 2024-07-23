@@ -61,11 +61,13 @@ nav {
         display: none;
       }
 
-      a {
+      .link {
+        position: relative;
+
+        a {
         align-items: center;
         padding-bottom: 10px;
-        border-bottom: 2px solid transparent;
-        position: relative;
+        border-bottom: 2px solid transparent; 
         text-decoration: none;
         
         &::before {
@@ -88,6 +90,10 @@ nav {
           }
         }     
       }
+
+      }
+
+      
     }
 
     .nav-btn {
@@ -197,7 +203,7 @@ nav {
       @include sm {
         display: inline;
         cursor: pointer;
-        z-index: 2;
+        z-index: 3;
       }
     }
 
@@ -216,6 +222,7 @@ nav {
       justify-content: center;
       gap: 30px;
       font-size: 1rem;
+      z-index: 2;
 
       &.active {
         right: 0;

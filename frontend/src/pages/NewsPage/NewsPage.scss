@@ -1,0 +1,25 @@
+.newsPage {
+    display: flex;
+    height: 100%;
+
+    .listContainer {
+        flex: 3;
+
+        .wrapper {
+            padding-right: 50px;
+
+            form {
+                height: 30px;
+            }
+
+            .searchBar {
+                width: 50%;
+            }
+        }
+    }
+
+    .mapContainer {
+        flex: 2;
+        background-color: gray;
+    }
+}

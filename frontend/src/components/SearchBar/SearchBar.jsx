@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import './SearchBar.scss';
 
 export const SearchBar = () => {
-  const suggestions = ['Apple', 'Banana', 'Orange', 'Pineapple', 'Grapes'];
+  const suggestions = ['Colombo', 'Kandy', 'Jaffna', 'Anuradhapura', 'Mathara', 'Rathnapura', 'Badulla'];
 
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -12,7 +12,6 @@ export const SearchBar = () => {
     const inputValue = event.target.value;
     setInputValue(inputValue);
 
-    // Filter suggestions based on input value
     const filteredSuggestions = suggestions.filter((suggestion) =>
       suggestion.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -26,7 +25,6 @@ export const SearchBar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Step 3: Add useEffect to handle clicks outside the search bar
       if (
         searchBarRef.current &&
         !searchBarRef.current.contains(event.target)
@@ -57,8 +55,12 @@ export const SearchBar = () => {
             type="text"
             value={inputValue}
             onChange={handleChange}
-            placeholder="Type to search..."
+            placeholder="Type the Location"
           />
+          {/* <button>
+            <i className='fa-solid fa-magnifying-glass fa-xl'></i>
+            Search
+          </button> */}
         </form>
         <ul className="autocomplete-suggestions">
           {filteredSuggestions.map((suggestion, index) => (
