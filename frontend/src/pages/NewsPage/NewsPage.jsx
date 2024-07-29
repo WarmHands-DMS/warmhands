@@ -1,4 +1,4 @@
-import {newsData} from "../../lib/dataFeed"
+import {newsData} from "../../lib/dataFeed";
 import { Filter } from "../../components/Filter/Filter";
 import { Card } from "../../components/Card/Card";
 

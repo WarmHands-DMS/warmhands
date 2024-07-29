@@ -1,43 +1,38 @@
-import img1 from "./1.jpg";
-import img2 from './2.jpg';
-import img3 from './3.jpg';
-import img4 from './4.jpg';
-
 export const newsData = [
   {
     id: 1,
     title: 'Title 1',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, voluptates beatae cumque, numquam consectetur soluta iusto harum quasi ut aspernatur eos neque molestias illum dist.',
-    img: { img1 },
-    location: 'colombo',
-    date: '2024-10-10',
-    time: '10.00',
+    img: "https://images.unsplash.com/photo-1475776408506-9a5371e7a068?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZGlzYXN0ZXJ8ZW58MHx8MHx8fDA%3D",
+    location: 'Colombo',
+    date: '2024-07-28T23:26:01.000Z',
+    time: '10.00 AM',
   },
   {
     id: 2,
     title: 'Title 2',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, voluptates beatae cumque, numquam consectetur soluta iusto harum quasi ut aspernatur eos neque molestias illum dist.',
-    img: { img2 },
-    location: 'anuradhapura',
-    date: '2024-11-14',
-    time: '09.20',
+    img: "https://plus.unsplash.com/premium_photo-1664303499312-917c50e4047b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGRpc2FzdGVyfGVufDB8fDB8fHww",
+    location: 'Anuradhapura',
+    date: '2024-07-28T22:56:01.000Z',
+    time: '09.20 PM',
   },
   {
     id: 3,
     title: 'Title 3',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, voluptates beatae cumque, numquam consectetur soluta iusto harum quasi ut aspernatur eos neque molestias illum dist.',
-    img: { img3 },
-    location: 'mathara',
-    date: '2024-02-20',
-    time: '11.10',
+    img: "https://images.unsplash.com/photo-1641648542236-b694c8fb1042?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGRpc2FzdGVyfGVufDB8fDB8fHww",
+    location: 'Mathara',
+    date: '2024-02-20T11:10:00.000Z',
+    time: '11.10 AM',
   },
   {
     id: 4,
     title: 'Title 4',
     desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, voluptates beatae cumque, numquam consectetur soluta iusto harum quasi ut aspernatur eos neque molestias illum dist.',
-    img: { img4 },
-    location: 'rathnapura',
-    date: '2024-09-03',
-    time: '23.12',
+    img: "https://images.unsplash.com/photo-1485617359743-4dc5d2e53c89?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZGlzYXN0ZXJ8ZW58MHx8MHx8fDA%3D",
+    location: 'Rathnapura',
+    date: '2024-09-03T07:12:00.000Z',
+    time: '07.12 AM',
   },
 ];
