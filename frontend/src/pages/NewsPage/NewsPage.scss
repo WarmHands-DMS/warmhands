@@ -4,13 +4,15 @@
 
     .listContainer {
         flex: 3;
+        height: 100%;
 
         .wrapper {
             padding-right: 50px;
             display: flex;
             flex-direction: column;
-            gap: 50px; 
-            overlay: scroll;
+            gap: 30px; 
+            overflow-y: scroll;
+            height: 100%;
 
             form {
                 height: 30px;
@@ -25,5 +27,6 @@
     .mapContainer {
         flex: 2;
         background-color: gray;
+        height: 100%;
     }
 }

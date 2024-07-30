@@ -1,6 +1,7 @@
 import {newsData} from "../../lib/dataFeed";
 import { Filter } from "../../components/Filter/Filter";
 import { Card } from "../../components/Card/Card";
+import { Map } from "../../components/Map/Map";
 
 export const NewsPage = () => {
 
@@ -16,7 +17,9 @@ export const NewsPage = () => {
           ))}
         </div>
       </div>
-      <div className="mapContainer">map</div>
+      <div className="mapContainer">
+        <Map items={data}/>
+      </div>
     </div>
   )
 }
