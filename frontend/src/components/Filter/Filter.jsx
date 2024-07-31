@@ -81,8 +81,9 @@ export const Filter = () => {
           <select name="location" id="location">
             <option value="all">All</option>
             <option value="all">Flood</option>
-            <option value="all">Fires</option>
-            <option value="all">Earthquakes</option>
+            <option value="all">Fire</option>
+            <option value="all">Earthquake</option>
+            <option value="all">Cyclone</option>
           </select>
         </div>
         <button>
