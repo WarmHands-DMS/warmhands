@@ -86,9 +86,11 @@ export const Filter = () => {
             <option value="all">Cyclone</option>
           </select>
         </div>
-        <button>
-            Search
-        </button>
+        <div className="item3">
+          <button>
+              Search
+          </button>
+        </div>
       </div>
       {/* <ul className="autocomplete-suggestions">
         {filteredSuggestions.map((suggestion, index) => (

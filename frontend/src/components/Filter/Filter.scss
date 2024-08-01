@@ -14,8 +14,15 @@ $primary-color: #007fd4;
 
         .item1 {
             align-items: flex-start;
+            width: 50%;
             
         }
+
+        .item2 {
+            width: 30%;
+            white-space: nowrap;
+        }
+
 
         .item {
             display: flex;
@@ -42,9 +49,9 @@ $primary-color: #007fd4;
 
             .autocomplete-suggestions {
                 position: absolute;
+                width: 50%;
                 top: 100%;
                 left: 0;
-                width: 300px;
                 background-color: #fff;
                 border-top: none;
                 border-radius: 0 0 5px 5px;
@@ -90,6 +97,7 @@ $primary-color: #007fd4;
             
         }
 
+<<<<<<< HEAD
         button {
                 border: 2px solid $primary-color;
                 border-radius: 10px;
@@ -99,6 +107,28 @@ $primary-color: #007fd4;
                 align-items: end;
                 cursor: pointer;
             }
+=======
+        .item3 {
+            width: 20%;
+            display: flex;
+            align-items: end;
+
+            button {
+                    border: 2px solid $primary-color;
+                    color: white;
+                    background-color: $primary-color;
+                    padding: 0px 30px;
+                    height: 40px;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    transition: all .15s ease-in;
+
+                    &:hover {
+                        background-color: #0066ab;
+                    }
+                }
+        }
+>>>>>>> 630049f5bb6f76986dd9edeae98a055b7a958b11
 
     }
 

@@ -12,6 +12,12 @@
   "dependencies": {
     "font-awesome": "^4.7.0",
     "leaflet": "^1.9.4",
+<<<<<<< HEAD
+=======
+    "leaflet-boundary-canvas": "^1.0.0",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
+>>>>>>> 630049f5bb6f76986dd9edeae98a055b7a958b11
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",

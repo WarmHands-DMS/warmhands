@@ -1,0 +1,76 @@
+.card {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 5px 3px 10px rgb(0 0 0 / 0.2);
+
+
+    .imageContainer {
+        flex: 2;
+        height: 200px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    }
+
+    .textContainer {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .top {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            .title {
+                color: #000;
+                font-size: 20px;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    color: #000;
+                    scale: 1.01;
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 14px;
+                gap: 5px;
+                background-color: whitesmoke;
+                padding: 5px;
+                border-radius: 5px;
+
+                i {
+                    padding-bottom: 2px;
+                }
+            }
+
+            .date {
+                white-space: nowrap;
+            }
+
+            .time {
+                white-space: nowrap;
+            }
+        }
+    }
+}
