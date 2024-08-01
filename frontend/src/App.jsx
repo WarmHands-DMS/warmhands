@@ -20,7 +20,7 @@ function App() {
           element: <NewsPage />,
         },
         {
-          path: '/disaster',
+          path: '/:id',
           element: <DisasterPage />,
         },
       ],
