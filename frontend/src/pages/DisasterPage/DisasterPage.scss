@@ -3,12 +3,26 @@
     height: 100%;
     gap: 10px;
 
+    @include md{
+        flex-direction: column;
+        overflow: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        
+    }
+
     .details {
         flex: 3;
         height: 100%;
         overflow-y: scroll;
         -ms-overflow-style: none;
         scrollbar-width: none;
+
+        @include md {
+            flex: none;
+            height: max-content;
+            margin-bottom: 50px;
+        }
 
         .wrapper {
             padding-right: 50px;
@@ -84,6 +98,12 @@
     .features {
         flex: 2;
         background-color: $secondary-color;
+
+        @include md {
+            flex: none;
+            height: max-content;
+            margin-bottom: 30px;
+        }
 
         .wrapper {
             padding: 20px;

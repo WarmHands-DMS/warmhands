@@ -201,7 +201,7 @@ nav {
       @include sm {
         display: inline;
         cursor: pointer;
-        z-index: 3;
+        z-index: 2001;
       }
     }
 
@@ -220,7 +220,7 @@ nav {
       justify-content: center;
       gap: 30px;
       font-size: 1rem;
-      z-index: 2;
+      z-index: 2000;
 
       &.active {
         right: 0;
