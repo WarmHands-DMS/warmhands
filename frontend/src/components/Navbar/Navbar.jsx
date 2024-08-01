@@ -12,10 +12,10 @@ export const Navbar = () => {
       </div>
       <div className="right">
         <div className="nav-links">
-          <Link className="link" to="/"><a data-item='Home' href="">Home</a></Link>
-          <Link className="link" to="/news"><a data-item='News' href="">News</a></Link>
-          <Link className="link" to="/map"><a data-item='Map' href="">Map</a></Link>
-          <Link className="link" to="/contact"><a data-item='Contact' href="">Contact</a></Link>
+          <Link className="link" to="/" data-item='Home'>Home</Link>
+          <Link className="link" to="/news" data-item='News'>News</Link>
+          <Link className="link" to="/map" data-item='Map'>Map</Link>
+          <Link className="link" to="/contact" data-item='Contact'>Contact</Link>
         </div>
         <div className="nav-btn">
           <a className="btn-a signin" href="">Sign in</a>

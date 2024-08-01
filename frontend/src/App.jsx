@@ -2,6 +2,7 @@ import { HomePage } from "./pages/HomePage/HomePage"
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import { NewsPage } from "./pages/NewsPage/NewsPage"
 import { Layout } from "./layout/Layout"
+import { DisasterPage } from "./pages/DisasterPage/DisasterPage";
 
 function App() {
 
@@ -17,6 +18,10 @@ function App() {
         {
           path: '/news',
           element: <NewsPage />,
+        },
+        {
+          path: '/disaster',
+          element: <DisasterPage />,
         },
       ],
     },

@@ -62,9 +62,7 @@ nav {
       }
 
       .link {
-        position: relative;
-
-        a {
+        position: relative;       
         align-items: center;
         padding-bottom: 10px;
         border-bottom: 2px solid transparent; 
@@ -88,7 +86,7 @@ nav {
           &::before {
             width: 100%;
           }
-        }     
+           
       }
 
       }
