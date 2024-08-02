@@ -3,6 +3,7 @@ import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import { NewsPage } from "./pages/NewsPage/NewsPage"
 import { Layout } from "./layout/Layout"
 import { DisasterPage } from "./pages/DisasterPage/DisasterPage";
+import { UserProfilePage } from "./pages/UserProfilePage/UserProfilePage";
 
 function App() {
 
@@ -23,6 +24,10 @@ function App() {
           path: '/:id',
           element: <DisasterPage />,
         },
+        {
+          path: '/profile',
+          element: <UserProfilePage/>
+        }
       ],
     },
   ]);
