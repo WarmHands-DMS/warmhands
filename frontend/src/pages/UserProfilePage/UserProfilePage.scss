@@ -1,0 +1,92 @@
+.userProfilePage {
+    display: flex;
+    height: 100%;
+    
+
+    .details {
+        flex: 3;
+        height: 100%;
+
+        .wrapper {
+            padding-right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            overflow-y: scroll;
+            height: 100%;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+
+
+            .title {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+
+                h2 {
+                    white-space: nowrap;
+                }
+
+                button {
+                    background-color: $primary-color;
+                    border: none;
+                    width: 108px;
+                    height: 34px;
+                    border-radius: 10px;
+                    color: #eee;
+                    cursor: pointer;
+                    
+                }
+
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                
+
+                .profileImage {
+                    position: relative;
+                    display: flex;
+                    justify-content: start;
+
+                    img {
+                        height: 96px;
+                        width: 96px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        border: 3px solid $primary-color;
+
+                        
+                    }
+
+                    span {
+                        position: absolute;
+                        bottom: 0px;
+                        left: 70px;
+                        background-color: $primary-color;
+                        font-size: 14px;
+                        color: #eee;
+                        padding: 3px 12px;
+                        border-radius: 10px;
+                        cursor: pointer;
+                    }
+                    
+                }
+
+
+
+            }
+        }
+    }
+
+    .notifications {
+        flex: 2;
+        height: 100%;
+        background-color: $secondary-color;
+
+    }
+}
