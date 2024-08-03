@@ -190,17 +190,17 @@ nav {
 
    
     
-      // a {
-      //     padding: 8px 18px;
-      //     border-radius: 12px;
-      //     margin-right: 1.5rem; 
-      //     white-space: nowrap;
+      .link {
+          padding: 8px 18px;
+          border-radius: 12px;
+          margin-right: 1.5rem; 
+          white-space: nowrap;
 
-      //     @include md {
-      //       margin-right: 1rem;
+          @include md {
+            margin-right: 1rem;
             
-      //     }
-      // }
+          }
+      }
 
       .signin {
         &:link, 
@@ -316,3 +316,4 @@ nav {
     }
   }
 }
+

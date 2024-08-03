@@ -1,0 +1,35 @@
+.signinPage {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .wrapper {
+        background-color: rgb(206, 206, 206);
+        height: 75%;
+        width: 50%;
+
+        @include md {
+            width: 60%;
+        }
+
+        @include sm {
+            width: 70%;
+        }
+
+        .input-section {
+            .input {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                width: 100%;
+                background-color: rgb(178, 178, 178);
+    
+                input {
+                    width: 70%;
+                }
+            }
+        }
+    }
+}

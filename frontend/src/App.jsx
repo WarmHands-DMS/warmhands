@@ -4,6 +4,8 @@ import { NewsPage } from "./pages/NewsPage/NewsPage"
 import { Layout } from "./layout/Layout"
 import { DisasterPage } from "./pages/DisasterPage/DisasterPage";
 import { UserProfilePage } from "./pages/UserProfilePage/UserProfilePage";
+import { RegisterPage }  from "./pages/RegisterPage/RegisterPage"
+import { SigninPage } from "./pages/SigninPage/SigninPage";
 
 function App() {
 
@@ -27,7 +29,15 @@ function App() {
         {
           path: '/profile',
           element: <UserProfilePage/>
-        }
+        },
+        {
+          path: '/register',
+          element: <RegisterPage/>
+        },
+        {
+          path: '/signin',
+          element: <SigninPage/>
+        },
       ],
     },
   ]);
