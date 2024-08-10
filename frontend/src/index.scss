@@ -1,9 +1,11 @@
 $primary-color: #007fd4;
 $secondary-color: #eff8ff;
+$shadow-color: #007fd457;
 
 $primary-gradient: linear-gradient(90deg, #75d0ff 0%, #0096e8 35%, #0065ab 100%);
 
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+// @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
 
 @import "./layout/layout.scss";
 @import "./components/Navbar/Navbar.scss";
@@ -26,6 +28,6 @@ a {
 }
 
 body {
-    font-family: 'Poppins', 'Roboto', 'Lato', sans-serif;
+    font-family: 'poppins', 'Roboto', 'Lato', sans-serif;
     overflow: hidden;
 }

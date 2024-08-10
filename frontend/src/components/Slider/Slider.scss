@@ -77,7 +77,8 @@
         padding: 40px;
         cursor: pointer;
         transition: all 0.2s ease-in-out;
-
+        z-index: 3060;
+        
         &:hover {
             color: #fff;
         }
