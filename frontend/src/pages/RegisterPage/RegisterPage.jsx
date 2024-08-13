@@ -1,33 +1,132 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export const RegisterPage = () => {
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+   const handleEmailChange = (e) => {
+     const newEmail = e.target.value;
+     setEmail(newEmail);
+
+     
+     if (!validateEmail(newEmail)) {
+       setEmailError('Invalid email address');
+     } else {
+       setEmailError('');
+     }
+   };
+
+  const validatePasswordMatch = () => {
+    if (password !== confirmPassword) {
+      setPasswordError('Passwords do not match');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+
+    const formData = new FormData(e.target);
+    const fname = formData.get("fname");
+    const lname = formData.get("lname");
+    const email = formData.get('email');
+    const password = formData.get("password");
+    const address = formData.get("address");
+    const province = formData.get("province");
+    const district = formData.get("district");
+    const city = formData.get("city");
+    const nic = formData.get("nic");
+    const mobile = formData.get("mobile");
+
+    if (emailError) {
+      toast.error('Enter a valid email address.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setPasswordError('Passwords do not match');
+      toast.error('Password do not match!');
+      return;
+    }
+    
+    try {
+      const res = await axios.post("http://localhost:8800/api/auth/register", {
+      fname, lname, email, password, address, province, district, city,nic, mobile
+      })
+
+       navigate('/signin', { state: { message: 'Registration successful!' } });
+
+    } catch(error) {
+      console.log(error)
+      setError(error.response.data.message);
+      toast.error(error.response.data.message);
+    }
+    
+  }
+
   return (
     <div className="registerPage">
+      <ToastContainer />
       <div className="wrapper">
         <div className="form-h">
           <h2>Register</h2>
           <img src="/warmhands-logo.svg" className="logo" />
         </div>
-        <form action="" className="login-form">
+        <form onSubmit={handleSubmit} className="login-form">
           <div className="form scrollbar">
             <div className="input-multi">
               <div className="input-single">
                 <label htmlFor="">First Name</label>
-                <input type="text" name="Fname" placeholder="First Name" />
+                <input type="text" name="fname" placeholder="First Name" />
               </div>
               <div className="input-single">
                 <label htmlFor="">Last Name</label>
-                <input type="text" name="Lname" placeholder="Last Name" />
+                <input type="text" name="lname" placeholder="Last Name" />
               </div>
             </div>
             <div className="input-single">
               <label htmlFor="">Email</label>
-              <input type="text" name="email" placeholder="Email" />
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={handleEmailChange}
+                className={emailError ? 'error-border' : ''}
+              />
+              <div className="error-message">
+                {emailError && <span>{emailError}</span>}
+              </div>
             </div>
             <div className="input-multi">
               <div className="input-single">
                 <label htmlFor="">Password</label>
-                <input type="password" name="password" placeholder="Password" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={validatePasswordMatch}
+                  className={passwordError ? 'error-border' : ''}
+                />
               </div>
               <div className="input-single">
                 <label htmlFor="">Confirm Password</label>
@@ -35,7 +134,14 @@ export const RegisterPage = () => {
                   type="password"
                   name="password"
                   placeholder="Re-Type Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onBlur={validatePasswordMatch}
+                  className={passwordError ? 'error-border' : ''}
                 />
+                <div className="error-message">
+                  {passwordError && <span>{passwordError}</span>}
+                </div>
               </div>
             </div>
             <div className="input-single">
@@ -65,7 +171,7 @@ export const RegisterPage = () => {
                 <label htmlFor="">Mobile Number</label>
                 <input
                   type="number"
-                  name="mobile-number"
+                  name="mobile"
                   placeholder="Mobile Number"
                 />
               </div>

@@ -6,6 +6,7 @@ import { DisasterPage } from "./pages/DisasterPage/DisasterPage";
 import { UserProfilePage } from "./pages/UserProfilePage/UserProfilePage";
 import { RegisterPage }  from "./pages/RegisterPage/RegisterPage"
 import { SigninPage } from "./pages/SigninPage/SigninPage";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
