@@ -7,7 +7,8 @@ import cookieParser from "cookie-parser";
 const port = 8800;
 const app = express();
 
-app.use(cors({origin: process.env.CLIENT_URL, Credentials: true}))
+const corsOptions = {origin: process.env.CLIENT_URL, credentials: true}
+app.use(cors(corsOptions))
 app.use(bodyParser.json());
 app.use(cookieParser());
 

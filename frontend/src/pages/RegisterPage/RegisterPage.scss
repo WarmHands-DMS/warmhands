@@ -186,10 +186,10 @@
                             .error-message {
                                 position: absolute;
                                 top: 45px;
-                                color: red;
+                                color: rgb(179, 0, 0);
                                 font-size: 12px;
                                 margin-top: 5px;
-                                min-height: 20px; /* Adjust this value to match the height of the error message */
+                                min-height: 20px; 
                             }
                         }
                     }
@@ -219,7 +219,7 @@
                                 color: red;
                                 font-size: 12px;
                                 margin-top: 5px;
-                                min-height: 20px; /* Adjust this value to match the height of the error message */
+                                min-height: 20px; 
                             }
                         }
                     }
@@ -296,15 +296,6 @@
 .error-border {
   border: 2px solid red !important;
 }
-
-.error-message {
-                                position: absolute;
-                                top: 45px;
-                                color: red;
-                                font-size: 12px;
-                                margin-top: 5px;
-                                min-height: 20px; /* Adjust this value to match the height of the error message */
-                            }
 
 
 

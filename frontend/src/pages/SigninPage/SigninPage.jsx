@@ -1,11 +1,14 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import apiReq from "../../lib/apiReq";
 
 export const SigninPage = () => {
+     const [isLoading, setIsLoading] = useState(false);
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
       if (location.state?.message) {
@@ -21,6 +24,47 @@ export const SigninPage = () => {
       }
     }, [location.state]);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const formData = new FormData(e.target);
+        const email = formData.get('email');
+        const password = formData.get('password');
+
+        if (
+            !email ||
+            !password
+        ) {
+            toast.error('Please fill out all fields.');
+            return;
+        }
+
+        
+
+        try {
+            const res = await apiReq.post('/auth/signin',
+              {
+                email,
+                password,
+              },
+            );
+            
+            localStorage.setItem("user", JSON.stringify(res.data));
+            toast.success('Login successful', {
+              position: 'top-right',
+              autoClose: 1000,
+              onClose: () => navigate('/'),
+            });
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        } finally {
+            setIsLoading(false);
+        }
+        };
+
     return (
         <div className="signinPage">
             <ToastContainer />
@@ -29,7 +73,7 @@ export const SigninPage = () => {
                     <h2>Sign in</h2>
                     <img src="/warmhands-logo.svg" className="logo" />
                 </div>
-                <form action="" className="login-form">
+                <form onSubmit={handleSubmit} className="login-form">
                     <div className="form">
                         <div className="input">
                             <label htmlFor="">Email</label>
@@ -43,7 +87,7 @@ export const SigninPage = () => {
                     
                     
                     <div className="btn-sec">
-                        <button>Sign in</button>
+                        <button disabled={isLoading}>Sign in</button>
                         <span>Don't have an account? <span><Link to="/register">Create Account</Link></span></span>              
                     </div>
                 </form>

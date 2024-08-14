@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-
+import apiReq from "../../lib/apiReq";
 
 export const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +9,6 @@ export const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -55,6 +53,23 @@ export const RegisterPage = () => {
     const nic = formData.get("nic");
     const mobile = formData.get("mobile");
 
+    if (
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !fname ||
+      !lname ||
+      !address ||
+      !province ||
+      !district ||
+      !city ||
+      !nic ||
+      !mobile
+    ) {
+      toast.error('Please fill out all fields.');
+      return;
+    }
+
     if (emailError) {
       toast.error('Enter a valid email address.');
       return;
@@ -67,15 +82,23 @@ export const RegisterPage = () => {
     }
     
     try {
-      const res = await axios.post("http://localhost:8800/api/auth/register", {
-      fname, lname, email, password, address, province, district, city,nic, mobile
-      })
+      const res = await apiReq.post('/auth/register', {
+        fname,
+        lname,
+        email,
+        password,
+        address,
+        province,
+        district,
+        city,
+        nic,
+        mobile,
+      });
 
        navigate('/signin', { state: { message: 'Registration successful!' } });
 
     } catch(error) {
       console.log(error)
-      setError(error.response.data.message);
       toast.error(error.response.data.message);
     }
     
