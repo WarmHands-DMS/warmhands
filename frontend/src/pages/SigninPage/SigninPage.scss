@@ -1,0 +1,141 @@
+.signinPage {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+        width: 50%;
+        border-radius: 20px;
+        box-shadow: 0px 3px 10px $shadow-color;
+
+        @include md {
+            width: 60%;
+        }
+
+        @include sm {
+            width: 70%;
+        }
+
+        .form-h {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 30%;
+            gap: 12px;
+
+            img {
+                width: 42px;
+                height: 42px;
+            }
+            
+            
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 3rem;
+
+            .form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
+
+                .input {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 15px;
+                        width: 80%;
+                
+                        label {
+                            width: 20%;
+                            white-space: nowrap;
+                
+                            @include sm {
+                                width: 35%;
+                            }
+                        }
+                
+                        input {
+                            width: 80%;
+                            border: 1px solid #ddd;
+                            height: 30px;
+                            border-radius: 8px;
+                            padding: 2px 8px;
+                
+                            @include sm {
+                                width: 65%;
+                            }
+                
+                
+                            &:focus {
+                                border: 1px solid $primary-color;
+                                outline: none;
+                            }
+                
+                        }
+
+
+                    }
+            }
+
+            
+
+            .btn-sec {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 3rem;
+
+                button {
+                        margin-top: 28px;
+                        text-align: center;
+                        height: 25px;
+                        border: 2px solid $primary-color;
+                        height: 36px;
+                        width: 80px;
+                        border-radius: 10px;
+                        background-color: $primary-color;
+                        color: #fff;
+                        cursor: pointer;
+                }
+
+                span {
+                    font-size: 13px;
+
+                    span {
+                        color: $primary-color;
+                        cursor: pointer;
+                        font-weight: bold;
+                    }
+                }
+
+            }
+
+            
+        }
+
+        .btn-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 25%;
+
+            
+
+
+        }
+    }
+}

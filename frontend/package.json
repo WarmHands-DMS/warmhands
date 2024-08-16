@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.3",
     "font-awesome": "^4.7.0",
     "leaflet": "^1.9.4",
     "leaflet-boundary-canvas": "^1.0.0",
@@ -20,6 +21,7 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.25.1",
     "react-search-autocomplete": "^8.5.2",
+    "react-toastify": "^10.0.5",
     "sass": "^1.77.8"
   },
   "devDependencies": {

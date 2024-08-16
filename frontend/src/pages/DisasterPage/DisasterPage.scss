@@ -1,0 +1,132 @@
+.disasterPage {
+    display: flex;
+    height: 100%;
+    gap: 10px;
+
+    @include md{
+        flex-direction: column;
+        overflow: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        
+    }
+
+    .details {
+        flex: 3;
+        height: 100%;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        @include md {
+            flex: none;
+            height: max-content;
+            margin-bottom: 50px;
+        }
+
+        .wrapper {
+            padding-right: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            .info {
+                display: flex;
+                flex-direction: column;
+
+                .top {
+                    display: flex;
+                    flex-direction: row;                
+                    justify-content: space-between;
+
+                    .disasterInfo {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                    }
+
+                    .userInfo {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-end;
+
+                        div {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            background-color: #f4f4f4;
+                            padding-bottom: 6px;
+                            gap: 4px;
+                            border-radius: 6px;
+
+                            p {
+                                background-color: #222;
+                                color: #f4f4f4;
+                                font-size: 14px;
+                                padding: 4px;
+                                border-radius: 6px 6px 0 0;
+                                white-space: nowrap;
+                            }
+
+                            img {
+                            height: 46px;
+                            width: 46px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            }
+
+                            span {
+                                white-space: nowrap;
+                                font-size: 14px;
+
+                            }
+                        }
+                    }
+                        
+                        
+                }
+
+                .bottom {
+                    margin-top: 50px;
+                    color: #222;
+                }
+            }
+        }
+
+    }
+
+    .features {
+        flex: 2;
+        background-color: $secondary-color;
+
+        @include md {
+            flex: none;
+            height: max-content;
+            margin-bottom: 30px;
+        }
+
+        .wrapper {
+            padding: 20px;
+
+            .location {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .title {
+                font-weight: bold;
+                }
+
+                .mapContainer {
+                    width: 100%;
+                    height: 350px;
+                    
+                    .map {
+                        border-radius: 15px;
+                    }
+                }
+            }
+
+        }
+    }
+}

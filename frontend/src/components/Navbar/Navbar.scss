@@ -62,9 +62,7 @@ nav {
       }
 
       .link {
-        position: relative;
-
-        a {
+        position: relative;       
         align-items: center;
         padding-bottom: 10px;
         border-bottom: 2px solid transparent; 
@@ -88,13 +86,99 @@ nav {
           &::before {
             width: 100%;
           }
-        }     
+           
       }
 
       }
 
       
     }
+
+    .user-btn {
+      .desktop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        gap: 10px;
+
+        .user {
+          display: flex;
+          align-items: center;
+          border: 2px solid $primary-color;
+          padding: 4px 10px;
+          border-radius: 10px;
+
+          @include sm {
+            display: none;
+          }
+
+          img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+          }
+        }
+
+        .profile-btn {
+          border: 2px solid $primary-color;
+          padding: 9px 20px;
+          border-radius: 10px;
+          background-color: $primary-color;
+          color: #fff;
+          position: relative;
+
+          @include sm {
+            display: none;
+          }
+
+          .notification {
+            position: absolute;
+            background-color: rgb(171, 0, 0);
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            top: -8px;
+            right: -8px;
+          }
+        }
+
+      }
+
+      .mobile {
+        display: none;
+        
+        @include sm {
+          display: initial;
+          
+          .user {
+          display: flex;
+          align-items: center;
+          border: 2px solid $primary-color;
+          padding: 1px;
+          border-radius: 50%;
+          margin-bottom: 10px;
+
+          img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+
+          }
+        }
+
+        }
+      }
+
+      
+    }
+
 
     .nav-btn {
       display: flex;
@@ -106,7 +190,7 @@ nav {
 
    
     
-      a {
+      .link {
           padding: 8px 18px;
           border-radius: 12px;
           margin-right: 1.5rem; 
@@ -203,7 +287,7 @@ nav {
       @include sm {
         display: inline;
         cursor: pointer;
-        z-index: 3;
+        z-index: 2001;
       }
     }
 
@@ -222,7 +306,7 @@ nav {
       justify-content: center;
       gap: 30px;
       font-size: 1rem;
-      z-index: 2;
+      z-index: 2000;
 
       &.active {
         right: 0;
@@ -231,4 +315,8 @@ nav {
       
     }
   }
+}
+
+.mobile-menu {
+  z-index: 2050;
 }

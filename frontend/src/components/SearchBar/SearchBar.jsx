@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { allCities } from '../../lib/LocationData';
 import './SearchBar.scss';
 
 export const SearchBar = () => {
-  const suggestions = ['Colombo', 'Kandy', 'Jaffna', 'Anuradhapura', 'Mathara', 'Rathnapura', 'Badulla'];
+   const suggestions = allCities;
+   console.log(allCities)
 
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [inputValue, setInputValue] = useState('');

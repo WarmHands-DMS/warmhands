@@ -1,16 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { allCities } from '../../lib/LocationData';
 import './Filter.scss';
 
 export const Filter = () => {
-  const suggestions = [
-    'Colombo',
-    'Kandy',
-    'Jaffna',
-    'Anuradhapura',
-    'Mathara',
-    'Rathnapura',
-    'Badulla',
-  ];
+  const suggestions = allCities;
 
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -22,7 +15,7 @@ export const Filter = () => {
 
     const filteredSuggestions = suggestions.filter((suggestion) =>
       suggestion.toLowerCase().includes(inputValue.toLowerCase())
-    );
+    ).sort();
     setFilteredSuggestions(filteredSuggestions);
   };
 

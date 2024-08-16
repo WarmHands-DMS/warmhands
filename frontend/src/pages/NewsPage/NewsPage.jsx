@@ -5,21 +5,26 @@ import { Map } from "../../components/Map/Map";
 
 export const NewsPage = () => {
 
-  const data = newsData;
+  const data = newsData; 
 
   return (
     <div className="newsPage">
       <div className="listContainer">
         <div className="wrapper">
           <Filter />
-          {data.map(item => (
-            <Card key={item.id} item={item}/>
+          {data.map((item) => (
+            <Card key={item.id} item={item} />
           ))}
         </div>
       </div>
       <div className="mapContainer">
-        <Map items={data}/>
+        <Map
+          items={data}
+          zoom={8}
+          latitude={7.847}
+          longitude={80.758}
+        />
       </div>
     </div>
-  )
+  );
 }

@@ -18,7 +18,7 @@ export const Card = ({item}) => {
           <h5><i className="fa-solid fa-location-dot" style={{paddingRight: "10px"}}></i>{item.location}</h5>
         </div>
         
-        <p><LongText description={item.desc}/></p>
+        <div><LongText description={item.desc}/></div>
         <div className="bottom">
           <span className="date"><i className="fa-solid fa-calendar-days"></i><p>{item.date.slice(0,10)}</p></span>
           <span className="time"><i className="fa-solid fa-clock"></i><p>{moment.tz(item.date, timeZone).fromNow()}</p></span>
