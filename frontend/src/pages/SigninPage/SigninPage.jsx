@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import apiReq from "../../lib/apiReq";
+import { AuthContext } from "../../context/AuthContext";
 
 export const SigninPage = () => {
      const [isLoading, setIsLoading] = useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
+
+    const {updateUser} = useContext(AuthContext);
 
     useEffect(() => {
       if (location.state?.message) {
@@ -50,12 +53,8 @@ export const SigninPage = () => {
               },
             );
             
-            localStorage.setItem("user", JSON.stringify(res.data));
-            toast.success('Login successful', {
-              position: 'top-right',
-              autoClose: 1000,
-              onClose: () => navigate('/'),
-            });
+            updateUser(res.data);
+            navigate('/')
 
         } catch (error) {
             console.log(error);

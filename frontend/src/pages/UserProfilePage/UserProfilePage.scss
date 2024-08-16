@@ -45,7 +45,7 @@
             .info {
                 display: flex;
                 flex-direction: column;
-                gap: 14px;
+                gap: 30px;
                 
 
                 .profileImage {
@@ -54,8 +54,8 @@
                     justify-content: start;
 
                     img {
-                        height: 96px;
-                        width: 96px;
+                        height: 186px;
+                        width: 186px;
                         object-fit: cover;
                         border-radius: 50%;
                         border: 3px solid $primary-color;
@@ -63,17 +63,7 @@
                         
                     }
 
-                    span {
-                        position: absolute;
-                        bottom: 0px;
-                        left: 70px;
-                        background-color: $primary-color;
-                        font-size: 14px;
-                        color: #eee;
-                        padding: 3px 12px;
-                        border-radius: 10px;
-                        cursor: pointer;
-                    }
+                    
 
                     
                     
@@ -96,10 +86,51 @@
         }
     }
 
-    .notifications {
-        flex: 2;
+    .reports {
+        flex: 3;
         height: 100%;
         background-color: $secondary-color;
 
+        .wrapper {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            height: 100%;
+
+            .title {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                height: 10%;
+
+                h2 {
+                    white-space: nowrap;
+                }
+
+                button {
+                    background-color: $primary-color;
+                    border: none;
+                    width: 108px;
+                    height: 34px;
+                    border-radius: 10px;
+                    color: #eee;
+                    cursor: pointer;
+                    
+                }
+
+            }
+
+            .incidents {
+                height: 90%;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+                overflow-y: scroll;
+            
+            }
+
+        }
     }
 }

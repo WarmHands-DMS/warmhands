@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {Link} from "react-router-dom"
+import {AuthContext} from "../../context/AuthContext";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false)
-  const user = false;
+
+  const { currentUser } = useContext(AuthContext);
+  
 
   return (
     <nav>
@@ -31,15 +34,12 @@ export const Navbar = () => {
             Contact
           </Link>
         </div>
-        {user ? (
+        {currentUser ? (
           <div className="user-btn">
             <div className="desktop">
               <div className="user">
-                <img
-                  src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  alt="profile-pic"
-                />
-                <span>Navindu</span>
+                <img src={currentUser.avatar ||"/no-avatar.png"} alt="profile-pic" />
+                <span>{currentUser.fname}</span>
               </div>
               <Link className="profile-btn" to="/profile">
                 <div className="notification">2</div>
@@ -48,10 +48,7 @@ export const Navbar = () => {
             </div>
             <div className="mobile">
               <Link to="/profile" className="user">
-                <img
-                  src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  alt="profile-pic"
-                />
+                <img src={currentUser.avatar ||"/no-avatar.png"} alt="profile-pic" />
               </Link>
             </div>
           </div>
@@ -77,14 +74,30 @@ export const Navbar = () => {
           onClick={() => setOpen(!open)}
         ></i>
         <div className={open ? 'menu active' : 'menu'}>
-          <Link to="/" className="mob-link" onClick={() => setOpen(!open)}>Home</Link>
-          <Link to="/news" className="mob-link" onClick={() => setOpen(!open)}>News</Link>
-          <Link to="/map" className="mob-link" onClick={() => setOpen(!open)}>Map</Link>
-          <Link to="/contact" className="mob-link" onClick={() => setOpen(!open)}>Contact</Link>
+          <Link to="/" className="mob-link" onClick={() => setOpen(!open)}>
+            Home
+          </Link>
+          <Link to="/news" className="mob-link" onClick={() => setOpen(!open)}>
+            News
+          </Link>
+          <Link to="/map" className="mob-link" onClick={() => setOpen(!open)}>
+            Map
+          </Link>
+          <Link
+            to="/contact"
+            className="mob-link"
+            onClick={() => setOpen(!open)}
+          >
+            Contact
+          </Link>
           <Link to="signin" className="signin" onClick={() => setOpen(!open)}>
             Sign in
           </Link>
-          <Link to="/register" className="register" onClick={() => setOpen(!open)}>
+          <Link
+            to="/register"
+            className="register"
+            onClick={() => setOpen(!open)}
+          >
             Register
           </Link>
         </div>

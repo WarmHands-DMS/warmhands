@@ -1,16 +1,20 @@
 import { useNavigate } from "react-router-dom"
 import { List } from "../../components/List/List"
 import apiReq from "../../lib/apiReq"
+import { useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
 // import { Notification } from "../../components/Notifiction/Notification"
 
 export const UserProfilePage = () => {
+
+  const {updateUser, currentUser} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const handleLogout = async() => {
     try {
-      const res = apiReq.post("/auth/logout")
-      localStorage.removeItem("user");
+      await apiReq.post("/auth/logout")
+      updateUser(null)
       navigate("/");
     } catch(error) {
       console.log(error)
@@ -24,32 +28,46 @@ export const UserProfilePage = () => {
           <div className="user-info">
             <div className="title">
               <h2>User Information</h2>
-              <button>Update Profile</button>
+              <button onClick={() => navigate('/profile/update')}>
+                Update Profile
+              </button>
             </div>
             <div className="info">
               <div className="profileImage">
-                <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="profile-pic" />
-                <span>Edit</span>
+                <img
+                  src={currentUser.avatar || 'no-avatar.png'}
+                  alt="profile-pic"
+                />
               </div>
-              <span>Username: <span>Navindu Virajitha</span></span>
-              <span>E-mail: <span>navinduvirajitha@gmail.com</span></span>            
-              <button className="logout" onClick={handleLogout}>Logout</button>
+              <div className="details">
+                <div>
+                  Name:{' '}
+                  <span>{currentUser.fname + ' ' + currentUser.lname}</span>
+                </div>
+                <div>
+                  E-mail: <span>{currentUser.email}</span>
+                </div>
+              </div>
+
+              <button className="logout" onClick={handleLogout}>
+                Logout
+              </button>
             </div>
           </div>
-          <div className="user-reports">
+        </div>
+      </div>
+      <div className="reports">
+        <div className="wrapper">
             <div className="title">
               <h2>My Reports</h2>
               <button>Report Incident</button>
             </div>
-            <List />
-          </div>
-        </div>
-      </div>
-      <div className="notifications">
-        <div className="wrapper">
-          {/* <Notification /> */}
+            <div className="incidents">
+              <List />
+            </div>
+          
         </div>
       </div>
     </div>
-  )
+  );
 }

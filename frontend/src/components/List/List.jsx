@@ -1,5 +1,6 @@
 import { Card } from "../Card/Card";
 import {newsData} from "../../lib/dataFeed";
+import "./List.scss"
 
 export const List = () => {
   return (
