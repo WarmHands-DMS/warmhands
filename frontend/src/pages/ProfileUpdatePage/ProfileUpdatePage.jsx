@@ -45,21 +45,7 @@ export const ProfileUpdatePage = () => {
         </div>
         <form className="update-form" onSubmit={handleSubmit}>
           <div className="form">
-            <div className="profileImage">
-              <img src={avatar || '/no-avatar.png'} className="profile-pic" />
-              
-                  <UploadWidget
-                    uwConfig={{
-                      cloudName: 'WarmHands',
-                      uploadPreset: 'WarmHands',
-                      multiple: false,
-                      maxImageFileSize: 2000000,
-                      folder: 'avatars',
-                    }}
-                    setAvatar={setAvatar}
-                  />
-               
-            </div>
+            
 
             <div className="input-multi">
               <div className="input-single">
