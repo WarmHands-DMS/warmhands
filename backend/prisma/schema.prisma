@@ -20,7 +20,7 @@ model User {
   nic String
   mobile String
   avatar String?
-  createdAt DateTime @default(now())?
+  createdAt DateTime @default(now())
   incidents Incident[]
 }
 
