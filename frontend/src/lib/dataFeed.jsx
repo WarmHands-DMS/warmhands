@@ -98,9 +98,75 @@ export const disasterData =
   time: '07.12 AM',
 };
 
+
+
 export const userData = 
 {
   id: 1,
   name: 'Navindu',
   img: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
 };
+
+
+export const backendFeed = [
+  {
+    title: 'Floods Devastate Colombo',
+    description:
+      'Severe floods have hit Colombo, causing widespread damage and displacement of residents. Authorities are urging people to stay indoors and avoid flood-prone areas.',
+    img: [
+      'https://images.unsplash.com/photo-1475776408506-9a5371e7a068?w=500&auto=format&fit=crop&q=60',
+      'https://images.unsplash.com/photo-1621315898086-0e940d7a221e?q=80&w=987&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1657896092727-54427f3610ed?q=80&w=1170&auto=format&fit=crop',
+      'https://images.pexels.com/photos/5823167/pexels-photo-5823167.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    ],
+    province: 'Western',
+    district: 'Colombo',
+    city: 'Colombo',
+    pin: '8.0242, 80.676',
+  },
+  {
+    title: 'Landslide in Anuradhapura',
+    description:
+      'A landslide in Anuradhapura has caused significant damage to infrastructure and homes. Rescue operations are underway to assist affected families.',
+    img: [
+      'https://plus.unsplash.com/premium_photo-1664303499312-917c50e4047b?w=500&auto=format&fit=crop&q=60',
+      'https://images.unsplash.com/photo-1621315898086-0e940d7a221e?q=80&w=987&auto=format&fit=crop',
+      'https://images.pexels.com/photos/13942809/pexels-photo-13942809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      'https://images.pexels.com/photos/5823167/pexels-photo-5823167.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    ],
+    province: 'North Central',
+    district: 'Anuradhapura',
+    city: 'Anuradhapura',
+    pin: '8.2659, 80.7203',
+  },
+  {
+    title: 'Earthquake in Matara',
+    description:
+      'An earthquake measuring 6.5 on the Richter scale has struck Matara, causing buildings to collapse and triggering panic among residents.',
+    img: [
+      'https://images.unsplash.com/photo-1641648542236-b694c8fb1042?w=500&auto=format&fit=crop&q=60',
+      'https://images.unsplash.com/photo-1657896092727-54427f3610ed?q=80&w=1170&auto=format&fit=crop',
+      'https://images.pexels.com/photos/13942809/pexels-photo-13942809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      'https://images.pexels.com/photos/5823167/pexels-photo-5823167.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    ],
+    province: 'Southern',
+    district: 'Matara',
+    city: 'Matara',
+    pin: '7.2359, 80.3461',
+  },
+  {
+    title: 'Cyclone Hits Rathnapura',
+    description:
+      'A powerful cyclone has hit Rathnapura, causing severe damage to buildings and infrastructure. Emergency services are working around the clock to assist affected residents.',
+    img: [
+      'https://images.unsplash.com/photo-1485617359743-4dc5d2e53c89?w=500&auto=format&fit=crop&q=60',
+      'https://images.unsplash.com/photo-1621315898086-0e940d7a221e?q=80&w=987&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1657896092727-54427f3610ed?q=80&w=1170&auto=format&fit=crop',
+      'https://images.pexels.com/photos/5823167/pexels-photo-5823167.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    ],
+    province: 'Sabaragamuwa',
+    district: 'Rathnapura',
+    city: 'Rathnapura',
+    pin: '7.2484, 80.4680',
+  },
+];
