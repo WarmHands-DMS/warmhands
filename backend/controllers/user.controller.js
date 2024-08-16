@@ -31,6 +31,7 @@ export const updateUsers = async (req, res) => {
     const id = req.params.id;
     const tokenUserId = req.userId;
     const {password, avatar, ...inputs} = req.body;
+    
 
     
 

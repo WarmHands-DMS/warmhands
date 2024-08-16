@@ -22,7 +22,7 @@ export const ProfileUpdatePage = () => {
     try {
       
       const res = await apiReq.put(`/users/${currentUser.id}`, {
-        fname, lname, address, province, district, city, mobile
+        fname, lname, address, province, district, city, mobile, avatar
       })
 
       updateUser(res.data);
@@ -43,10 +43,28 @@ export const ProfileUpdatePage = () => {
         <div className="form-h">
           <h2>Update</h2>
         </div>
+        <div className="profileImage">
+          <div className="profileImage">
+            <img
+              src={avatar || '/no-avatar.png'}
+              alt="profile-pic"
+            />
+            <span>
+              <UploadWidget
+                uwConfig={{
+                  cloudName: 'WarmHands',
+                  uploadPreset: 'WarmHands',
+                  multiple: false,
+                  maxImageFileSize: 2000000,
+                  folder: 'avatars',
+                }}
+                setAvatar={setAvatar}
+              />
+            </span>
+          </div>
+        </div>
         <form className="update-form" onSubmit={handleSubmit}>
           <div className="form">
-            
-
             <div className="input-multi">
               <div className="input-single">
                 <label htmlFor="">First Name</label>
@@ -119,7 +137,7 @@ export const ProfileUpdatePage = () => {
           </div>
 
           <div className="btn-sec">
-            <button type='submit'>Update</button>
+            <button type="submit">Update</button>
           </div>
         </form>
       </div>

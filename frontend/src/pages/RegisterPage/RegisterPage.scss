@@ -192,6 +192,27 @@
                                 min-height: 20px; 
                             }
                         }
+
+                        select {
+                            width: 100%;
+                            border: 1px solid #ddd;
+                            height: 30px;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+
+                            
+                
+                
+                            &:focus {
+                                border: 1px solid $primary-color;
+                                outline: none;
+                            }
+                
+                            &::placeholder {
+                                color: #aaa;
+                            }
+
+                        }
                     }
                 
                     .input-multi {

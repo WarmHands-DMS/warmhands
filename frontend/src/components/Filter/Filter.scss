@@ -60,6 +60,8 @@ $primary-color: #007fd4;
                 padding: 0;
                 margin: 0;
                 z-index: 1000;
+                max-height: 500px;
+                overflow-y: scroll;
             }
 
             .autocomplete-suggestion {

@@ -19,4 +19,7 @@ model User {
   city String
   nic String
   mobile String
+  avatar String
 }
+
+// After Edit run "npx prisma db push"

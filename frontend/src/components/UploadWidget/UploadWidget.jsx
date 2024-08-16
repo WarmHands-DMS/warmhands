@@ -5,6 +5,7 @@ const CloudinaryScriptContext = createContext();
 
 function UploadWidget({ uwConfig, setPublicId, setAvatar }) {
   const [loaded, setLoaded] = useState(false);
+  const [widget, setWidget] = useState(null);
 
   useEffect(() => {
     // Check if the script is already loaded
@@ -16,34 +17,42 @@ function UploadWidget({ uwConfig, setPublicId, setAvatar }) {
         script.setAttribute('async', '');
         script.setAttribute('id', 'uw');
         script.src = 'https://upload-widget.cloudinary.com/global/all.js';
-        script.addEventListener('load', () => setLoaded(true));
+        script.addEventListener('load', () => {
+          setLoaded(true);
+          // Ensure the cloudinary object is available
+          if (window.cloudinary) {
+            initializeCloudinaryWidget();
+          }
+        });
         document.body.appendChild(script);
       } else {
         // If already loaded, update the state
         setLoaded(true);
+        if (window.cloudinary) {
+          initializeCloudinaryWidget();
+        }
       }
     }
   }, [loaded]);
 
   const initializeCloudinaryWidget = () => {
-    if (loaded) {
-      var myWidget = window.cloudinary.createUploadWidget(
+    if (window.cloudinary && !widget) {
+      const myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error, result) => {
           if (!error && result && result.event === 'success') {
             console.log('Done! Here is the image info: ', result.info);
-            setPublicId(result.info.public_id);
+            setAvatar(result.info.secure_url);
           }
         }
       );
+      setWidget(myWidget);
+    }
+  };
 
-      document.getElementById('upload_widget').addEventListener(
-        'click',
-        function () {
-          myWidget.open();
-        },
-        false
-      );
+  const openWidget = () => {
+    if (widget) {
+      widget.open();
     }
   };
 
@@ -52,7 +61,8 @@ function UploadWidget({ uwConfig, setPublicId, setAvatar }) {
       <button
         id="upload_widget"
         className="cloudinary-button"
-        onClick={initializeCloudinaryWidget}
+        onClick={openWidget}
+        disabled={!loaded || !widget} // Disable until fully loaded
       >
         Upload
       </button>

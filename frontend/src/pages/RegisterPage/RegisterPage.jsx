@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import apiReq from "../../lib/apiReq";
+import {locations} from "../../lib/LocationData";
 
 export const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -9,12 +10,32 @@ export const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [districts, setDistricts] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
+  };
+
+  const handleProvinceChange = (event) => {
+    const province = event.target.value;
+    setSelectedProvince(province);
+    const provinceData = locations.provinces.find((p) => p.name === province);
+    setDistricts(provinceData ? provinceData.districts : []);
+    setCities([]);
+    setSelectedDistrict('');
+  };
+
+  const handleDistrictChange = (event) => {
+    const district = event.target.value;
+    setSelectedDistrict(district);
+    const districtData = districts.find((d) => d.name === district);
+    setCities(districtData ? districtData.cities : []);
   };
 
    const handleEmailChange = (e) => {
@@ -52,6 +73,8 @@ export const RegisterPage = () => {
     const city = formData.get("city");
     const nic = formData.get("nic");
     const mobile = formData.get("mobile");
+
+    const avatar = "";
 
     if (
       !email ||
@@ -93,6 +116,7 @@ export const RegisterPage = () => {
         city,
         nic,
         mobile,
+        avatar
       });
 
        navigate('/signin', { state: { message: 'Registration successful!' } });
@@ -171,7 +195,7 @@ export const RegisterPage = () => {
               <label htmlFor="">Home Address</label>
               <input type="text" name="address" placeholder="Home-address" />
             </div>
-            <div className="input-multi">
+            {/* <div className="input-multi">
               <div className="input-single">
                 <label htmlFor="">Province</label>
                 <input type="text" name="province" placeholder="Province" />
@@ -183,6 +207,50 @@ export const RegisterPage = () => {
               <div className="input-single">
                 <label htmlFor="">City</label>
                 <input type="text" name="city" placeholder="City" />
+              </div>
+            </div> */}
+            <div className="input-multi">
+              <div className="input-single">
+                <label htmlFor="">Province</label>
+                <select
+                  name="province"
+                  onChange={handleProvinceChange}
+                  value={selectedProvince}
+                >
+                  <option value="">select Province</option>
+                  {locations.provinces.map((province, index) => (
+                    <option key={index} value={province.name}>
+                      {province.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="input-single">
+                <label htmlFor="">District</label>
+                <select
+                  name="district"
+                  onChange={handleDistrictChange}
+                  value={selectedDistrict}
+                  disabled={!selectedProvince}
+                >
+                  <option value="">Select District</option>
+                  {districts.map((district, index) => (
+                    <option key={index} value={district.name}>
+                      {district.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="input-single">
+                <label htmlFor="">City</label>
+                <select name="city" disabled={!selectedDistrict}>
+                  <option value="">Select City</option>
+                  {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="input-multi">
