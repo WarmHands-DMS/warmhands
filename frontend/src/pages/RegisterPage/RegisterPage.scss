@@ -55,34 +55,34 @@
                 padding: 20px 10px;
 
                 .input-single {
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                width: 100%;
-
-                label {
-                    white-space: nowrap;
-                }
-
-                input {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
                     width: 100%;
-                    border: 1px solid #ddd;
-                    height: 30px;
-                    border-radius: 4px;
-                    padding: 2px 8px;
 
-
-                    &:focus {
-                        border: 1px solid $primary-color;
-                        outline: none;
+                    label {
+                        white-space: nowrap;
                     }
 
-                    &::placeholder {
-                        color: #aaa;
-                    }
+                    input {
+                        width: 100%;
+                        border: 1px solid #ddd;
+                        height: 30px;
+                        border-radius: 4px;
+                        padding: 2px 8px;
 
+
+                        &:focus {
+                            border: 1px solid $primary-color;
+                            outline: none;
+                        }
+
+                        &::placeholder {
+                            color: #aaa;
+                        }
+
+                    }
                 }
-            }
 
             // .input-multi {
             //     display: flex;

@@ -105,12 +105,14 @@
         justify-content: space-between;
         gap: 20px;
 
-        .add-button {
+        .button {
             height: 10%;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+
+            
 
             button {
                 background-color: $primary-color;
