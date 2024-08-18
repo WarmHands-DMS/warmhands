@@ -123,6 +123,8 @@ export const backendFeed = [
     district: 'Colombo',
     city: 'Colombo',
     pin: '8.0242, 80.676',
+    latitude: "8.0242",
+    longitude: "80.676",
   },
   {
     title: 'Landslide in Anuradhapura',
@@ -138,6 +140,8 @@ export const backendFeed = [
     district: 'Anuradhapura',
     city: 'Anuradhapura',
     pin: '8.2659, 80.7203',
+    latitude: "8.2659",
+    longitude: "80.7203",
   },
   {
     title: 'Earthquake in Matara',
@@ -153,6 +157,8 @@ export const backendFeed = [
     district: 'Matara',
     city: 'Matara',
     pin: '7.2359, 80.3461',
+    latitude: "7.2359",
+    longitude: "80.3461",
   },
   {
     title: 'Cyclone Hits Rathnapura',
@@ -168,5 +174,7 @@ export const backendFeed = [
     district: 'Rathnapura',
     city: 'Rathnapura',
     pin: '7.2484, 80.4680',
+    latitude: "7.2484",
+    longitude: "80.468",
   },
 ];

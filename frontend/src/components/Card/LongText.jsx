@@ -7,7 +7,7 @@ const LongText = ({description}) => {
   useEffect(() => {
     if (text) {
       const words = text.split(' ');
-      const truncated = words.slice(0, 30).join(' ') + '...';
+      const truncated = words.slice(0, 16).join(' ') + '...';
       setTruncatedText(truncated);
     }
   }, [text]);

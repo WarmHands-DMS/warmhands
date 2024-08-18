@@ -28,9 +28,6 @@ export const UserProfilePage = () => {
           <div className="user-info">
             <div className="title">
               <h2>User Information</h2>
-              <button onClick={() => navigate('/profile/update')}>
-                Update Profile
-              </button>
             </div>
             <div className="info">
               <div className="profileImage">
@@ -48,24 +45,30 @@ export const UserProfilePage = () => {
                   E-mail: <span>{currentUser.email}</span>
                 </div>
               </div>
-
-              <button className="logout" onClick={handleLogout}>
-                Logout
-              </button>
+              <div className="btn-sec">
+                <button className="update" onClick={() => navigate('/profile/update')}>
+                  Update
+                </button>
+                <button className="logout" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="reports">
+        <div className="add-button">
+          ,<button>Report New Incident</button>
+        </div>
         <div className="wrapper">
-            <div className="title">
-              <h2>My Reports</h2>
-              <button>Report Incident</button>
-            </div>
-            <div className="incidents">
-              <List />
-            </div>
-          
+          <div className="title">
+            <h2>My Reports</h2>
+            <button>View All</button>
+          </div>
+          <div className="incidents">
+            <List />
+          </div>
         </div>
       </div>
     </div>
