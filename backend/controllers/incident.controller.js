@@ -48,6 +48,7 @@ export const addIncident = async (req, res) => {
                 }
             }
         });
+        console.log("came")
         res.status(200).json(newIncident);
     } catch (error) {
         console.log(error);

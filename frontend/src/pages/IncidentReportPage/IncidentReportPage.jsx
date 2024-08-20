@@ -2,7 +2,10 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { MapWithPinInput } from '../../components/Map/Map';
-import { locations } from '../../lib/LocationData'; // Import the locations data
+import { locations } from '../../lib/LocationData';
+import UploadWidget from "../../components/UploadWidget/UploadWidget"
+import apiReq from "../../lib/apiReq"
+import { useNavigate } from 'react-router-dom';
 
 export const IncidentReportPage = () => {
   const [lat, setLat] = useState('');
@@ -10,6 +13,9 @@ export const IncidentReportPage = () => {
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
+  const [value, setValue] = useState('');
+  const [images, setImages] = useState([]);
+  const navigate = useNavigate();
 
   // Handle province change
   const handleProvinceChange = (e) => {
@@ -42,19 +48,50 @@ export const IncidentReportPage = () => {
     setLng(longitude);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    const formData = new FormData(e.target);
+    const inputs = Object.fromEntries(formData);
+
+    console.log(inputs)
+
+    try {
+      const res = await apiReq.post("/incidents", {
+        incidentData: {
+          title: inputs.title,
+          description: value,
+          province: inputs.province,
+          district: inputs.district,
+          city: inputs.city,
+          latitude: lat.toString(),
+          longitude: lng.toString(),
+          images: images,
+        },
+        incidentDetail: {
+          deaths: parseInt(inputs.deaths),
+          casualities: parseInt(inputs.casualities)
+        }
+      })
+      navigate("/"+res.data.id)
+
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="IncidentReportPage">
       <div className="formContainer scrollbar">
         <h1>Report New Incident</h1>
         <div className="wrapper">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="input-single">
               <label htmlFor="title">Title</label>
               <input id="title" name="title" type="text" />
             </div>
             <div className="item description">
               <label htmlFor="desc">Description</label>
-              <ReactQuill theme="snow" className="descbox" />
+              <ReactQuill theme="snow" onchange={setValue} value={value} />
             </div>
 
             <div className="input-multi">
@@ -164,7 +201,23 @@ export const IncidentReportPage = () => {
           </form>
         </div>
       </div>
-      <div className="sideContainer"></div>
+      <div className="sideContainer">
+        <div className="images">
+          {images.map((image, index) => (
+            <img src={image} key={index} alt="disaster-images" />
+          ))}
+        </div>
+
+        <UploadWidget
+          uwConfig={{
+            cloudName: 'WarmHands',
+            uploadPreset: 'WarmHands',
+            multiple: true,
+            folder: 'incidents',
+          }}
+          setState={setImages}
+        />
+      </div>
     </div>
   );
 };

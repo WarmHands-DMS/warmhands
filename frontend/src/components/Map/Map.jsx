@@ -5,15 +5,18 @@ import { MapPin } from './MapPin';
 import { useState } from 'react';
 
 export const Map = ({items, zoom, latitude, longitude}) => {
+
+    console.log(items);
     
 
     return (
-        <MapContainer className='map' center={[latitude, longitude]} zoom={zoom} scrollWheelZoom={false}>
+        <MapContainer className='map' center={items.length === 1 ? [items[0].latitude, items[0].longitude] : [latitude, longitude]} zoom={zoom} scrollWheelZoom={false}>
         <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {items.map(item => (
+    
             <MapPin key={item.id} item={item}/>
         ))}
         </MapContainer>

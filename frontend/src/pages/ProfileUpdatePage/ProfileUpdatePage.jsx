@@ -9,7 +9,7 @@ import { locations } from '../../lib/LocationData';
 
 export const ProfileUpdatePage = () => {
   const { currentUser, updateUser } = useContext(AuthContext);
-  const [avatar, setAvatar] = useState(currentUser.avatar);
+  const [avatar, setAvatar] = useState([]);
 
    const [selectedProvince, setSelectedProvince] = useState(currentUser.province || '');
   const [selectedDistrict, setSelectedDistrict] = useState(currentUser.district || '');
@@ -50,7 +50,7 @@ export const ProfileUpdatePage = () => {
         district: selectedDistrict,
         city: selectedCity,
         mobile,
-        avatar,
+        avatar: avatar[0],
       });
 
       updateUser(res.data);
@@ -88,7 +88,7 @@ export const ProfileUpdatePage = () => {
         </div>
         <div className="profileImage">
           <div className="profileImage">
-            <img src={avatar || '/no-avatar.png'} alt="profile-pic" />
+            <img src={avatar[0] || currentUser.avatar || '/no-avatar.png'} alt="profile-pic" />
             <span>
               <UploadWidget
                 uwConfig={{
@@ -98,7 +98,7 @@ export const ProfileUpdatePage = () => {
                   maxImageFileSize: 2000000,
                   folder: 'avatars',
                 }}
-                setAvatar={setAvatar}
+                setState={setAvatar}
               />
             </span>
           </div>
