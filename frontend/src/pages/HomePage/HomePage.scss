@@ -24,6 +24,11 @@
                 justify-content: flex-start;
                 white-space: nowrap;
 
+                a:first-child {
+                    color: #eee;
+                    background-color: $primary-color;
+                }
+
                 a {
                     padding: 10px 20px;
                     border-radius: 10px;
@@ -35,15 +40,28 @@
 
     .imagePart {
         flex: 2;
-        background-color: $secondary-color;
         position: relative;
         display: flex;
         align-items: center;
 
         img {
-            width: 110%;
+            width: 120%;
             position: absolute;
             right: 0;
+            animation: float 3s ease-in-out infinite;
+
+            @keyframes float {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-40px);
+                }
+            }
+        }
+
+        @include md {
+            display: none;
         }
     }
 }
