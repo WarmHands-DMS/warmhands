@@ -29,17 +29,6 @@
                     white-space: nowrap;
                 }
 
-                button {
-                    background-color: $primary-color;
-                    border: none;
-                    width: 108px;
-                    height: 34px;
-                    border-radius: 10px;
-                    color: #eee;
-                    cursor: pointer;
-                    
-                }
-
             }
 
             .info {
@@ -69,16 +58,37 @@
                     
                 }
 
-                .logout {
-                    width: 100px;
-                    background-color: maroon;
-                    border: 2px solid maroon;
-                    color: #ddd;
-                    padding: 6px 10px;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-size: 14px;
+                .btn-sec {
+                    display: flex;
+                    align-items: center;
+                    justify-content: start;
+                    gap: 10px;
+
+                    .update {
+                        background-color: $primary-color;
+                        border: none;
+                        width: 108px;
+                        height: 34px;
+                        border-radius: 10px;
+                        color: #eee;
+                        cursor: pointer;
+                        font-size: 15px;
+                    
+                    }
+
+                    .logout {
+                        width: 100px;
+                        background-color: maroon;
+                        border: 2px solid maroon;
+                        color: #ddd;
+                        padding: 6px 10px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-size: 15px;
+                    }
                 }
+
+                
 
 
 
@@ -89,14 +99,41 @@
     .reports {
         flex: 3;
         height: 100%;
-        background-color: $secondary-color;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        .button {
+            height: 10%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            
+
+            button {
+                background-color: $primary-color;
+                border: none;
+                width: 100%;
+                height: 48px;
+                border-radius: 10px;
+                font-size: 16px;
+                color: #eee;
+                cursor: pointer;
+            }
+        }
+        
 
         .wrapper {
+            background-color: $secondary-color;
             padding: 30px;
             display: flex;
             flex-direction: column;
             gap: 50px;
-            height: 100%;
+            height: 90%;
 
             .title {
                 display: flex;
@@ -104,7 +141,7 @@
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 20px;
-                height: 10%;
+                height: 5%;
 
                 h2 {
                     white-space: nowrap;
@@ -113,7 +150,7 @@
                 button {
                     background-color: $primary-color;
                     border: none;
-                    width: 108px;
+                    width: 78px;
                     height: 34px;
                     border-radius: 10px;
                     color: #eee;
@@ -124,7 +161,7 @@
             }
 
             .incidents {
-                height: 90%;
+                height: 100%;
                 -ms-overflow-style: none;
                 scrollbar-width: none;
                 overflow-y: scroll;

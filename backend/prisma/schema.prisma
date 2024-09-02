@@ -19,7 +19,39 @@ model User {
   city String
   nic String
   mobile String
-  avatar String
+  avatar String?
+  createdAt DateTime? @default(now())
+  incidents Incident[]
 }
 
+
+model Incident {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String?
+  images String[]
+  province String
+  district String
+  city String
+  pin String?
+  longitude String
+  latitude String
+  createdAt DateTime @default(now())
+  isApproved Boolean  @default(false)
+  user User @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+  incidentDetail IncidentDetail?
+}
+
+model IncidentDetail {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  deaths Int?
+  Casualities Int?
+  incident Incident @relation(fields:[incidentId], references: [id])
+  incidentId String @db.ObjectId @unique
+}
+
+
+
 // After Edit run "npx prisma db push"
+// npx prisma generate

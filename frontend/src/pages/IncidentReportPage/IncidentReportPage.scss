@@ -1,0 +1,165 @@
+.IncidentReportPage {
+  height: 100%;
+  display: flex;
+
+  .formContainer {
+    flex: 3;
+    overflow-y: scroll;
+
+    
+
+    .wrapper {
+      margin: 30px 50px 100px 0px;
+
+      form {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .input-single {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+
+            label {
+                white-space: nowrap;
+            }
+
+            input {
+                width: 100%;
+                border: 1px solid #ddd;
+                height: 30px;
+                border-radius: 4px;
+                padding: 2px 8px;
+
+
+                &:focus {
+                    border: 1px solid $primary-color;
+                    outline: none;
+                }
+
+                &::placeholder {
+                    color: #aaa;
+                }
+
+            }
+        }
+
+        .input-multi {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                gap: 14px;
+
+                .input-single {
+                    width: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+
+                    input {
+                        width: 100%;
+                    }
+                }
+
+                select {
+                            width: 100%;
+                            border: 1px solid #ddd;
+                            height: 30px;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+
+                            
+                
+                
+                            &:focus {
+                                border: 1px solid $primary-color;
+                                outline: none;
+                            }
+                
+                            &::placeholder {
+                                color: #aaa;
+                            }
+
+                        }
+            }
+
+        .item {
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          label {
+          }
+
+          input {
+            border-radius: 5px;
+            border: 1px solid gray;
+          }
+
+          select {
+            padding: 19px;
+          }
+
+          &.description {
+            width: 100%;
+            height: 320px;
+
+            .quill > .ql-container > .ql-editor{
+              height: 200px;
+              font-size: 16px;
+            }
+
+            @include md {
+              margin-bottom: 30px;
+            }
+          }
+        }
+
+        .btn-sec {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: start;
+          margin-top: 20px;
+          
+          
+          .sendButton {
+            width: 30%;
+            height: 46px;
+            border-radius: 10px;
+            border: none;
+            background-color: $primary-color;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        }
+        
+      }
+    }
+  }
+
+  .sideContainer {
+    flex: 2;
+    background-color: #fcf5f3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 50%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+}

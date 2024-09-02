@@ -8,6 +8,8 @@ import { RegisterPage }  from "./pages/RegisterPage/RegisterPage"
 import { SigninPage } from "./pages/SigninPage/SigninPage";
 import 'react-toastify/dist/ReactToastify.css';
 import { ProfileUpdatePage } from "./pages/ProfileUpdatePage/ProfileUpdatePage";
+import { MapPage } from "./pages/MapPage/MapPage";
+import {IncidentReportPage} from "./pages/IncidentReportPage/IncidentReportPage";
 
 function App() {
 
@@ -36,6 +38,10 @@ function App() {
           path: '/signin',
           element: <SigninPage />,
         },
+        {
+          path: '/map',
+          element: <MapPage />,
+        },
       ],
     },
     {
@@ -49,6 +55,10 @@ function App() {
         {
           path: '/profile/update',
           element: <ProfileUpdatePage />,
+        },
+        {
+          path: '/report',
+          element: <IncidentReportPage />,
         },
       ],
     },
