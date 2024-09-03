@@ -1,27 +1,18 @@
-import { useState } from "react";
-import { MapWithPinInput } from "../../components/Map/Map"
+import { Map } from "../../components/Map/Map"
+import { newsData } from '../../lib/dataFeed';
 
 export const MapPage = () => {
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
+  
+  const data = newsData; 
 
-  const handlePinChange = (latitude, longitude) => {
-    setLat(latitude);
-    setLng(longitude);
-  };
   return (
-    <div>
-      <MapWithPinInput onPinChange={handlePinChange} />
-      <div>
-        <label>
-          Latitude:
-          <input type="number" step="any" value={lat} readOnly />
-        </label>
-        <label>
-          Longitude:
-          <input type="number" step="any" value={lng} readOnly />
-        </label>
-      </div>
+    <div className="mapPage">
+      <Map
+        items={data}
+        zoom={8}
+        latitude={7.847}
+        longitude={80.758}
+      />
     </div>
   );
 }
