@@ -46,7 +46,7 @@ model Incident {
 model IncidentDetail {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   deaths Int?
-  Casualities Int?
+  casualities Int?
   incident Incident @relation(fields:[incidentId], references: [id])
   incidentId String @db.ObjectId @unique
 }

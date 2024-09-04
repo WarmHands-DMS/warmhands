@@ -20,7 +20,7 @@ export const Card = ({item}) => {
         
         <div><LongText description={item.desc}/></div>
         <div className="bottom">
-          <span className="date"><i className="fa-solid fa-calendar-days"></i><p>{item.date.slice(0,10)}</p></span>
+          <span className="date"><i className="fa-solid fa-calendar-days"></i><p>{item.createdAt.slice(0,10)}</p></span>
           <span className="time"><i className="fa-solid fa-clock"></i><p>{moment.tz(item.date, timeZone).fromNow()}</p></span>
         </div>
 

@@ -148,18 +148,25 @@
 
   .sideContainer {
     flex: 2;
-    background-color: #fcf5f3;
+    background-color: $secondary-color;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     justify-content: center;
+    height: 100%;
 
-    img {
-      width: 50%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 5px;
+    .images {
+      padding: 20px;
+      
+      img {
+        width: 50%;
+        padding-right: 5px;
+        height: 180px;
+        object-fit: cover;
+      }
     }
+
+    
   }
 }
