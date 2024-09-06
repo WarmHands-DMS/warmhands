@@ -3,8 +3,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { MapWithPinInput } from '../../components/Map/Map';
 import { locations } from '../../lib/LocationData';
-import UploadWidget from "../../components/UploadWidget/UploadWidget"
-import apiReq from "../../lib/apiReq"
+import UploadWidget from '../../components/UploadWidget/UploadWidget';
+import apiReq from '../../lib/apiReq';
 import { useNavigate } from 'react-router-dom';
 
 export const IncidentReportPage = () => {
@@ -14,24 +14,21 @@ export const IncidentReportPage = () => {
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
-  const [value, setValue] = useState('');
-  const [images, setImages] = useState([]);
+  const [value, setValue] = useState(''); // State for description
+  const [images, setImages] = useState([]); // State for images
   const navigate = useNavigate();
 
-  // Handle province change
   const handleProvinceChange = (e) => {
     setSelectedProvince(e.target.value);
     setSelectedDistrict('');
     setSelectedCity('');
   };
 
-  // Handle district change
   const handleDistrictChange = (e) => {
     setSelectedDistrict(e.target.value);
     setSelectedCity('');
   };
 
-  // Handle city change
   const handleCityChange = (e) => {
     setSelectedCity(e.target.value);
   };
@@ -40,7 +37,6 @@ export const IncidentReportPage = () => {
     setSelectedType(e.target.value);
   };
 
-  // Get districts and cities based on selected province and district
   const availableDistricts =
     locations.provinces.find((prov) => prov.name === selectedProvince)
       ?.districts || [];
@@ -54,36 +50,35 @@ export const IncidentReportPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const formData = new FormData(e.target);
     const inputs = Object.fromEntries(formData);
 
-    console.log(inputs)
+    console.log(inputs);
 
     try {
       const res = await apiReq.post('/incidents', {
         incidentData: {
           type: selectedType,
           title: inputs.title,
-          description: value,
+          description: value, // Use the description state
           province: inputs.province,
           district: inputs.district,
           city: inputs.city,
           latitude: lat.toString(),
           longitude: lng.toString(),
-          images: images,
+          images: images, // Use the images state
         },
         incidentDetail: {
           deaths: parseInt(inputs.deaths),
           casualities: parseInt(inputs.casualities),
         },
       });
-      navigate("/"+res.data.id)
-
-    } catch(error) {
+      navigate('/' + res.data.id);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="IncidentReportPage">
@@ -93,7 +88,7 @@ export const IncidentReportPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="input-multi-custom">
               <div className="input-single">
-                <label htmlFor="type">Disater Type</label>
+                <label htmlFor="type">Disaster Type</label>
                 <select
                   name="type"
                   value={selectedType}
@@ -115,7 +110,7 @@ export const IncidentReportPage = () => {
 
             <div className="item description">
               <label htmlFor="desc">Description</label>
-              <ReactQuill theme="snow" onchange={setValue} value={value} />
+              <ReactQuill theme="snow" onChange={setValue} value={value} />
             </div>
 
             <div className="input-multi">
@@ -225,6 +220,7 @@ export const IncidentReportPage = () => {
           </form>
         </div>
       </div>
+
       <div className="sideContainer">
         <div className="images">
           {images.map((image, index) => (
@@ -239,7 +235,7 @@ export const IncidentReportPage = () => {
             multiple: true,
             folder: 'incidents',
           }}
-          setState={setImages}
+          setState={setImages} // Set the images state when images are uploaded
         />
       </div>
     </div>
