@@ -67,6 +67,11 @@ nav {
         padding-bottom: 10px;
         border-bottom: 2px solid transparent; 
         text-decoration: none;
+
+        &.active {
+          border-bottom: 2px solid $primary-color;
+          color: $primary-color;
+        }
         
         &::before {
           content: attr(data-item);
