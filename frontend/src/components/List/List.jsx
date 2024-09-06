@@ -1,13 +1,12 @@
-import { Card } from "../Card/Card";
-import {newsData} from "../../lib/dataFeed";
-import "./List.scss"
+import { Card } from '../Card/Card';
+import './List.scss';
 
-export const List = () => {
+export const List = ({ data }) => {
   return (
     <div className="list">
-        {newsData.map((item) => (
-            <Card key={item.id} item={item}/>
-        ))}
+      {data.map((item) => (
+        <Card key={item.id} item={item} />
+      ))}
     </div>
-  )
-}
+  );
+};

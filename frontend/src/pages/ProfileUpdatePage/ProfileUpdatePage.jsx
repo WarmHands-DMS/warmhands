@@ -26,6 +26,7 @@ export const ProfileUpdatePage = () => {
     }
   }, [selectedProvince]);
 
+
   useEffect(() => {
     if (selectedDistrict) {
       const province = locations.provinces.find(prov => prov.name === selectedProvince);

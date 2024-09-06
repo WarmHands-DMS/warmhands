@@ -1,5 +1,6 @@
 // import {SearchBar} from "../../components/SearchBar/SearchBar";
 import { useContext, useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import { AuthContext } from "../../context/AuthContext";
 import LandSlide from '../../assets/landslide.svg';
 import Cyclone from '../../assets/cyclone.svg';
@@ -31,26 +32,26 @@ export const HomePage = () => {
       <div className="textPart">
         <div className="wrapper">
           <h1 className="title">
-            Welcome to <br />
-            Disaster Management System
+            Together, We’re Stronger <br />
+            <span>WarmHands</span>
           </h1>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
-            adipisci culpa veniam fuga autem. Delectus adipisci culpa veniam
-            fuga autem.
+            WarmHands is built on the power of community and collaboration. In
+            times of need, our platform allows you to quickly report
+            emergencies, receive critical updates and access lifesaving
+            information. Let’s work together to create safer, more
+            resilient communities.
           </p>
           {/* <SearchBar />         */}
           <div className="hero-btn">
-            <a href="">Latest Updates</a>
-            <a href="">Report Disaster</a>
+            <Link to={"/news"}>Latest Updates</Link>
+            <Link to={currentUser ? "/report" : "/signin"}>Report Disaster</Link>
           </div>
         </div>
       </div>
       <div className="imagePart">
-       
-            <img src={imageSrc} alt="Flood" />
-          
-    </div>
+        <img src={imageSrc} alt="Flood" />
+      </div>
     </div>
   );
 }
