@@ -1,12 +1,14 @@
-import { useState, useContext } from "react";
-import {Link} from "react-router-dom"
-import {AuthContext} from "../../context/AuthContext";
+import { useState, useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export const Navbar = () => {
-  const [open, setOpen] = useState(false)
-
+  const [open, setOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  
+  const location = useLocation();
+
+  // Function to determine if the link is active
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav>
@@ -21,16 +23,32 @@ export const Navbar = () => {
       </div>
       <div className="right">
         <div className="nav-links">
-          <Link className="link" to="/" data-item="Home">
+          <Link
+            className={`link ${isActive('/') ? 'active' : ''}`}
+            to="/"
+            data-item="Home"
+          >
             Home
           </Link>
-          <Link className="link" to="/news" data-item="News">
+          <Link
+            className={`link ${isActive('/news') ? 'active' : ''}`}
+            to="/news"
+            data-item="News"
+          >
             News
           </Link>
-          <Link className="link" to="/map" data-item="Map">
+          <Link
+            className={`link ${isActive('/map') ? 'active' : ''}`}
+            to="/map"
+            data-item="Map"
+          >
             Map
           </Link>
-          <Link className="link" to="/contact" data-item="Contact">
+          <Link
+            className={`link ${isActive('/contact') ? 'active' : ''}`}
+            to="/contact"
+            data-item="Contact"
+          >
             Contact
           </Link>
         </div>
@@ -38,17 +56,23 @@ export const Navbar = () => {
           <div className="user-btn">
             <div className="desktop">
               <div className="user">
-                <img src={currentUser.avatar ||"/no-avatar.png"} alt="profile-pic" />
+                <img
+                  src={currentUser.avatar || '/no-avatar.png'}
+                  alt="profile-pic"
+                />
                 <span>{currentUser.fname}</span>
               </div>
               <Link className="profile-btn" to="/profile">
-                <div className="notification">2</div>
+                {/* <div className="notification">2</div> */}
                 <span>Profile</span>
               </Link>
             </div>
             <div className="mobile">
               <Link to="/profile" className="user">
-                <img src={currentUser.avatar ||"/no-avatar.png"} alt="profile-pic" />
+                <img
+                  src={currentUser.avatar || '/no-avatar.png'}
+                  alt="profile-pic"
+                />
               </Link>
             </div>
           </div>
@@ -104,4 +128,4 @@ export const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
