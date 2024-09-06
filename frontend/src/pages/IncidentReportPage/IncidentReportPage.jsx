@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 export const IncidentReportPage = () => {
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
-  const [selectedType, setSelectedType] = useState('');
+  const [selectedType, setSelectedType] = useState('Flood'); // Set default value to 'Flood'
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -50,44 +50,46 @@ export const IncidentReportPage = () => {
     setLng(longitude);
   };
 
- const handleSubmit = async (e) => {
-   e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-   if (isLoading) return; // Prevent multiple submissions
-   setIsLoading(true);
+    if (isLoading) return; // Prevent multiple submissions
+    setIsLoading(true);
 
-   const formData = new FormData(e.target);
-   const inputs = Object.fromEntries(formData);
+    const formData = new FormData(e.target);
+    const inputs = Object.fromEntries(formData);
 
-   try {
-     const res = await apiReq.post('/incidents', {
-       incidentData: {
-         type: selectedType,
-         title: inputs.title,
-         description: value, // Use the description state
-         province: inputs.province,
-         district: inputs.district,
-         city: inputs.city,
-         latitude: lat.toString(),
-         longitude: lng.toString(),
-         images: images, // Use the images state
-       },
-       incidentDetail: {
-         deaths: parseInt(inputs.deaths),
-         casualities: parseInt(inputs.casualities),
-       },
-     });
+    // Ensure "Flood" is used if no type is selected
+    const incidentType = selectedType || 'Flood';
 
-     // Only reset loading state if navigation didn't happen, otherwise navigate
-     if (res?.data?.id) {
-       navigate('/' + res.data.id);
-     }
-   } catch (error) {
-     console.log(error);
-     setIsLoading(false); // Reset loading state on error
-   }
- };
+    try {
+      const res = await apiReq.post('/incidents', {
+        incidentData: {
+          type: incidentType, // Use the default type or selected type
+          title: inputs.title,
+          description: value, // Use the description state
+          province: inputs.province,
+          district: inputs.district,
+          city: inputs.city,
+          latitude: lat.toString(),
+          longitude: lng.toString(),
+          images: images, // Use the images state
+        },
+        incidentDetail: {
+          deaths: parseInt(inputs.deaths),
+          casualities: parseInt(inputs.casualities),
+        },
+      });
 
+      // Only reset loading state if navigation didn't happen, otherwise navigate
+      if (res?.data?.id) {
+        navigate('/' + res.data.id);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false); // Reset loading state on error
+    }
+  };
 
   return (
     <div className="IncidentReportPage">
@@ -224,7 +226,7 @@ export const IncidentReportPage = () => {
               </div>
             </div>
             <div className="btn-sec">
-              <button type='submit' className="sendButton" disabled={isLoading}>
+              <button type="submit" className="sendButton" disabled={isLoading}>
                 {isLoading ? 'Reporting...' : 'Report'}
               </button>
             </div>

@@ -1,5 +1,5 @@
 import { Slider } from '../../components/Slider/Slider';
-import { disasterData, userData } from '../../lib/dataFeed';
+import { disasterData } from '../../lib/dataFeed';
 import { Map } from '../../components/Map/Map';
 import { useLoaderData } from 'react-router-dom';
 import domPurify from "dompurify";
