@@ -16,6 +16,7 @@ export const IncidentReportPage = () => {
   const [selectedCity, setSelectedCity] = useState('');
   const [value, setValue] = useState(''); // State for description
   const [images, setImages] = useState([]); // State for images
+  const [isLoading, setIsLoading] = useState(false); // Loading state to prevent duplicate submissions
   const navigate = useNavigate();
 
   const handleProvinceChange = (e) => {
@@ -49,36 +50,44 @@ export const IncidentReportPage = () => {
     setLng(longitude);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const inputs = Object.fromEntries(formData);
+ const handleSubmit = async (e) => {
+   e.preventDefault();
 
-    console.log(inputs);
+   if (isLoading) return; // Prevent multiple submissions
+   setIsLoading(true);
 
-    try {
-      const res = await apiReq.post('/incidents', {
-        incidentData: {
-          type: selectedType,
-          title: inputs.title,
-          description: value, // Use the description state
-          province: inputs.province,
-          district: inputs.district,
-          city: inputs.city,
-          latitude: lat.toString(),
-          longitude: lng.toString(),
-          images: images, // Use the images state
-        },
-        incidentDetail: {
-          deaths: parseInt(inputs.deaths),
-          casualities: parseInt(inputs.casualities),
-        },
-      });
-      navigate('/' + res.data.id);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+   const formData = new FormData(e.target);
+   const inputs = Object.fromEntries(formData);
+
+   try {
+     const res = await apiReq.post('/incidents', {
+       incidentData: {
+         type: selectedType,
+         title: inputs.title,
+         description: value, // Use the description state
+         province: inputs.province,
+         district: inputs.district,
+         city: inputs.city,
+         latitude: lat.toString(),
+         longitude: lng.toString(),
+         images: images, // Use the images state
+       },
+       incidentDetail: {
+         deaths: parseInt(inputs.deaths),
+         casualities: parseInt(inputs.casualities),
+       },
+     });
+
+     // Only reset loading state if navigation didn't happen, otherwise navigate
+     if (res?.data?.id) {
+       navigate('/' + res.data.id);
+     }
+   } catch (error) {
+     console.log(error);
+     setIsLoading(false); // Reset loading state on error
+   }
+ };
+
 
   return (
     <div className="IncidentReportPage">
@@ -215,7 +224,9 @@ export const IncidentReportPage = () => {
               </div>
             </div>
             <div className="btn-sec">
-              <button className="sendButton">Report</button>
+              <button type='submit' className="sendButton" disabled={isLoading}>
+                {isLoading ? 'Reporting...' : 'Report'}
+              </button>
             </div>
           </form>
         </div>
