@@ -1,16 +1,26 @@
 import { Slider } from '../../components/Slider/Slider';
-import { disasterData } from '../../lib/dataFeed';
 import { Map } from '../../components/Map/Map';
 import { useLoaderData } from 'react-router-dom';
 import domPurify from "dompurify";
 
 export const IncidentPage = () => {
-  const data = disasterData;
 
   const incident = useLoaderData();
   console.log(incident);
 
-  console.log(disasterData)
+  const displayTime = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Colombo',
+    year: 'numeric',
+    month: '2-digit', // Always two digits for month
+    day: '2-digit', // Always two digits for day
+    hour: '2-digit', // Always two digits for hour
+    minute: '2-digit', // Always two digits for minute
+    second: '2-digit', // Always two digits for second
+    hour12: true, // 12-hour format
+  }).format(new Date(incident.createdAt));
+
+  
+  console.log(displayTime)
 
   return (
     <div className="incidentPage">
@@ -33,18 +43,19 @@ export const IncidentPage = () => {
                     className="fa-solid fa-calendar-days"
                     style={{ paddingRight: '10px' }}
                   ></i>
-                  {incident.createdAt.slice(11, 13)}
+                  {displayTime.slice(6, 10) + '-' + displayTime.slice(0, 2) + "-" + displayTime.slice(3, 5)}
                 </h5>
                 <h5>
                   <i
                     className="fa-solid fa-clock"
                     style={{ paddingRight: '10px' }}
                   ></i>
-                  {incident.createdAt.slice(11, 13) > 12
-                    ? data.date.slice(11, 13) - 12
-                    : data.date.slice(11, 13)}
-                  {data.date.slice(13, 16)}{' '}
-                  {data.date.slice(11, 13) < 12 ? 'AM' : 'PM'}
+                  {/* {incident.createdAt.slice(11, 13) > 12
+                    ? incident.createdAt.slice(11, 13) - 12
+                    : incident.createdAt.slice(11, 13)}
+                  {incident.createdAt.slice(13, 16)}{' '}
+                  {incident.createdAt.slice(11, 13) < 12 ? 'AM' : 'PM'} */}
+                  {displayTime.slice(12, 17)} {displayTime.slice(21, 23)}
                 </h5>
               </div>
               <div className="userInfo">
@@ -58,7 +69,12 @@ export const IncidentPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bottom" dangerouslySetInnerHTML={{__html: domPurify.sanitize(incident.description)}}></div>
+            <div
+              className="bottom"
+              dangerouslySetInnerHTML={{
+                __html: domPurify.sanitize(incident.description),
+              }}
+            ></div>
           </div>
         </div>
       </div>
@@ -70,8 +86,8 @@ export const IncidentPage = () => {
               <Map
                 items={[incident]}
                 zoom={14}
-                latitude={6.85294094284376}
-                longitude={80.26261732725257}
+                latitude={incident.latitude}
+                longitude={incident.longitude}
               />
             </div>
           </div>
