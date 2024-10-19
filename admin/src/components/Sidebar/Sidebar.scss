@@ -1,0 +1,100 @@
+.sidebar {
+    flex: 1; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .top-section { 
+        height: calc(100vh - 50px);
+
+        .top {
+            border-bottom: 0.5px solid rgb(222, 222, 222);
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .logo {
+                height: 20px;
+                width: 150px;
+            }
+        }
+
+    
+
+    .center {
+        border-top: 0.5px solid transparent;
+        padding-left: 10px;
+        border-right: 0.5px solid rgb(222, 222, 222);
+        height: 100%;
+        
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .title {
+                font-size: 10px;
+                font-weight: bold;
+                color: #999;
+                margin-top: 20px;
+                margin-bottom: 5px;
+            }
+
+            li {
+                display: flex;
+                align-items: center;
+                padding: 5px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #d3edff;
+                }
+
+                .icon {
+                    font-size: 21px;
+                    color: #0086df;
+                }
+
+                span {
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: #666;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+
+    }
+
+    .bottom {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+        height: 50px;
+        border-right: 0.5px solid rgb(222, 222, 222);
+
+        &:hover {
+            background-color: #ffc6c6;
+
+            .icon {
+                color: #8b0000;
+            }
+        }
+
+        .icon {
+            font-size: 21px;
+            color: #0086df;
+        }
+
+        span {
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            padding-left: 10px;
+        }
+    }
+}

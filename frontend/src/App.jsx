@@ -2,12 +2,16 @@ import { HomePage } from "./pages/HomePage/HomePage"
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import { NewsPage } from "./pages/NewsPage/NewsPage"
 import { Layout, RequireAuth } from "./layout/Layout"
-import { DisasterPage } from "./pages/DisasterPage/DisasterPage";
 import { UserProfilePage } from "./pages/UserProfilePage/UserProfilePage";
 import { RegisterPage }  from "./pages/RegisterPage/RegisterPage"
 import { SigninPage } from "./pages/SigninPage/SigninPage";
 import 'react-toastify/dist/ReactToastify.css';
 import { ProfileUpdatePage } from "./pages/ProfileUpdatePage/ProfileUpdatePage";
+import { MapPage } from "./pages/MapPage/MapPage";
+import {IncidentReportPage} from "./pages/IncidentReportPage/IncidentReportPage";
+import { singlePageLoader } from "./lib/loaders";
+import { IncidentPage } from "./pages/IncidentPage/IncidentPage";
+import {ContactPage} from "./pages/ContactPage/ContactPage"
 
 function App() {
 
@@ -26,7 +30,8 @@ function App() {
         },
         {
           path: '/:id',
-          element: <DisasterPage />,
+          element: <IncidentPage />,
+          loader: singlePageLoader,
         },
         {
           path: '/register',
@@ -35,6 +40,14 @@ function App() {
         {
           path: '/signin',
           element: <SigninPage />,
+        },
+        {
+          path: '/map',
+          element: <MapPage />,
+        },
+        {
+          path: '/contact',
+          element: <ContactPage />,
         },
       ],
     },
@@ -49,6 +62,10 @@ function App() {
         {
           path: '/profile/update',
           element: <ProfileUpdatePage />,
+        },
+        {
+          path: '/report',
+          element: <IncidentReportPage />,
         },
       ],
     },

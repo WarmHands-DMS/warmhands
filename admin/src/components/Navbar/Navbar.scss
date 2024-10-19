@@ -1,0 +1,49 @@
+.navbar {
+    height: 55px;
+    border-bottom: 0.5px solid rgb(222, 222, 222);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 14px;
+    color: #555;
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-right: 20px;
+
+        .icon {
+            font-size: 26px;
+        }
+
+        .admin {
+          display: flex;
+          align-items: center;
+          border: 2px solid #007fd4;
+          background-color: #007fd4;
+          padding-right: 10px;
+          border-radius: 25px;
+
+
+          img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+          }
+
+          span {
+            color: #eee;
+            font-size: 16px;
+          }
+        }
+
+        
+    }
+}
+
+
+
+

@@ -1,25 +1,41 @@
-import { useNavigate } from "react-router-dom"
-import { List } from "../../components/List/List"
-import apiReq from "../../lib/apiReq"
-import { useContext } from "react"
-import { AuthContext } from "../../context/AuthContext"
-// import { Notification } from "../../components/Notifiction/Notification"
+import { Link, useNavigate } from 'react-router-dom';
+import apiReq from '../../lib/apiReq';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { List } from '../../components/List/List';
 
 export const UserProfilePage = () => {
-
-  const {updateUser, currentUser} = useContext(AuthContext);
-
+  const { updateUser, currentUser } = useContext(AuthContext);
+  const [incidents, setIncidents] = useState([]);
   const navigate = useNavigate();
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
-      await apiReq.post("/auth/logout")
-      updateUser(null)
-      navigate("/");
-    } catch(error) {
-      console.log(error)
+      await apiReq.post('/auth/logout');
+      updateUser(null);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
+
+  useEffect(() => {
+    const fetchIncidents = async () => {
+      try {
+        const response = await apiReq.get(
+          'http://localhost:8800/api/incidents'
+        );
+        // Filter incidents by userId
+        const userIncidents = response.data.filter(
+          (incident) => incident.userId === currentUser.id
+        );
+        setIncidents(userIncidents);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchIncidents();
+  }, [currentUser.id]);
 
   return (
     <div className="userProfilePage">
@@ -28,9 +44,6 @@ export const UserProfilePage = () => {
           <div className="user-info">
             <div className="title">
               <h2>User Information</h2>
-              <button onClick={() => navigate('/profile/update')}>
-                Update Profile
-              </button>
             </div>
             <div className="info">
               <div className="profileImage">
@@ -48,26 +61,42 @@ export const UserProfilePage = () => {
                   E-mail: <span>{currentUser.email}</span>
                 </div>
               </div>
-
-              <button className="logout" onClick={handleLogout}>
-                Logout
-              </button>
+              <div className="btn-sec">
+                <button
+                  className="update"
+                  onClick={() => navigate('/profile/update')}
+                >
+                  Update
+                </button>
+                <button className="logout" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="reports">
+        <Link className="button" to="/report">
+          <button>Report New Incident</button>
+        </Link>
         <div className="wrapper">
-            <div className="title">
-              <h2>My Reports</h2>
-              <button>Report Incident</button>
-            </div>
-            <div className="incidents">
-              <List />
-            </div>
-          
+          <div className="title">
+            <h2>My Reports</h2>
+            {incidents.length > 2 ? <button>View All</button> : <div></div>}
+            
+          </div>
+          <div className="incidents">
+            {incidents.length > 0 ? (
+              <List data={incidents} /> // Pass incidents as prop to List component
+            ) : (
+              <div className="no-reports">
+                <img src="/no-reports.svg" alt="No reports yet" />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};

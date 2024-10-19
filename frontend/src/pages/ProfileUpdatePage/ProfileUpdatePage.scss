@@ -3,11 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 10px;
 
     .wrapper {
         display: flex;
         flex-direction: column;
-        height: 80%;
+        height: 100%;
         width: 50%;
         border-radius: 20px;
         background-color: rgba(255, 255, 255, 0.691);
@@ -27,8 +28,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 25%;
             gap: 12px;
+            position: relative;
+            margin-bottom: 10px;
+
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 0;
+                cursor: pointer;
+            }
         }
 
         .profileImage {
@@ -36,6 +45,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    
 
                     img {
                         width: 128px;
@@ -82,6 +92,7 @@
                 overflow: hidden;
                 gap: 16px;
                 padding: 20px 10px;
+                overflow-y: scroll;
 
 
                 .profileImage {
@@ -216,6 +227,26 @@
                         width: 100%;
                     }
                 }
+
+                select {
+                            width: 100%;
+                            border: 1px solid #ddd;
+                            height: 30px;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            
+                
+                
+                            &:focus {
+                                border: 1px solid $primary-color;
+                                outline: none;
+                            }
+                
+                            &::placeholder {
+                                color: #aaa;
+                            }
+
+                        }
             }
 
                 .input-single {
@@ -297,6 +328,7 @@
                 align-items: center;
                 justify-content: center;
                 gap: 10px;
+                height: 20%;
 
                 button {
                     margin-top: 28px;

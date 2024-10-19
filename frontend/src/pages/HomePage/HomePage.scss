@@ -15,6 +15,14 @@
 
             .title {
                 font-size: 2.5rem;
+                line-height: 1.2;
+                letter-spacing: 1px;
+
+                span {
+                    color: $primary-color;
+                    font-weight: 700;
+                    font-size: 3.5rem;
+                }
             }
 
             .hero-btn {
@@ -22,6 +30,12 @@
                 flex-direction: row;
                 gap: 20px;
                 justify-content: flex-start;
+                white-space: nowrap;
+
+                a:first-child {
+                    color: #eee;
+                    background-color: $primary-color;
+                }
 
                 a {
                     padding: 10px 20px;
@@ -34,15 +48,29 @@
 
     .imagePart {
         flex: 2;
-        background-color: $secondary-color;
         position: relative;
         display: flex;
         align-items: center;
 
         img {
-            width: 110%;
+            width: 90%;
+            height: 90%;
             position: absolute;
             right: 0;
+            animation: float 3s ease-in-out infinite;
+
+            @keyframes float {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-30px);
+                }
+            }
+        }
+
+        @include md {
+            display: none;
         }
     }
 }
