@@ -125,7 +125,7 @@ export const Chart = () => {
     <>
       <div className="chart">
         <div className="title">Last 12 Months (All Disasters)</div>
-        <ResponsiveContainer width="100%" aspect={5/2}>
+        <ResponsiveContainer width="100%" height={400}>
           <AreaChart
             width={500}
             height={400}
