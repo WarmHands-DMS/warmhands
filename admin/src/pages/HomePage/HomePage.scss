@@ -4,7 +4,45 @@
 
     .home-container {
         flex: 8;
-        // border-top: 0.5px solid rgb(222, 222, 222);
-        // width: 100%;
+
+        .widget-section {
+            display: flex;
+            flex-direction: column;
+
+            .main-title {
+                padding: 15px 20px;
+                font-size: 18px;
+                font-weight: 700;
+                color: gray;
+            }
+        
+            .widgets {
+                display: flex;
+                padding: 0 20px;
+                gap: 20px;
+            }
+        }
+
+        .chart-section {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+
+            .main-title {
+                padding: 15px 20px;
+                font-size: 18px;
+                font-weight: 700;
+                color: gray;
+            }
+
+            .charts {
+                display: flex;
+                padding: 0 20px;
+                gap: 40px;
+            }
+
+        }
+
+        
     }
 }
