@@ -11,7 +11,7 @@ import { MapPage } from "./pages/MapPage/MapPage";
 import {IncidentReportPage} from "./pages/IncidentReportPage/IncidentReportPage";
 import { singlePageLoader } from "./lib/loaders";
 import { IncidentPage } from "./pages/IncidentPage/IncidentPage";
-import {ContactPage} from "./pages/ContactPage/ContactPage"
+import {ContactPage} from "./pages/ContactPage/ContactPage";
 
 function App() {
 

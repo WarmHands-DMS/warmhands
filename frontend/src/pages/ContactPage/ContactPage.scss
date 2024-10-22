@@ -1,0 +1,89 @@
+.contact-page {
+  display: flex;
+  height: 100%;
+  
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    overflow-y: scroll;
+    height: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+  
+
+  h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+  }
+
+  .contact-card {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+  }
+
+  .contact-us {
+  margin-top: 40px;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-us h2 {
+  color:#007fd4; 
+  margin-bottom: 15px; 
+}
+
+.contact-us p {
+  color: #666; 
+  margin-bottom: 20px; 
+  margin-top: 50px;
+}
+
+.contact-us ul {
+ 
+  padding: 0; 
+}
+
+.contact-us li {
+  margin: 10px 0; 
+  font-size: 16px; 
+  color: #444; 
+}
+}
