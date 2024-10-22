@@ -19,6 +19,9 @@ export const IncidentReportPage = () => {
   const [isLoading, setIsLoading] = useState(false); // Loading state to prevent duplicate submissions
   const navigate = useNavigate();
 
+  // const localTime = new Date(); // Capture local time
+  // const utcTime = localTime.toISOString(); // Convert local time to UTC
+
   const handleProvinceChange = (e) => {
     setSelectedProvince(e.target.value);
     setSelectedDistrict('');
@@ -63,6 +66,7 @@ export const IncidentReportPage = () => {
     const incidentType = selectedType || 'Flood';
 
     try {
+       const utcNow = new Date().toUTCString();
       const res = await apiReq.post('/incidents', {
         incidentData: {
           type: incidentType, // Use the default type or selected type
@@ -73,6 +77,7 @@ export const IncidentReportPage = () => {
           city: inputs.city,
           latitude: lat.toString(),
           longitude: lng.toString(),
+          createdAt: new Date(utcNow).toISOString(), // Pass UTC time
           images: images, // Use the images state
         },
         incidentDetail: {

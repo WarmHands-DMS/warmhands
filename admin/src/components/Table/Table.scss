@@ -1,0 +1,46 @@
+.table {
+
+    .tableCell {
+        font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+
+        &.head {
+            font-weight: 700;
+            font-size: 15px;
+        }
+    }
+
+    .cellWrapper {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 5px;
+
+        &.Approved {
+            color: rgb(0, 97, 0);
+            background-color: rgba(0, 128, 0, 0.215);
+        }
+
+        &.Pending {
+            color: rgb(144, 106, 9);
+            background-color: rgba(218, 165, 32, 0.298);
+        }
+
+        &.Rejected {
+            color: rgb(145, 0, 0);
+            background-color: rgba(214, 0, 0, 0.201);
+        }
+    }
+}

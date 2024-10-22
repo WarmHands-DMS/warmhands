@@ -30,18 +30,25 @@ export const NewsPage = () => {
     const filterData = () => {
       let filtered = data;
 
+      // Filter by location
       if (filters.location) {
         filtered = filtered.filter((item) =>
           item.city.toLowerCase().includes(filters.location.toLowerCase())
         );
       }
 
+      // Filter by disaster type
       if (filters.disasterType !== 'all') {
         filtered = filtered.filter(
           (item) =>
             item.type.toLowerCase() === filters.disasterType.toLowerCase()
         );
       }
+
+      // Sort by 'createdAt' in descending order (newest first)
+      filtered = filtered.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
 
       setFilteredData(filtered);
     };
