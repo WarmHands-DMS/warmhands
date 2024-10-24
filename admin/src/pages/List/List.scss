@@ -1,0 +1,24 @@
+.list-page {
+    display: flex;
+    height: 100vh;
+
+    .list-container {
+        flex: 8;
+        height: 100%;
+
+        .list {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+             .wrapper {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                overflow-y: auto; // Keep this for scrolling when necessary
+                height: 100%;
+                padding-bottom: 20px; // Added padding to prevent cut-off
+            }
+        }
+    }
+}

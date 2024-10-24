@@ -28,12 +28,12 @@
         padding: 5px 10px;
         border-radius: 5px;
 
-        &.Approved {
+        &.true {
             color: rgb(0, 97, 0);
             background-color: rgba(0, 128, 0, 0.215);
         }
 
-        &.Pending {
+        &.false {
             color: rgb(144, 106, 9);
             background-color: rgba(218, 165, 32, 0.298);
         }

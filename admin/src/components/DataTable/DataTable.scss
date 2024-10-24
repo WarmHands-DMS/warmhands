@@ -1,0 +1,45 @@
+.datatable {
+    height: 90%;
+    margin-bottom: 30px;
+    padding: 20px;
+
+    .title {
+        font-size: 18px;
+        font-weight: 500;
+        color: gray;
+    }
+
+    .cellImage {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        margin-right: 10px;
+        object-fit: cover;
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 5px;
+
+        &.true {
+            color: rgb(0, 97, 0);
+            background-color: rgba(0, 128, 0, 0.215);
+        }
+
+        &.false {
+            color: rgb(144, 106, 9);
+            background-color: rgba(218, 165, 32, 0.298);
+        }
+
+        &.Rejected {
+            color: rgb(145, 0, 0);
+            background-color: rgba(214, 0, 0, 0.201);
+        }
+    }
+
+    .MuiDataGrid-cell {
+         font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+    }
+}
