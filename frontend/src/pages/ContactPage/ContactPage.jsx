@@ -1,7 +1,7 @@
 import React from 'react';
 import './ContactPage.scss'; // Import the SCSS file
 import {ContactCard} from "../../components/ContctCard/ContactCard";
-import { ContactForm } from '../../components/ContactForm/ContactForm';
+import ContactForm from '../../components/ContactForm/ContactForm';
 
 
 export const ContactPage = () => {
@@ -30,7 +30,7 @@ export const ContactPage = () => {
           <ContactForm />
           <p>If you have any queries, feel free to contact us via email or phone.</p>
           <ul>
-            <li>Email: www.warmhands@gamil.com</li>
+            <li>Email: alert.warmhands@gmail.com</li>
             <li>Phone: 011-1234567</li>
             <li>Address: 123 Main Street, Colombo, Sri Lanka</li>
           </ul>

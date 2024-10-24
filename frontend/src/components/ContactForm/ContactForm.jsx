@@ -1,97 +1,42 @@
-import React, { useState } from 'react';
-import './ContactForm.scss'; // Import SCSS styles
+import React, { useState } from 'react';  
+import './ContactForm.scss';
 
-export const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+export default function Contact() {
+  const [result, setResult] = useState("");  
 
-  const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    formData.append("access_key", "82db7e58-4468-4277-9723-e35311bf0bf2");
 
-  const validateForm = () => {
-    const errors = {};
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
 
-    if (!formData.name) errors.name = 'Name is required';
-    if (!formData.email) {
-      errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Email address is invalid';
-    }
-    if (!formData.message) errors.message = 'Message is required';
+    const data = await response.json();
 
-    return errors;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length === 0) {
-      // Simulate form submission success
-      setSubmitted(true);
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      event.target.reset();
     } else {
-      setErrors(formErrors);
+      console.log("Error", data);
+      setResult(data.message);
     }
   };
 
   return (
-    <div className="contact-form-container">
-      {submitted ? (
-        <div className="form-success">
-          <h2>Thank you for your message!</h2>
-          <p>We will get back to you soon.</p>
-        </div>
-      ) : (
-        <form className="contact-form" onSubmit={handleSubmit}>
-          
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-            />
-            {errors.name && <span className="error">{errors.name}</span>}
-          </div>
+    <div>
+      <form onSubmit={onSubmit}>
+        Name: <input type="text" name="name" required /><br/>
+        Email: <input type="email" name="email" required /><br/>
+        Message: <textarea name="message" required></textarea><br/>
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-            />
-            {errors.email && <span className="error">{errors.email}</span>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message">Message</label>
-            <textarea
-              name="message"
-              id="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Your message"
-            />
-            {errors.message && <span className="error">{errors.message}</span>}
-          </div>
-
-          <button type="submit" className="submit-btn">Send Message</button>
-        </form>
-      )}
+        <button type="submit">Send Message</button>
+      </form>
+      <span>{result}</span>
     </div>
   );
-};
+}
