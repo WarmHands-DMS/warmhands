@@ -1,243 +1,101 @@
-import './DataTable.scss';
-import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import apiReq from '../../lib/apiReq';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { List } from '../../components/List/List';
 
-export const UserDataTable = () => {
-  const [data, setData] = useState([]); // State to hold user data
-  const [incidents, setIncidents] = useState([]); // State to hold incidents data
-  const [open, setOpen] = useState(false); // State for modal visibility
-  const [selectedUser, setSelectedUser] = useState(null); // State for selected user
+export const UserProfilePage = () => {
+  const { updateUser, currentUser } = useContext(AuthContext);
+  const [incidents, setIncidents] = useState([]);
+  const navigate = useNavigate();
 
-  // Function to format date as 'MM/DD/YYYY'
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { timeZone: 'Asia/Colombo' });
+  const handleLogout = async () => {
+    try {
+      await apiReq.post('/auth/logout');
+      updateUser(null);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // Function to format time as 'hh:mm AM/PM'
-  const formatTime = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', {
-      timeZone: 'Asia/Colombo',
-      hour12: true,
-    });
-  };
-
-  // Fetch user data and incidents from API
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchIncidents = async () => {
       try {
-        // Fetch users
-        const userResponse = await axios.get('http://localhost:8800/api/users');
-        const users = userResponse.data;
-
-        // Fetch incidents
-        const incidentResponse = await axios.get(
+        const response = await apiReq.get(
           'http://localhost:8800/api/incidents'
         );
-        const allIncidents = incidentResponse.data;
-
-        // Map users to include their incident counts
-        const usersWithIncidentCounts = users.map((user) => {
-          // Filter incidents by userId
-          const userIncidents = allIncidents.filter(
-            (incident) => incident.userId === user.id
-          );
-          return { ...user, incidentCount: userIncidents.length }; // Add incident count to user
-        });
-
-        setData(usersWithIncidentCounts);
+        // Filter incidents by userId
+        const userIncidents = response.data.filter(
+          (incident) => incident.userId === currentUser.id
+        );
+        setIncidents(userIncidents);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.log(error);
       }
     };
-
-    fetchData();
-  }, []);
-
-  // Log fetched data for debugging
-  console.log(data);
-
-  // Column definitions for DataGrid
-  const columns = [
-    { field: 'id', headerName: 'ID', flex: 1, minWidth: 100 },
-    {
-      field: 'fullName',
-      headerName: 'Full Name',
-      flex: 2,
-      minWidth: 160,
-      valueGetter: (value, row) => `${row.fname || ''} ${row.lname || ''}`,
-      renderCell: (params) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img
-            src={params.row.avatar || '/no-avatar.png'} // Fallback for avatar
-            alt="thumbnail"
-            className="cellImage"
-          />
-          <span>{`${params.row.fname} ${params.row.lname}`}</span>
-        </div>
-      ),
-    },
-    { field: 'email', headerName: 'Email', flex: 2, minWidth: 200 },
-    { field: 'mobile', headerName: 'Mobile', flex: 1, minWidth: 120 },
-    { field: 'nic', headerName: 'NIC', flex: 1, minWidth: 120 },
-    { field: 'address', headerName: 'Address', flex: 2, minWidth: 250 },
-    { field: 'city', headerName: 'City', flex: 1, minWidth: 100 },
-    { field: 'province', headerName: 'Province', flex: 1, minWidth: 100 },
-    { field: 'date', headerName: 'Date', flex: 1, minWidth: 120 },
-    { field: 'time', headerName: 'Time', flex: 1, minWidth: 120 },
-    {
-      field: 'incidentCount',
-      headerName: 'Incidents Reported',
-      flex: 1,
-      minWidth: 150,
-    }, // New column for incident count
-  ];
-
-  // Action column for viewing and deleting users
-  const actionColumn = [
-    {
-      field: 'action',
-      headerName: 'Action',
-      flex: 1.5,
-      minWidth: 150,
-      renderCell: (params) => (
-        <div className="disaster-buttons">
-          <span
-            className="view-btn"
-            onClick={(event) => {
-              event.stopPropagation(); // Prevent event from bubbling up
-              setSelectedUser(params.row); // Set the selected user
-              setOpen(true); // Open the modal
-            }}
-          >
-            View
-          </span>
-          <span
-            className="delete-btn"
-            onClick={(event) => {
-              event.stopPropagation();
-              // Logic for deletion can be implemented here
-            }}
-          >
-            Delete
-          </span>
-        </div>
-      ),
-    },
-  ];
-
-  const paginationModel = { page: 0, pageSize: 12 }; // Pagination settings
-
-  // Map the fetched data to the format expected by the DataGrid
-  const rows = data.map((item) => ({
-    id: item.id,
-    avatar: item.avatar || null, // Use avatar or fallback to null
-    fname: item.fname, // Access fname directly
-    lname: item.lname, // Access lname directly
-    email: item.email,
-    mobile: item.mobile,
-    nic: item.nic,
-    district: item.district,
-    address: item.address,
-    city: item.city,
-    province: item.province,
-    date: formatDate(item.createdAt), // Format date
-    time: formatTime(item.createdAt), // Format time
-    incidentCount: item.incidentCount || 0, // Include incident count (default to 0 if not available)
-  }));
-
-  // Close modal and clear selected user
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedUser(null);
-  };
+    fetchIncidents();
+  }, [currentUser.id]);
 
   return (
-    <div className="datatable">
-      <span className="title">Users</span>
-      <Paper sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns.concat(actionColumn)} // Combine columns with action column
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 12]}
-          checkboxSelection
-          autoHeight
-          sx={{ border: 0 }}
-        />
-      </Paper>
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>User Details</DialogTitle>
-        <DialogContent>
-          {selectedUser && (
-            <div>
-              <div className="profile-image">
+    <div className="userProfilePage">
+      <div className="details">
+        <div className="wrapper">
+          <div className="user-info">
+            <div className="title">
+              <h2>User Information</h2>
+            </div>
+            <div className="info">
+              <div className="profileImage">
                 <img
-                  src={selectedUser.avatar}
-                  alt={`${selectedUser.fname} profile`}
-                  style={{ height: '100%', width: '100%' }}
+                  src={currentUser.avatar || 'no-avatar.png'}
+                  alt="profile-pic"
                 />
               </div>
-              <p>
-                <strong>User ID:</strong> {selectedUser.id}
-              </p>
-              <p>
-                <strong>First Name:</strong> {selectedUser.fname}
-              </p>
-              <p>
-                <strong>Last Name:</strong> {selectedUser.lname}
-              </p>
-              <p>
-                <strong>Email:</strong> {selectedUser.email}
-              </p>
-              <p>
-                <strong>Mobile:</strong> {selectedUser.mobile}
-              </p>
-              <p>
-                <strong>NIC:</strong> {selectedUser.nic}
-              </p>
-              <p>
-                <strong>Address:</strong> {selectedUser.address}
-              </p>
-              <p>
-                <strong>City:</strong> {selectedUser.city}
-              </p>
-              <p>
-                <strong>District:</strong> {selectedUser.district}
-              </p>
-              <p>
-                <strong>Province:</strong> {selectedUser.province}
-              </p>
-              <p>
-                <strong>Date Created:</strong> {selectedUser.date}
-              </p>
-              <p>
-                <strong>Time Created:</strong> {selectedUser.time}
-              </p>
-              <p>
-                <strong>Incidents Reported:</strong>{' '}
-                {selectedUser.incidentCount || 0}
-              </p>
+              <div className="details">
+                <div>
+                  Name:{' '}
+                  <span>{currentUser.fname + ' ' + currentUser.lname}</span>
+                </div>
+                <div>
+                  E-mail: <span>{currentUser.email}</span>
+                </div>
+              </div>
+              <div className="btn-sec">
+                <button
+                  className="update"
+                  onClick={() => navigate('/profile/update')}
+                >
+                  Update
+                </button>
+                <button className="logout" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
             </div>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </div>
+        </div>
+      </div>
+      <div className="reports">
+        <Link className="button" to="/report">
+          <button>Report New Incident</button>
+        </Link>
+        <div className="wrapper">
+          <div className="title">
+            <h2>My Reports</h2>
+            {incidents.length > 2 ? <button>View All</button> : <div></div>}
+          </div>
+          <div className="incidents">
+            {incidents.length > 0 ? (
+              <List data={incidents} /> // Pass incidents as prop to List component
+            ) : (
+              <div className="no-reports">
+                <img src="/no-reports.svg" alt="No reports yet" />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
