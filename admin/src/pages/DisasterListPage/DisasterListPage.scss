@@ -18,6 +18,14 @@
                 overflow-y: auto; // Keep this for scrolling when necessary
                 height: 100%;
                 padding-bottom: 20px; // Added padding to prevent cut-off
+
+                .MuiDataGrid-cell {
+                    font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+
+                    
+                }
             }
         }
     }

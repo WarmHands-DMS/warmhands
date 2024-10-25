@@ -1,9 +1,9 @@
-import { DataTable } from "../../components/DataTable/DataTable";
+import { DisasterDataTable } from "../../components/DataTable/DisasterDataTable";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
-import "./List.scss"
+import './DisasterListPage.scss';
 
-export const List = () => {
+export const DisasterListPage = () => {
   return (
     <div className="list-page">
       <Sidebar />
@@ -11,10 +11,10 @@ export const List = () => {
         <Navbar />
         <div className="list">
           <div className="wrapper">
-            <DataTable />
+            <DisasterDataTable />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};

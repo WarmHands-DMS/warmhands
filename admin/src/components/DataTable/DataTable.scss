@@ -37,9 +37,40 @@
         }
     }
 
-    .MuiDataGrid-cell {
-         font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
-        font-weight: 600;
-        font-size: 14px;
+    .disaster-buttons {
+        align-items: center;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .view-btn {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 2px solid #0086df;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #0099ffb2;
+                color: white;
+            }
+        }
+
+        .delete-btn {
+             margin-left: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 2px solid rgb(175, 0, 0);
+            cursor: pointer;
+
+            &:hover {
+                background-color: #c2000082;
+                color: white;
+            }
+        }
+
     }
+
 }

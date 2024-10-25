@@ -1,13 +1,22 @@
 import prisma from "../lib/prisma.js";
 
 export const getIncidents = async (req, res) => {
-    try {
-        const incidents = await prisma.incident.findMany();
-        res.status(200).json(incidents)
-    } catch(error) {
-        console.log(error);
-        res.status(500).json({message: "Failed to get incidents."})
-    }
+  try {
+    const incidents = await prisma.incident.findMany({
+      include: {
+        user: {
+          select: {
+            fname: true, // Include the user's first name
+            lname: true, // Include the user's last name
+          },
+        },
+      },
+    });
+    res.status(200).json(incidents);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Failed to get incidents.' });
+  }
 }
 
 
