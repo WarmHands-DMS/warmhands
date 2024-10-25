@@ -13,7 +13,6 @@ import {
 
 export const UserDataTable = () => {
   const [data, setData] = useState([]); // State to hold user data
-  const [incidents, setIncidents] = useState([]); // State to hold incidents data
   const [open, setOpen] = useState(false); // State for modal visibility
   const [selectedUser, setSelectedUser] = useState(null); // State for selected user
 
@@ -93,13 +92,11 @@ export const UserDataTable = () => {
     { field: 'address', headerName: 'Address', flex: 2, minWidth: 250 },
     { field: 'city', headerName: 'City', flex: 1, minWidth: 100 },
     { field: 'province', headerName: 'Province', flex: 1, minWidth: 100 },
-    { field: 'date', headerName: 'Date', flex: 1, minWidth: 120 },
-    { field: 'time', headerName: 'Time', flex: 1, minWidth: 120 },
     {
       field: 'incidentCount',
       headerName: 'Incidents Reported',
-      flex: 1,
-      minWidth: 150,
+      flex: 1/2,
+      minWidth: 80,
     }, // New column for incident count
   ];
 

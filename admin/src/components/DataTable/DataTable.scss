@@ -1,0 +1,76 @@
+.datatable {
+    height: 90%;
+    margin-bottom: 30px;
+    padding: 20px;
+
+    .title {
+        font-size: 18px;
+        font-weight: 500;
+        color: gray;
+    }
+
+    .cellImage {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        margin-right: 10px;
+        object-fit: cover;
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 5px;
+
+        &.true {
+            color: rgb(0, 97, 0);
+            background-color: rgba(0, 128, 0, 0.215);
+        }
+
+        &.false {
+            color: rgb(144, 106, 9);
+            background-color: rgba(218, 165, 32, 0.298);
+        }
+
+        &.Rejected {
+            color: rgb(145, 0, 0);
+            background-color: rgba(214, 0, 0, 0.201);
+        }
+    }
+
+    .disaster-buttons {
+        align-items: center;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .view-btn {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 2px solid #0086df;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #0099ffb2;
+                color: white;
+            }
+        }
+
+        .delete-btn {
+             margin-left: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 2px solid rgb(175, 0, 0);
+            cursor: pointer;
+
+            &:hover {
+                background-color: #c2000082;
+                color: white;
+            }
+        }
+
+    }
+
+}

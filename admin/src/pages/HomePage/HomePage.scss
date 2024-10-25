@@ -1,4 +1,4 @@
-.homepage {
+.home-page {
     display: flex;
     height: 100vh;
 
@@ -9,83 +9,86 @@
         .dashboard-section {
             height: 100%;
             display: flex;
-            flex-direction: column; // Added this to allow proper alignment
-        }
-
-        .dashboard {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            overflow-y: auto; // Keep this for scrolling when necessary
-            height: 100%;
-            padding-bottom: 20px; // Added padding to prevent cut-off
-        }
-
-        .widget-section {
-            display: flex;
             flex-direction: column;
 
-            .main-title {
-                padding: 15px 20px;
-                font-size: 18px;
-                font-weight: 700;
-                color: gray;
-            }
-
-            .widgets {
+            .wrapper { 
                 display: flex;
-                padding: 0 20px;
-                gap: 20px;
-            }
-        }
+                flex-direction: column;
+                flex-grow: 1;
+                overflow-y: auto; // Keep this for scrolling when necessary
+                height: 100%;
+                padding-bottom: 20px;
 
-        .chart-section {
-            display: flex;
-            flex-direction: column;
-            margin-top: 20px;
-            height: max-content;
+                .widget-section {
+                    display: flex;
+                    flex-direction: column;
 
-            .main-title {
-                padding: 15px 20px;
-                font-size: 18px;
-                font-weight: 700;
-                color: gray;
-            }
+                    .main-title {
+                        padding: 15px 20px;
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: gray;
+                    }
 
-            .charts {
-                display: flex;
-                padding: 0 20px;
-                gap: 20px;
-            }
-        }
-
-        .list-section {
-            display: flex;
-            flex-direction: column;
-            margin-top: 20px;
-            margin-bottom: 60px;
-            height: fit-content;
-
-            .main-title {
-                padding: 15px 20px;
-                font-size: 18px;
-                font-weight: 700;
-                color: gray;
-            }
-
-            .list {
-                box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-                -webkit-box-shadow: 2px 4px 10px 1px rgba(130, 130, 130, 0.47);
-                padding: 20px;
-                margin: 0 20px;
-                border-radius: 5px;
-
-                .listTitle {
-                    font-weight: 500;
-                    color: gray;
-                    margin-bottom: 15px;
+                    .widgets {
+                        display: flex;
+                        padding: 0 20px;
+                        gap: 20px;
+                    }
                 }
+
+                .chart-section {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 20px;
+                    height: max-content;
+
+                    .main-title {
+                        padding: 15px 20px;
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: gray;
+                    }
+
+                    .charts {
+                        display: flex;
+                        padding: 0 20px;
+                        gap: 20px;
+                    }
+                }
+
+                .list-section {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 20px;
+                    margin-bottom: 60px;
+                    height: fit-content;
+
+                    .main-title {
+                        padding: 15px 20px;
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: gray;
+                    }
+
+                    .list {
+                        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+                        -webkit-box-shadow: 2px 4px 10px 1px rgba(130, 130, 130, 0.47);
+                        padding: 20px;
+                        margin: 0 20px;
+                        border-radius: 5px;
+
+                        .listTitle {
+                            font-weight: 500;
+                            color: gray;
+                            margin-bottom: 15px;
+                        }
+                    }
+                }
+
+
             }
         }
+
     }
 }

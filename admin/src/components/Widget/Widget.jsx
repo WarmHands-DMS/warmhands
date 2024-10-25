@@ -1,12 +1,15 @@
-import "./Widget.scss"
+import './Widget.scss';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'; // Import the down arrow icon
 import ReportIcon from '@mui/icons-material/Report';
 import FloodIcon from '@mui/icons-material/Flood';
-import FireIcon from '@mui/icons-material/LocalFireDepartment';import CycloneIcon from '@mui/icons-material/Cyclone';
+import FireIcon from '@mui/icons-material/LocalFireDepartment';
+import CycloneIcon from '@mui/icons-material/Cyclone';
 import LandslideIcon from '@mui/icons-material/Landslide';
 import TsunamiIcon from '@mui/icons-material/Tsunami';
 import EarthquakeIcon from '@mui/icons-material/MonitorHeart';
-export const Widget = ({ type }) => {
+
+export const Widget = ({ type, totalCount, previousCount }) => {
   let data;
 
   switch (type) {
@@ -20,21 +23,6 @@ export const Widget = ({ type }) => {
             style={{
               color: 'rgb(0, 14, 164)',
               backgroundColor: 'rgba(76, 130, 255, 0.248)',
-            }}
-          />
-        ),
-      };
-      break;
-    case 'disasters':
-      data = {
-        title: 'Disasters',
-        link: 'View all',
-        icon: (
-          <ReportIcon
-            className="icon"
-            style={{
-              color: 'rgb(223, 0, 0)',
-              backgroundColor: 'rgba(255, 76, 76, 0.248)',
             }}
           />
         ),
@@ -119,22 +107,41 @@ export const Widget = ({ type }) => {
       break;
   }
 
+  // Calculate the percentage change
+  const percentageChange =
+    previousCount > 0
+      ? ((totalCount - previousCount) / previousCount) * 100
+      : totalCount > 0
+      ? 100
+      : 0;
 
   return (
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">3452</span>
+        <span className="counter">{totalCount}</span>
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          20%
+        <div
+          className={`percentage ${
+            percentageChange > 0
+              ? 'positive'
+              : percentageChange < 0
+              ? 'negative'
+              : ''
+          }`}
+        >
+          {percentageChange > 0 ? (
+            <KeyboardArrowUpIcon />
+          ) : (
+            <KeyboardArrowDownIcon />
+          )}{' '}
+          {/* Display up or down arrow */}
+          {percentageChange.toFixed(2)}%
         </div>
         {data.icon}
-        
       </div>
     </div>
   );
-}
+};
