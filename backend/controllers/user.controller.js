@@ -1,5 +1,6 @@
 import prisma from "../lib/prisma.js";
 import bcrypt from "bcrypt";
+import nodemailer from 'nodemailer';
 
 export const getUsers = async (req, res) => {
     console.log("it works user")
@@ -87,3 +88,78 @@ export const deleteUsers = async (req, res) => {
         res.status(500).json({message: "Failed to delete user."})
     }
 }
+
+
+export const countUsersByCity = async (req, res) => {
+  const city = req.params.city.toLowerCase(); // Convert to lower case
+  console.log('City:', city); // Log the city value
+  try {
+    const userCount = await prisma.user.count({
+      where: {
+        // Adjusting the query for case-insensitive matching
+        city: {
+          equals: city,
+          mode: 'insensitive', // This makes the query case insensitive
+        },
+      },
+    });
+    console.log('User Count:', userCount); // Log the user count
+    res.status(200).json({ userCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to count users.' });
+  }
+};
+
+
+// Set up transporter with your email configuration
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'alert.warmhands@gmail.com', // Your email
+    pass: 'xujb kgmh wosg dssn', // Your email password or app-specific password
+  },
+  tls: {
+    rejectUnauthorized: false, // Ignore unauthorized certificate
+  },
+});
+
+// Send email to users in the specified city
+export const sendEmails = async (req, res) => {
+  const { subject, message } = req.body;
+  const { city } = req.params;
+
+  try {
+    // Fetch all users in the specified city
+    const users = await prisma.user.findMany({
+      where: { city: city },
+      select: { email: true },
+    });
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: 'No users found in the specified city.' });
+    }
+
+    // Extract emails
+    const recipientEmails = users.map(user => user.email);
+
+    // Send email to all users
+    const mailOptions = {
+      from: 'alert.warmhands@gmail.com',
+      to: recipientEmails,
+      subject: subject,
+      text: message,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Failed to send emails.' });
+      }
+      res.status(200).json({ message: 'Emails sent successfully', info });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred while sending emails.' });
+  }
+};

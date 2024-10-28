@@ -7,6 +7,8 @@
     .wrapper {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         height: 80%;
         width: 50%;
         border-radius: 20px;
@@ -25,7 +27,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 30%;
+            height: 20%;
             gap: 12px;
 
             img {
@@ -42,6 +44,8 @@
             align-items: center;
             justify-content: space-between;
             margin-top: 3rem;
+            background-color: transparent;
+            box-shadow: none;
 
             .form {
                 display: flex;
@@ -100,6 +104,9 @@
                 margin-top: 3rem;
 
                 button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                         margin-top: 28px;
                         text-align: center;
                         height: 25px;
@@ -110,6 +117,7 @@
                         background-color: $primary-color;
                         color: #fff;
                         cursor: pointer;
+                        white-space: nowrap;
                 }
 
                 span {

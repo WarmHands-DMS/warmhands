@@ -136,7 +136,7 @@ export const RegisterPage = () => {
           <h2>Register</h2>
           <img src="/warmhands-logo.svg" className="logo" />
         </div>
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className="register-form">
           <div className="form scrollbar">
             <div className="input-multi">
               <div className="input-single">

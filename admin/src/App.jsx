@@ -1,12 +1,15 @@
 import { HomePage } from './pages/HomePage/HomePage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
-// import { SinglePage } from './pages/SinglePage/SinglePage';
+import { ToastProvider } from './lib/ToastContext';
+import 'react-toastify/dist/ReactToastify.css';
 import { New } from './pages/New/New';
 import { DisasterListPage } from './pages/DisasterListPage/DisasterListPage';
 import { UserListPage } from './pages/UserListPage/UserListPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { singlePageLoader } from './lib/loaders';
+import { IncidentPageLoader, SendEmailPageLoader } from './lib/loaders';
 import { IncidentPage } from './pages/IncidentPage/IncidentPage';
+import { SendEmailPage } from './pages/SendEmailPage/SendEmailPage';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +24,12 @@ const router = createBrowserRouter([
   {
     path: '/:id',
     element: <IncidentPage />,
-    loader: singlePageLoader,
+    loader: IncidentPageLoader,
+  },
+  {
+    path: '/:id/send-emails',
+    element: <SendEmailPage />,
+    loader: SendEmailPageLoader,
   },
   {
     path: 'users',
@@ -44,7 +52,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+   return (
+     <ToastProvider>
+       <RouterProvider router={router} />
+       <ToastContainer position="top-right" autoClose={3000} />
+     </ToastProvider>
+   );
 }
 
 export default App;

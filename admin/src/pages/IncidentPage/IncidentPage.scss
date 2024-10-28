@@ -139,7 +139,37 @@
 
                 .bottom {
                     flex: 2;
-                    ;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                    span {
+                        padding: 7px 18px;
+                        margin-right: 18px;
+                        border-radius: 8px;
+                        color: #eee;
+                        cursor: pointer;
+                        transition: all 0.2s ease-in-out;
+                    }
+
+                    .reject-btn {
+                        background-color: rgba(172, 0, 0, 0.509);
+                        border: 2px solid rgb(161, 7, 7);
+
+                        &:hover {
+                            background-color: rgb(172, 0, 0);
+                        }
+                    }
+
+                    .confirm-btn {
+                        background-color: rgba(0, 97, 0, 0.609);
+                        border: 2px solid rgb(0, 41, 0);
+
+                        &:hover {
+                            background-color: rgb(0, 97, 0)
+                        }
+                    }
+
                 }
             }
         }

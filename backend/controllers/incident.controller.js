@@ -100,3 +100,18 @@ export const deleteIncident = async (req, res) => {
         res.status(500).json({ message: 'Failed to delete incident' });
     }
 };
+
+export const approveIncident = async (req, res) => {
+  const id = req.params.id; // Get the incident ID from the request parameters
+  try {
+    const updatedIncident = await prisma.incident.update({
+      where: { id: id },
+      data: { isApproved: true }, // Set isApproved to true
+    });
+
+    res.status(200).json(updatedIncident); // Respond with the updated incident
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to approve incident.' });
+  }
+};

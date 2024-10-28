@@ -3,13 +3,26 @@ import { Sidebar } from '../../components/Sidebar/Sidebar';
 import './IncidentPage.scss';
 import { Slider } from '../../components/Slider/Slider';
 import { Map } from '../../components/Map/Map';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import domPurify from 'dompurify';
+import { useState } from 'react';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from '@mui/material';
+import axios from 'axios';
+import { useToast } from '../../lib/ToastContext'; // Import the toast context
 
 export const IncidentPage = () => {
   const incident = useLoaderData(); // Fetch incident data
-  console.log(incident);
+  const [emailPopupOpen, setEmailPopupOpen] = useState(false);
+  const navigate = useNavigate();
+ const showToast = useToast(); // Get showToast from context
 
+  // Format the date/time
   const displayTime = new Intl.DateTimeFormat('en-US', {
     timeZone: 'Asia/Colombo',
     year: 'numeric',
@@ -20,6 +33,28 @@ export const IncidentPage = () => {
     second: '2-digit',
     hour12: true,
   }).format(new Date(incident.createdAt));
+
+  // Open and close dialog functions
+  const handleOpenEmailPopup = () => setEmailPopupOpen(true);
+  const handleCloseEmailPopup = () => setEmailPopupOpen(false);
+
+  const handleConfirm = async () => {
+    try {
+      await axios.put(
+        `http://localhost:8800/api/incidents/${incident.id}/approve`
+      );
+     showToast('Incident approved successfully!'); // Show success toast
+      handleCloseEmailPopup();
+    } catch (error) {
+      showToast('Failed to approve incident.', 'error'); // Show error toast
+      console.error(error);
+    }
+  };
+
+  const handleSend = () => {
+    handleConfirm(); // Approve the incident
+    navigate(`/${incident.id}/send-emails`); // Navigate to Send Email Page
+  };
 
   return (
     <div className="incident-page">
@@ -89,7 +124,7 @@ export const IncidentPage = () => {
                     <p className="title">Location</p>
                     <div className="mapContainer">
                       <Map
-                        items={[incident]} // Pass the incident to the map
+                        items={[incident]}
                         zoom={14}
                         latitude={incident.latitude}
                         longitude={incident.longitude}
@@ -99,10 +134,30 @@ export const IncidentPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bottom"></div>
+            <div className="bottom">
+              <span className="reject-btn">Reject</span>
+              <span className="confirm-btn" onClick={handleOpenEmailPopup}>
+                Confirm
+              </span>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Confirmation Dialog for Sending Emails */}
+      <Dialog open={emailPopupOpen} onClose={handleCloseEmailPopup}>
+        <DialogTitle>Confirm and Send Emails</DialogTitle>
+        <DialogContent>
+          Are you sure you want to send emails to users in {incident.city}?
+        </DialogContent>
+        <DialogActions style={{ justifyContent: 'space-between' }}>
+          <Button onClick={handleCloseEmailPopup}>Cancel</Button>
+          <div>
+            <Button onClick={handleConfirm}>Confirm Only</Button>
+            <Button onClick={handleSend}>Send Emails</Button>
+          </div>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

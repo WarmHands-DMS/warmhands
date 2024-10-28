@@ -1,5 +1,3 @@
-import React from 'react';
-import './ContactPage.scss'; // Import the SCSS file
 import {ContactCard} from "../../components/ContctCard/ContactCard";
 import ContactForm from '../../components/ContactForm/ContactForm';
 
