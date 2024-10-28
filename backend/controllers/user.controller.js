@@ -116,8 +116,8 @@ export const countUsersByCity = async (req, res) => {
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'alert.warmhands@gmail.com', // Your email
-    pass: 'xujb kgmh wosg dssn', // Your email password or app-specific password
+    user: process.env.EMAIL_USER, 
+    pass: process.env.EMAIL_PASS, 
   },
   tls: {
     rejectUnauthorized: false, // Ignore unauthorized certificate
