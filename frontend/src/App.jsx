@@ -14,6 +14,7 @@ import { IncidentPage } from "./pages/IncidentPage/IncidentPage";
 import {ContactPage} from "./pages/ContactPage/ContactPage";
 
 function App() {
+  
 
   const router = createBrowserRouter([
     {

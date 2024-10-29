@@ -1,0 +1,16 @@
+.layout {
+    display: flex;
+    height: 100vh;
+
+    .container {
+        flex: 8;
+        height: 100%;
+
+        .content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+    }
+}

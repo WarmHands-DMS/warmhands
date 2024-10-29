@@ -1,11 +1,10 @@
-import { Sidebar } from '../../components/Sidebar/Sidebar';
-import { Navbar } from '../../components/Navbar/Navbar';
 import { Widget } from '../../components/Widget/Widget';
 import { Chart } from '../../components/Chart/Chart';
 import { FeatureChart } from '../../components/FeatureChart/FeatureChart';
 import { Table } from '../../components/Table/Table';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+;
 
 export const HomePage = () => {
   const [data, setData] = useState([]);
@@ -65,62 +64,54 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <div className="home-page">
-      <Sidebar />
-      <div className="home-container">
-        <Navbar />
-        <div className="dashboard-section">
-          <div className="wrapper">
-            <div className="widget-section">
-              <span className="main-title">Disasters</span>
-              <div className="widgets">
-                <Widget
-                  type="flood"
-                  totalCount={disasterCounts.flood.total}
-                  previousCount={disasterCounts.flood.previousMonth}
-                />
-                <Widget
-                  type="fire"
-                  totalCount={disasterCounts.fire.total}
-                  previousCount={disasterCounts.fire.previousMonth}
-                />
-                <Widget
-                  type="cyclone"
-                  totalCount={disasterCounts.cyclone.total}
-                  previousCount={disasterCounts.cyclone.previousMonth}
-                />
-                <Widget
-                  type="landslide"
-                  totalCount={disasterCounts.landslide.total}
-                  previousCount={disasterCounts.landslide.previousMonth}
-                />
-                <Widget
-                  type="tsunami"
-                  totalCount={disasterCounts.tsunami.total}
-                  previousCount={disasterCounts.tsunami.previousMonth}
-                />
-                <Widget
-                  type="earthquake"
-                  totalCount={disasterCounts.earthquake.total}
-                  previousCount={disasterCounts.earthquake.previousMonth}
-                />
-              </div>
-            </div>
-            <div className="chart-section">
-              <span className="main-title">Charts</span>
-              <div className="charts">
-                <FeatureChart />
-                <Chart />
-              </div>
-            </div>
-            <div className="list-section">
-              <span className="main-title">Lists</span>
-              <div className="list">
-                <div className="listTitle">Recent Disasters (Reported)</div>
-                <Table data={data} />
-              </div>
-            </div>
-          </div>
+    <div className="homePage scrollbar">
+      <div className="widget-section">
+        <span className="main-title">Disasters</span>
+        <div className="widgets">
+          <Widget
+            type="flood"
+            totalCount={disasterCounts.flood.total}
+            previousCount={disasterCounts.flood.previousMonth}
+          />
+          <Widget
+            type="fire"
+            totalCount={disasterCounts.fire.total}
+            previousCount={disasterCounts.fire.previousMonth}
+          />
+          <Widget
+            type="cyclone"
+            totalCount={disasterCounts.cyclone.total}
+            previousCount={disasterCounts.cyclone.previousMonth}
+          />
+          <Widget
+            type="landslide"
+            totalCount={disasterCounts.landslide.total}
+            previousCount={disasterCounts.landslide.previousMonth}
+          />
+          <Widget
+            type="tsunami"
+            totalCount={disasterCounts.tsunami.total}
+            previousCount={disasterCounts.tsunami.previousMonth}
+          />
+          <Widget
+            type="earthquake"
+            totalCount={disasterCounts.earthquake.total}
+            previousCount={disasterCounts.earthquake.previousMonth}
+          />
+        </div>
+      </div>
+      <div className="chart-section">
+        <span className="main-title">Charts</span>
+        <div className="charts">
+          <FeatureChart />
+          <Chart />
+        </div>
+      </div>
+      <div className="list-section">
+        <span className="main-title">Lists</span>
+        <div className="list">
+          <div className="listTitle">Recent Disasters (Reported)</div>
+          <Table data={data} />
         </div>
       </div>
     </div>

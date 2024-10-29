@@ -46,7 +46,7 @@ export const SigninPage = () => {
         
 
         try {
-            const res = await apiReq.post('/auth/signin',
+            const res = await apiReq.post('/auth/user/signin',
               {
                 email,
                 password,

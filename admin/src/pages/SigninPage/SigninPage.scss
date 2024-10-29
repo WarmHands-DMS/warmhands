@@ -1,0 +1,138 @@
+.signinPage {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80%;
+        width: 50%;
+        border-radius: 20px;
+        box-shadow: 0px 3px 10px #007fd457;
+
+     
+
+        .form-h {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 20%;
+            gap: 12px;
+
+            img {
+                width: 42px;
+                height: 42px;
+            }
+            
+            
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 3rem;
+            background-color: transparent;
+            box-shadow: none;
+
+            .form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
+
+                .input {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 15px;
+                        width: 80%;
+                
+                        label {
+                            width: 20%;
+                            white-space: nowrap;
+                
+                        }
+                
+                        input {
+                            width: 80%;
+                            border: 1px solid #ddd;
+                            height: 30px;
+                            border-radius: 8px;
+                            padding: 2px 8px;
+                
+                           
+                
+                
+                            &:focus {
+                                border: 1px solid #007fd4;
+                                outline: none;
+                            }
+                
+                        }
+
+
+                    }
+            }
+
+            
+
+            .btn-sec {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 3rem;
+
+                button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                        margin-top: 28px;
+                        text-align: center;
+                        height: 25px;
+                        border: 2px solid #007fd4;
+                        height: 36px;
+                        width: 80px;
+                        border-radius: 10px;
+                        background-color: #007fd4;
+                        color: #fff;
+                        cursor: pointer;
+                        white-space: nowrap;
+                }
+
+                span {
+                    font-size: 13px;
+
+                    span {
+                        color: #007fd4;
+                        cursor: pointer;
+                        font-weight: bold;
+                    }
+                }
+
+            }
+
+            
+        }
+
+        .btn-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 25%;
+
+            
+
+
+        }
+    }
+}

@@ -1,20 +1,23 @@
+import { useLocation } from "react-router-dom";
 import { DisasterDataTable } from "../../components/DataTable/DisasterDataTable";
-import { Navbar } from "../../components/Navbar/Navbar";
-import { Sidebar } from "../../components/Sidebar/Sidebar";
+
 import './DisasterListPage.scss';
+import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export const DisasterListPage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.toastMessage) {
+      toast.success(location.state.toastMessage);
+    }
+  }, [location.state]);
+  
   return (
-    <div className="list-page">
-      <Sidebar />
-      <div className="list-container">
-        <Navbar />
-        <div className="list">
-          <div className="wrapper">
-            <DisasterDataTable />
-          </div>
-        </div>
-      </div>
+    <div className="disasterListPage">
+      <DisasterDataTable />
+      <ToastContainer />
     </div>
   );
 };

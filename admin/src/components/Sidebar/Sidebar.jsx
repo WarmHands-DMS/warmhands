@@ -8,9 +8,28 @@ import EmailIcon from '@mui/icons-material/MarkEmailRead';
 import AccountIcon from '@mui/icons-material/AccountBox';
 import SettingsIcon from '@mui/icons-material/SettingsApplications';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import apiReq from '../../lib/apiReq';
+import { useContext } from "react";
+import { AdminAuthContext } from "../../context/AuthContext";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export const Sidebar = () => {
+    const { updateAdmin } = useContext(AdminAuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+      try {
+        await apiReq.post('/auth/admin/logout');
+        updateAdmin(null);
+        navigate('/');
+      } catch (error) {
+        toast.error('Failed to logout');
+        console.log(error);
+      }
+    };
+
   return (
     <div className="sidebar">
       <div className="top-section">
@@ -79,8 +98,9 @@ export const Sidebar = () => {
       </div>
       <div className="bottom">
         <LogoutIcon className="icon" />
-        <span>Logout</span>
+        <span onClick={handleLogout}>Logout</span>
       </div>
+      <ToastContainer />
     </div>
   );
 }

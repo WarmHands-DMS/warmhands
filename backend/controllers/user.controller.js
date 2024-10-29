@@ -92,7 +92,7 @@ export const deleteUsers = async (req, res) => {
 
 export const countUsersByCity = async (req, res) => {
   const city = req.params.city.toLowerCase(); // Convert to lower case
-  console.log('City:', city); // Log the city value
+
   try {
     const userCount = await prisma.user.count({
       where: {
@@ -103,7 +103,6 @@ export const countUsersByCity = async (req, res) => {
         },
       },
     });
-    console.log('User Count:', userCount); // Log the user count
     res.status(200).json({ userCount });
   } catch (error) {
     console.error(error);
@@ -128,6 +127,13 @@ const transporter = nodemailer.createTransport({
 export const sendEmails = async (req, res) => {
   const { subject, message } = req.body;
   const { city } = req.params;
+   const id = req.params.id;
+   const tokenAdminId = req.adminId;
+   console.log(id)
+
+   if (id !== tokenAdminId) {
+     return res.status(403).json({ message: 'Not Authorized.' });
+   }
 
   try {
     // Fetch all users in the specified city

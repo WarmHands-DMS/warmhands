@@ -105,7 +105,7 @@ export const RegisterPage = () => {
     }
     
     try {
-      const res = await apiReq.post('/auth/register', {
+      const res = await apiReq.post('/auth/user/register', {
         fname,
         lname,
         email,

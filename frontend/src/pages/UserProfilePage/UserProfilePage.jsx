@@ -11,7 +11,7 @@ export const UserProfilePage = () => {
 
   const handleLogout = async () => {
     try {
-      await apiReq.post('/auth/logout');
+      await apiReq.post('/auth/user/logout');
       updateUser(null);
       navigate('/');
     } catch (error) {
