@@ -35,28 +35,33 @@
   border-radius: 10px;
   overflow: hidden;
 
+  @include sm {
+    overflow-y: auto;
+  }
+
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: auto;
-    height: 75vh;
+    height: 80vh;
     width: 90%;
     border-radius: 10px;
     background-color: #eeeeee82;
     box-shadow: 0 7px 50px $shadow-color;
 
     @include md {
-      height: 100%;
+      height: 100VH;
       width: 100%;
       flex-direction: column-reverse;
       padding: 1.5rem;
       box-shadow: none;
       background-color: transparent;
+      margin-bottom: 30px;
     }
 
     @include sm {
-      height: 100%;
+      height: 100VH;
       width: 100%;
       flex-direction: column-reverse;
       padding: 1.5rem;
@@ -212,6 +217,7 @@
       .header {
         text-align: center;
         padding: 0.5rem 0 1rem 0;
+        margin-top: 10px;
 
         @include md {
           padding: 1rem 0;
@@ -303,7 +309,7 @@
         }
 
         .single-input {
-          margin-top: 18px;
+          margin-top: 16px;
           width: 100%;
           position: relative;
 

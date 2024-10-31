@@ -252,7 +252,7 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="registerPage">
+    <div className="registerPage scrollbar">
       <ToastContainer />
 
       <div className="container">
