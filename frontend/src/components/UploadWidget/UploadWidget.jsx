@@ -59,6 +59,7 @@ function UploadWidget({ uwConfig, setState }) {
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
       <button
+        type='button'
         id="upload_widget"
         className="cloudinary-button"
         onClick={openWidget}

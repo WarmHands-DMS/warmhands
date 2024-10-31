@@ -1,149 +1,337 @@
 .signinPage {
-    height: 100%;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+
+  .container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    margin: auto;
+    height: 75vh;
+    width: 80%;
+    border-radius: 10px;
+    background-color: #eeeeee82;
 
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 80%;
-        width: 50%;
-        border-radius: 20px;
-        box-shadow: 0px 3px 10px $shadow-color;
+    @include md {
+      height: 100%;
+      flex-direction: column;
+      padding: 1.5rem;
+      box-shadow: none;
+      width: 100%;
+      background-color: transparent;
+    }
+
+    @include sm {
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+      padding: 1.5rem;
+      box-shadow: none;
+    }
+    
+    
+  box-shadow: 0 7px 50px $shadow-color;
+
+    .video-section {
+      position: relative;
+      display: flex;
+      flex-basis: 60%;
+      width: 80%;
+      height: 100%;
+      padding: 0 1.5rem;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: auto;
+      border-radius: 10px;
+      overflow: hidden;
+
+      @include md {
+      width: 100%;
+    }
+
+      video,
+      .button-section {
+        position: absolute;
+      }
+
+      video {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.4
+        );
+        z-index: 1;
+      }
+
+      .text {
+        position: relative;
+        z-index: 2;
 
         @include md {
-            width: 60%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+
         }
 
-        @include sm {
-            width: 70%;
-        }
+        .title {
+          color: #eee;
+          font-size: 42px;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          white-space: nowrap;
 
-        .form-h {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+          @include md {
+            font-size: 30px;
+            flex-direction: row;
             justify-content: center;
-            height: 20%;
-            gap: 12px;
+          }
+
+          @include sm {
+            font-size: 22px;
+          }
+
+          span:first-child {
+            @include md {
+              margin-right: 8px;
+            }
+          }
+        }
+
+        p {
+            color: #eee;
+            padding: .2rem .5rem;
+            font-weight: 400;
+
+            @include sm {
+            font-size: 16px;
+            }
+        }
+      }
+
+      .button-section {
+        display: flex;
+        align-items: center;
+        bottom: 10px;
+        padding: 0 1rem;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.25);
+        left: 10px;
+        right: 10px;
+        justify-content: space-between;
+        backdrop-filter: blur(2px);
+        border-radius: 10px;
+        z-index: 3;
+
+         @include md {
+          height: 40px;
+        }
+
+        .text {
+            color: white;
+        }
+
+        .btn {
+            background-color: #ccc;
+            color: $primary-color;
+            padding: .8rem 1.5rem;
+            border-radius: 10px;
+            transition: 0.3s ease-in-out;
+            font-size: 14px;
+            border: 1px solid transparent;
+
+            @include md {
+            padding: 0.4rem 1.5rem;
+          }
+
+            &:hover {
+                background-color: $secondary-color;
+                border: 1px solid $primary-color;
+
+            }
+        }
+      }
+    }
+
+    .form-section {
+        display: flex;
+        align-items: center;
+        flex-basis: 60%;
+        flex-direction: column;
+        margin: auto;
+        gap: 1.5rem;
+        transform: translateY(-1rem);
+
+        @include md {
+          gap: 1rem;
+          transform: translateY(.5rem);
+        }
+
+        .header {
+            text-align: center;
+            padding: .5rem 0 3rem 0;
+
+             @include md {
+          padding: 1rem 0;
+        }
 
             img {
-                width: 42px;
-                height: 42px;
+                width: 80px;
+                padding-bottom: .5rem;
+
+                
             }
-            
-            
+
+            h3 {
+                font-size: 25px;
+                color: #111;
+                font-weight: 600;
+            }
         }
 
-        .login-form {
+      .form {
+        display: grid;
+        align-items: center;
+        gap: 1rem;
+        
+
+        .single-input {
+          .input {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            margin-top: 3rem;
-            background-color: transparent;
-            box-shadow: none;
+            gap: .5rem;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 10px;
+            backdrop-filter: blur(2px);
+            border: 2px solid grey;
 
-            .form {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                width: 100%;
-
-                .input {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 15px;
-                        width: 80%;
-                
-                        label {
-                            width: 20%;
-                            white-space: nowrap;
-                
-                            @include sm {
-                                width: 35%;
-                            }
-                        }
-                
-                        input {
-                            width: 80%;
-                            border: 1px solid #ddd;
-                            height: 30px;
-                            border-radius: 8px;
-                            padding: 2px 8px;
-                
-                            @include sm {
-                                width: 65%;
-                            }
-                
-                
-                            &:focus {
-                                border: 1px solid $primary-color;
-                                outline: none;
-                            }
-                
-                        }
-
-
-                    }
+            .icon {
+                color: grey;
             }
 
-            
+            input {
+                background: none;
+                outline: none;
+                border: none;
+                width: 300px;
+                font-size: 14px;
+                
+            }
+          }
 
-            .btn-sec {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                margin-top: 3rem;
-
-                button {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                        margin-top: 28px;
-                        text-align: center;
-                        height: 25px;
-                        border: 2px solid $primary-color;
-                        height: 36px;
-                        width: 80px;
-                        border-radius: 10px;
-                        background-color: $primary-color;
-                        color: #fff;
-                        cursor: pointer;
-                        white-space: nowrap;
-                }
-
-                span {
-                    font-size: 13px;
-
-                    span {
-                        color: $primary-color;
-                        cursor: pointer;
-                        font-weight: bold;
-                    }
-                }
+          label {
+                color: #111;
+                font-weight: 400;
+                font-size: 15px;
 
             }
-
-            
         }
 
-        .btn-section {
-            display: flex;
+        .signin-btn {
+          display: flex;
+          align-items: center;
+          border: none;
+          outline: none;
+          cursor: pointer;
+
+            padding: .8rem;
+            background-color: $primary-color;
+            border-radius: 10px;
+            color: #ddd;
+            margin: 1rem auto;
             justify-content: center;
-            align-items: center;
-            height: 25%;
+            font-size: 16px;
+            width: 100%;
+            gap: .4rem;
+            transition: .3s ease-in-out;
 
-            
+          .icon {
+            margin-left: 0.5rem;
+            font-size: 25px;
+            transition: .3s ease-in-out;
+          }
 
+          &:hover {
+            color: #fff;
+            background-color: $hover-color;
 
+            .icon {
+                color: #fff;
+                transform: translateX(6px);
+            }
+
+          }
         }
+      }
     }
+  }
+
+  
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+
+  .grid {
+    display: grid;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .icon {
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  img {
+    height: auto;
+    width: 100%;
+  }
+
+  .btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    color: grey;
+  }
+
+  .btn {
+    .icon {
+      margin-left: 0.5rem;
+    }
+
+    &:hover {
+      color: $primary-color;
+      background-color: $secondary-color;
+    }
+  }
 }

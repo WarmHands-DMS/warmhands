@@ -1,4 +1,4 @@
-import React, { useState } from 'react';  
+import { useState } from 'react';  
 import './ContactForm.scss';
 
 export default function Contact() {
@@ -28,7 +28,7 @@ export default function Contact() {
   };
 
   return (
-    <div>
+    <div className='contactForm'>
       <form onSubmit={onSubmit}>
         Name: <input type="text" name="name" required /><br/>
         Email: <input type="email" name="email" required /><br/>
