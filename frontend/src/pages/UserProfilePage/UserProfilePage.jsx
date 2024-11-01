@@ -39,7 +39,7 @@ export const UserProfilePage = () => {
 
   return (
     <div className="userProfilePage">
-      <div className="details">
+      {/* <div className="details">
         <div className="wrapper">
           <div className="user-info">
             <div className="title">
@@ -95,7 +95,7 @@ export const UserProfilePage = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

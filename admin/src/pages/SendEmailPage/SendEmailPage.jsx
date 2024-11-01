@@ -19,9 +19,10 @@ export const SendEmailPage = () => {
   useEffect(() => {
     if (location.state?.toastMessage) {
       toast.success(location.state.toastMessage);
+      navigate(location.pathname, { replace: true, state: {} });
     }
-  }, [location.state]);
-
+  }, [location, navigate]);
+  
   useEffect(() => {
     setSubject(`Incident Alert: ${incident.title} in ${incident.city}`);
 
