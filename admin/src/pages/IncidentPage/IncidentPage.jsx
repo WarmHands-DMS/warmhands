@@ -86,6 +86,7 @@ export const IncidentPage = () => {
       navigate(`/${incident.id}/send-emails`, {
         state: { toastMessage: 'Incident already approved!' },
       });
+      handleConfirm();
     } else {
     navigate(`/${incident.id}/send-emails`, {
       state: { toastMessage: 'Incident approved successfully!' },
