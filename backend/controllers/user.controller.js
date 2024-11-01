@@ -68,14 +68,28 @@ export const updateUsers = async (req, res) => {
     }
 }
 
-
 export const deleteUsers = async (req, res) => {
-    const id = req.params.id;
-    const tokenUserId = req.userId;
+  const id = req.params.id;
+  const tokenUserId = req.userId;
 
-    if (id !== tokenUserId) {
-      return res.status(403).json({ message: 'Not Authorized.' });
-    }
+  if (id !== tokenUserId) {
+    return res.status(403).json({ message: 'Not Authorized.' });
+  }
+
+  try {
+    await prisma.user.delete({
+      where: { id: id },
+    });
+    res.status(200).json({ message: 'User deleted.' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Failed to delete user.' });
+  }
+};
+
+
+export const deleteUsersByAdmin = async (req, res) => {
+    const id = req.params.id;
 
     try {
         await prisma.user.delete({

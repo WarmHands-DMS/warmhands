@@ -1,31 +1,3 @@
-// .registerPage {
-//     height: 100%;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-
-//     .wrapper {
-//         display: flex;
-//         flex-direction: column;
-//         height: 90%;
-//         width: 50%;
-//         border-radius: 20px;
-//         background-color: rgba(255, 255, 255, 0.691);
-//         box-shadow: 0px 3px 10px $shadow-color;
-//         padding: 0 20px 10px 20px;
-//         align-items: center;
-//         justify-content: center;
-
-//         @include md {
-//             width: 60%;
-//         }
-
-//         @include sm {
-//             width: 70%;
-//         }
-
-
-
 .registerPage {
   display: flex;
   align-items: center;
@@ -34,6 +6,10 @@
   margin: auto;
   border-radius: 10px;
   overflow: hidden;
+
+  @include md {
+    overflow-y: auto;
+  }
 
   @include sm {
     overflow-y: auto;
@@ -51,7 +27,7 @@
     box-shadow: 0 7px 50px $shadow-color;
 
     @include md {
-      height: 100VH;
+      height: 100vh;
       width: 100%;
       flex-direction: column-reverse;
       padding: 1.5rem;
@@ -61,7 +37,7 @@
     }
 
     @include sm {
-      height: 100VH;
+      height: 100vh;
       width: 100%;
       flex-direction: column-reverse;
       padding: 1.5rem;
@@ -84,10 +60,9 @@
       overflow: hidden;
       position: relative;
 
-      
-    @include md {
-      width: 100%;
-    }
+      @include md {
+        width: 100%;
+      }
 
       video,
       .button-section {
@@ -121,7 +96,6 @@
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-
         }
 
         .title {
@@ -169,8 +143,8 @@
         backdrop-filter: blur(2px);
         border-radius: 10px;
         z-index: 3;
-        
-         @include md {
+
+        @include md {
           height: 40px;
         }
 
@@ -210,9 +184,9 @@
       transform: translateY(-0.5rem);
 
       @include md {
-          gap: 1rem;
-          transform: translateY(.5rem);
-        }
+        gap: 1rem;
+        transform: translateY(0.5rem);
+      }
 
       .header {
         text-align: center;
@@ -227,7 +201,7 @@
           width: 80px;
           padding-bottom: 0.5rem;
 
-           @include md {
+          @include md {
             width: 45px;
             padding-bottom: 0.2rem;
           }
@@ -238,7 +212,7 @@
           color: #111;
           font-weight: 600;
 
-           @include md {
+          @include md {
             font-size: 20px;
           }
         }
@@ -333,7 +307,6 @@
               border: none;
               width: 300px;
               font-size: 14px;
-
             }
           }
 
@@ -546,51 +519,6 @@
     }
   }
 
-  .flex {
-    display: flex;
-    align-items: center;
-  }
-
-  .grid {
-    display: grid;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  li {
-    list-style: none;
-  }
-
-  .icon {
-    font-size: 1.25rem;
-    cursor: pointer;
-  }
-
-  img {
-    height: auto;
-    width: 100%;
-  }
-
-  .btn {
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 8px;
-    padding: 0.8rem 1rem;
-    color: grey;
-  }
-
-  .btn {
-    .icon {
-      margin-left: 0.5rem;
-    }
-
-    &:hover {
-      color: $primary-color;
-      background-color: $secondary-color;
-    }
-  }
-
   .input-error {
     border: 2px solid rgb(221, 9, 9) !important;
   }
@@ -605,5 +533,15 @@
     bottom: -12px;
     width: 100%;
     text-align: center;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
 }

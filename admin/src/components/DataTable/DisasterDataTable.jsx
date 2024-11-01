@@ -3,39 +3,37 @@ import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {Link} from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import { toast, ToastContainer } from 'react-toastify';
 
 // Define columns including custom rendering of the 'title' field with an image
 
 
 export const DisasterDataTable = () => {
   const [data, setData] = useState([]);
-   const [deleteId, setDeleteId] = useState(null); // Track row to delete
-   const [open, setOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null); // Track row to delete
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
 
-   const handleOpen = (id) => {
-     setDeleteId(id);
-     setOpen(true);
-   };
+  const handleOpen = (id) => {
+    setDeleteId(id);
+    setOpen(true);
+  };
 
-   const handleClose = () => setOpen(false);
+  const handleClose = () => setOpen(false);
 
-   const handleDeleteConfirm = () => {
-     if (deleteId !== null) {
-       deleteRow(deleteId);
-       handleClose();
-     }
-   };
-
-   const deleteRow = async (id) => {
-     try {
-       await axios.delete(`http://localhost:8800/api/incidents/${id}`);
-       setData((prevData) => prevData.filter((item) => item.id !== id));
-     } catch (error) {
-       console.error('Error deleting data:', error);
-     }
-   };
+  const deleteIncident = async (id) => {
+    try {
+      await axios.delete(
+        `http://localhost:8800/api/incidents/admin/${id}`
+      );
+      setData((prevData) => prevData.filter((item) => item.id !== id));
+      toast.success("Incident Deleted Successfully.", {containerId: "disasterTable"})
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -50,6 +48,13 @@ export const DisasterDataTable = () => {
     });
   };
 
+  const handleDeleteConfirm = () => {
+    if (deleteId !== null) {
+      deleteIncident(deleteId);
+      handleClose();
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,8 +65,17 @@ export const DisasterDataTable = () => {
       }
     };
 
+    if (location.state?.refresh) {
+      fetchData();
+    }
+
     fetchData();
-  }, []);
+  }, [location.state]);
+
+  // Helper function to capitalize the first letter
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 2, minWidth: 100 },
@@ -91,18 +105,18 @@ export const DisasterDataTable = () => {
     {
       field: 'status',
       headerName: 'Status',
-      flex: 2/3,
+      flex: 2 / 3,
       minWidth: 100,
-      valueGetter: (value, row) =>
-        `${row.isApproved ? 'Approved' : 'Pending'}`,
+      valueGetter: (value, row) => `${row.isApproved}`,
       renderCell: (params) => (
         <div>
           <span className={`status ${params.row.isApproved}`}>
-            {params.row.isApproved ? 'Approved' : 'Pending'}
+            {capitalizeFirstLetter(params.row.isApproved)}
           </span>
         </div>
       ),
-    }, 
+    },
+    { field: 'sentEmail',type: "boolean", headerName: 'Email', flex: 1/2, minWidth: 40 },
   ];
 
   const actionColumn = [
@@ -135,9 +149,6 @@ export const DisasterDataTable = () => {
     },
   ];
 
-
-
-
   // Map the fetched data to the format expected by the DataGrid
   const rows = data.map((item) => ({
     id: item.id,
@@ -151,6 +162,7 @@ export const DisasterDataTable = () => {
     time: formatTime(item.createdAt),
     reportedBy: item.user.fname,
     isApproved: item.isApproved,
+    sentEmail: item.sentEmail
   }));
 
   const paginationModel = { page: 0, pageSize: 9 };
@@ -187,6 +199,7 @@ export const DisasterDataTable = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <ToastContainer containerId="disasterTable" />
     </div>
   );
 };

@@ -141,6 +141,12 @@
       }
     }
 
+    .rejected-btn {
+      background-color: rgb(172, 0, 0);
+      border: 2px solid rgb(161, 7, 7);
+      pointer-events: none;
+    }
+
     .confirm-btn {
       background-color: rgba(0, 97, 0, 0.609);
       border: 2px solid rgb(0, 41, 0);
@@ -148,6 +154,14 @@
       &:hover {
         background-color: rgb(0, 97, 0);
       }
+    }
+
+    .confirmed-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-color: rgb(0, 97, 0);
     }
   }
 }

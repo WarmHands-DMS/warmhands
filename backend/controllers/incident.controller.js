@@ -101,17 +101,71 @@ export const deleteIncident = async (req, res) => {
     }
 };
 
-export const approveIncident = async (req, res) => {
-  const id = req.params.id; // Get the incident ID from the request parameters
+export const updateIncidentMailSent = async (req, res) => {
+  const id = req.params.id;
   try {
     const updatedIncident = await prisma.incident.update({
       where: { id: id },
-      data: { isApproved: true }, // Set isApproved to true
+      data: { sentEmail: true },
     });
 
-    res.status(200).json(updatedIncident); // Respond with the updated incident
+    res.status(200).json(updatedIncident);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to update incident.' });
+  }
+};
+
+export const approveIncident = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const updatedIncident = await prisma.incident.update({
+      where: { id: id },
+      data: { isApproved: "approved" },
+    });
+
+    res.status(200).json(updatedIncident); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to approve incident.' });
+  }
+};
+
+export const rejectIncident = async (req, res) => {
+  const id = req.params.id; 
+  try {
+    const rejectIncident = await prisma.incident.update({
+      where: { id: id },
+      data: { isApproved: 'rejected' },
+    });
+
+    res.status(200).json(rejectIncident); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to reject incident.' });
+  }
+};
+
+
+export const deleteIncidentByAdmin = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    // const incident = await prisma.incident.findUnique({
+    //   where: { id: id },
+    // });
+
+    // if (incident.userId !== tokenUserId) {
+    //   return res.status(403).json({ message: 'Not Authorized.' });
+    // }
+
+    await prisma.incident.delete({
+      where: { id: id },
+    });
+
+    res.status(200).json({ message: 'Incident deleted successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Failed to delete incident' });
   }
 };

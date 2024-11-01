@@ -9,20 +9,22 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  DialogContentText,
 } from '@mui/material';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const UserDataTable = () => {
   const [data, setData] = useState([]); // State to hold user data
-  const [open, setOpen] = useState(false); // State for modal visibility
+  const [open, setOpen] = useState(false); // State for view modal visibility
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // State for delete dialog visibility
   const [selectedUser, setSelectedUser] = useState(null); // State for selected user
+  const [deleteId, setDeleteId] = useState(null); // Track user to delete
 
-  // Function to format date as 'MM/DD/YYYY'
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { timeZone: 'Asia/Colombo' });
   };
 
-  // Function to format time as 'hh:mm AM/PM'
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleTimeString('en-US', {
@@ -31,27 +33,33 @@ export const UserDataTable = () => {
     });
   };
 
-  // Fetch user data and incidents from API
+  const deleteUser = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8800/api/users/admin/${id}`);
+      setData((prevData) => prevData.filter((user) => user.id !== id));
+      toast.success('User removed successfully.', {
+        containerId: 'userTable',
+      });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch users
         const userResponse = await axios.get('http://localhost:8800/api/users');
         const users = userResponse.data;
-
-        // Fetch incidents
         const incidentResponse = await axios.get(
           'http://localhost:8800/api/incidents'
         );
         const allIncidents = incidentResponse.data;
 
-        // Map users to include their incident counts
         const usersWithIncidentCounts = users.map((user) => {
-          // Filter incidents by userId
           const userIncidents = allIncidents.filter(
             (incident) => incident.userId === user.id
           );
-          return { ...user, incidentCount: userIncidents.length }; // Add incident count to user
+          return { ...user, incidentCount: userIncidents.length };
         });
 
         setData(usersWithIncidentCounts);
@@ -63,10 +71,23 @@ export const UserDataTable = () => {
     fetchData();
   }, []);
 
-  // Log fetched data for debugging
-  console.log(data);
+  const handleOpenViewDialog = (user) => {
+    setSelectedUser(user);
+    setOpen(true);
+  };
 
-  // Column definitions for DataGrid
+  const handleOpenDeleteDialog = (id) => {
+    setDeleteId(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (deleteId !== null) {
+      deleteUser(deleteId);
+      setDeleteDialogOpen(false);
+    }
+  };
+
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1, minWidth: 100 },
     {
@@ -78,7 +99,7 @@ export const UserDataTable = () => {
       renderCell: (params) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img
-            src={params.row.avatar || '/no-avatar.png'} // Fallback for avatar
+            src={params.row.avatar || '/no-avatar.png'}
             alt="thumbnail"
             className="cellImage"
           />
@@ -95,12 +116,11 @@ export const UserDataTable = () => {
     {
       field: 'incidentCount',
       headerName: 'Incidents Reported',
-      flex: 1/2,
+      flex: 1 / 2,
       minWidth: 80,
-    }, // New column for incident count
+    },
   ];
 
-  // Action column for viewing and deleting users
   const actionColumn = [
     {
       field: 'action',
@@ -111,36 +131,28 @@ export const UserDataTable = () => {
         <div className="disaster-buttons">
           <span
             className="view-btn"
-            onClick={(event) => {
-              event.stopPropagation(); // Prevent event from bubbling up
-              setSelectedUser(params.row); // Set the selected user
-              setOpen(true); // Open the modal
-            }}
+            onClick={() => handleOpenViewDialog(params.row)}
           >
             View
           </span>
           <span
             className="delete-btn"
-            onClick={(event) => {
-              event.stopPropagation();
-              // Logic for deletion can be implemented here
-            }}
+            onClick={() => handleOpenDeleteDialog(params.row.id)}
           >
-            Delete
+            Remove
           </span>
         </div>
       ),
     },
   ];
 
-  const paginationModel = { page: 0, pageSize: 12 }; // Pagination settings
+  const paginationModel = { page: 0, pageSize: 12 };
 
-  // Map the fetched data to the format expected by the DataGrid
   const rows = data.map((item) => ({
     id: item.id,
-    avatar: item.avatar || null, // Use avatar or fallback to null
-    fname: item.fname, // Access fname directly
-    lname: item.lname, // Access lname directly
+    avatar: item.avatar || null,
+    fname: item.fname,
+    lname: item.lname,
     email: item.email,
     mobile: item.mobile,
     nic: item.nic,
@@ -148,12 +160,11 @@ export const UserDataTable = () => {
     address: item.address,
     city: item.city,
     province: item.province,
-    date: formatDate(item.createdAt), // Format date
-    time: formatTime(item.createdAt), // Format time
-    incidentCount: item.incidentCount || 0, // Include incident count (default to 0 if not available)
+    date: formatDate(item.createdAt),
+    time: formatTime(item.createdAt),
+    incidentCount: item.incidentCount || 0,
   }));
 
-  // Close modal and clear selected user
   const handleClose = () => {
     setOpen(false);
     setSelectedUser(null);
@@ -165,7 +176,7 @@ export const UserDataTable = () => {
       <Paper sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
         <DataGrid
           rows={rows}
-          columns={columns.concat(actionColumn)} // Combine columns with action column
+          columns={columns.concat(actionColumn)}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[5, 12]}
           checkboxSelection
@@ -179,13 +190,11 @@ export const UserDataTable = () => {
         <DialogContent>
           {selectedUser && (
             <div>
-              <div className="profile-image">
-                <img
-                  src={selectedUser.avatar}
-                  alt={`${selectedUser.fname} profile`}
-                  style={{ height: '100%', width: '100%' }}
-                />
-              </div>
+              <img
+                src={selectedUser.avatar}
+                alt={`${selectedUser.fname} profile`}
+                style={{ height: '100%', width: '100%' }}
+              />
               <p>
                 <strong>User ID:</strong> {selectedUser.id}
               </p>
@@ -235,6 +244,27 @@ export const UserDataTable = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+      >
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this user?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="secondary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ToastContainer containerId="userTable" />
     </div>
   );
 };

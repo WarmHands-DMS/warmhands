@@ -51,7 +51,8 @@ model Incident {
   longitude String
   latitude String
   createdAt DateTime @default(now())
-  isApproved Boolean  @default(false)
+  isApproved String  @default("pending")
+  sentEmail Boolean @default(false)
   approvedAt DateTime? 
   approvedBy Admin? @relation(fields: [approvedById], references: [id])
   approvedById String? @db.ObjectId
@@ -64,7 +65,7 @@ model IncidentDetail {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   deaths Int?
   casualities Int?
-  incident Incident @relation(fields:[incidentId], references: [id])
+  incident Incident @relation(fields:[incidentId], references: [id], onDelete: Cascade)
   incidentId String @db.ObjectId @unique
 }
 

@@ -13,11 +13,16 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 export const IncidentPage = () => {
-  const incident = useLoaderData(); // Fetch incident data
+ const initialIncident = useLoaderData();; // Fetch incident data
   const [emailPopupOpen, setEmailPopupOpen] = useState(false);
+  const [rejectPopupOpen, setRejectPopupOpen] = useState(false);
   const navigate = useNavigate();
+  const [incident, setIncident] = useState(initialIncident);
+
+ 
 
   // Format the date/time
   const displayTime = new Intl.DateTimeFormat('en-US', {
@@ -34,24 +39,58 @@ export const IncidentPage = () => {
   // Open and close dialog functions
   const handleOpenEmailPopup = () => setEmailPopupOpen(true);
   const handleCloseEmailPopup = () => setEmailPopupOpen(false);
+  const handleOpenRejectPopup = () => setRejectPopupOpen(true);
+  const handleCloseRejectPopup = () => setRejectPopupOpen(false);
 
   const handleConfirm = async () => {
+    if (incident.isApproved === 'approved') {
+      toast.success('Incident already approved!', {
+        containerId: 'incident',
+      });
+      handleCloseEmailPopup();
+      return true;
+    } else {
     try {
       await axios.put(
         `http://localhost:8800/api/incidents/${incident.id}/approve`
       );
-     toast.success('Incident approved successfully!'); // Show success toast
+      setIncident((prev) => ({ ...prev, isApproved: 'approved' }));
+      toast.success('Incident approved successfully!', {
+        containerId: 'incident',
+      }); // Show success toast
       handleCloseEmailPopup();
     } catch (error) {
       toast.error('Failed to approve incident.'); // Show error toast
       console.error(error);
     }
+  }};
+
+  const handleReject = async () => {
+    try {
+      await axios.put(
+        `http://localhost:8800/api/incidents/${incident.id}/reject`
+      );
+      setIncident((prev) => ({ ...prev, isApproved: 'rejected' }));
+      toast.success('Incident rejected successfully!', {
+        containerId: 'incident',
+      }); // Show success toast
+      handleCloseRejectPopup();
+    } catch (error) {
+      toast.error('Failed to reject incident.'); // Show error toast
+      console.error(error);
+    }
   };
 
   const handleSend = () => {
-    handleConfirm(); // Approve the incident
-    navigate(`/${incident.id}/send-emails`, {state: { toastMessage: 'Incident approved successfully!' }});
-  };
+    if (incident.isApproved === "approved") {
+      navigate(`/${incident.id}/send-emails`, {
+        state: { toastMessage: 'Incident already approved!' },
+      });
+    } else {
+    navigate(`/${incident.id}/send-emails`, {
+      state: { toastMessage: 'Incident approved successfully!' },
+    });
+  }};
 
   return (
     <div className="incidentPage">
@@ -126,9 +165,27 @@ export const IncidentPage = () => {
         </div>
       </div>
       <div className="bottom">
-        <span className="reject-btn">Reject</span>
-        <span className="confirm-btn" onClick={handleOpenEmailPopup}>
-          Confirm
+        <span
+          className={`reject-btn ${
+            incident.isApproved === 'rejected' ? 'rejected-btn' : ''
+          }`}
+          onClick={handleOpenRejectPopup}
+        >
+          {incident.isApproved === 'rejected' ? 'Rejected' : 'Reject'}
+        </span>
+        <span
+          className={`confirm-btn ${
+            incident.isApproved === 'approved' ? 'confirmed-btn' : ''
+          }`}
+          onClick={handleOpenEmailPopup}
+        >
+          {incident.isApproved === 'approved' ? (
+            <>
+              Confirmed <CheckCircleIcon style={{fontSize: 20}}/>
+            </>
+          ) : (
+            'Confirm'
+          )}
         </span>
       </div>
 
@@ -143,6 +200,20 @@ export const IncidentPage = () => {
           <div>
             <Button onClick={handleConfirm}>Confirm Only</Button>
             <Button onClick={handleSend}>Send Emails</Button>
+          </div>
+        </DialogActions>
+      </Dialog>
+
+      {/* rejection Dialog for Sending Emails */}
+      <Dialog open={rejectPopupOpen} onClose={handleCloseRejectPopup}>
+        <DialogTitle>Reject Incident</DialogTitle>
+        <DialogContent>
+          Are you sure you want to reject this incident?
+        </DialogContent>
+        <DialogActions style={{ justifyContent: 'space-between' }}>
+          <Button onClick={handleCloseRejectPopup}>Cancel</Button>
+          <div>
+            <Button onClick={handleReject}>Reject</Button>
           </div>
         </DialogActions>
       </Dialog>

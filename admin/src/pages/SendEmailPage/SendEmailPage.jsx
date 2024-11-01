@@ -27,7 +27,7 @@ export const SendEmailPage = () => {
    }, [location, navigate]);
 
   useEffect(() => {
-    setSubject(`Incident Alert: ${incident.title} in ${incident.city}`);
+    setSubject(`Disaster Alert: ${incident.title} in ${incident.city}`);
 
     // Sanitize and parse the description
     const sanitizedHtml = DOMPurify.sanitize(incident.description);
@@ -36,39 +36,57 @@ export const SendEmailPage = () => {
     const plainTextDescription = doc.body.textContent || '';
 
     // Format message without extra indentation
-    const additionalInfo = `Incident Summary:
+    const additionalInfo = `Disaster Summary:
   - Location: ${incident.city}
   - Deaths: ${incident.incidentDetail.deaths || '0'}
   - Casualties: ${incident.incidentDetail.casualities || '0'}
 
-Incident Details:
+Disaster Details:
   ${plainTextDescription}
 
-View the full incident report here: http://http://localhost:5173/${
+View the full disaster report here: http://http://localhost:5173/${
       incident.id
     }`;
 
     setMessage(additionalInfo);
   }, [incident]);
 
-  const handleSend = async () => {
+  const handleUpdateSentEmail = async () => {
     try {
-      await axios.post(
-        `http://localhost:8800/api/users/${currentAdmin.id}/send-emails/${incident.city}`,
-
-        {
-          subject,
-          message,
-        },
-        { withCredentials: true }
+      await axios.put(
+        `http://localhost:8800/api/incidents/${incident.id}/email-sent`
       );
-      toast.success('Emails sent successfully');
-      navigate(`/disasters`, { state: { toastMessage: 'Emails sent successfully!' } });
     } catch (error) {
-      toast.error('Failed to send emails');
       console.error(error);
     }
   };
+
+  const handleSend = async () => {
+    if (incident.userCount === 0) {
+      toast.error('There are no users in this district.', { containerId: toastContainerId });
+    } else {
+      try {
+        await axios.post(
+          `http://localhost:8800/api/users/${currentAdmin.id}/send-emails/${incident.city}`,
+
+          {
+            subject,
+            message,
+          },
+          { withCredentials: true }
+        );
+        toast.success('Emails sent successfully', {
+          containerId: toastContainerId,
+        });
+        handleUpdateSentEmail();
+        navigate(`/disasters`, {
+          state: { toastMessage: 'Emails sent successfully!', refresh: true },
+        });
+      } catch (error) {
+        toast.error('Failed to send emails', { containerId: toastContainerId });
+        console.error(error);
+      }
+  }};
 
   const goBack = () => {
     navigate(`/${incident.id}`);
@@ -107,9 +125,16 @@ View the full incident report here: http://http://localhost:5173/${
         </div>
         <div className="email-btns">
           <span onClick={goBack}>Cancel</span>
-          <span onClick={handleSend}>Send</span>
+          <span onClick={handleSend}>
+            {incident.sentEmail ? 'Send Again' : 'Send'}
+          </span>
         </div>
       </div>
+      {incident.sentEmail && (
+        <div className="email-sent-message">
+          Emails for this incident have already been sent.
+        </div>
+      )}
       <ToastContainer containerId={toastContainerId} />
     </div>
   );
