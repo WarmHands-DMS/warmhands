@@ -7,6 +7,9 @@ import Cyclone from '../../assets/cyclone.svg';
 import Flood from '../../assets/flood.svg';
 import Tsunami from '../../assets/tsunami.svg';
 import Fire from '../../assets/fire.svg';
+// import AddBoxIcon from '@mui/icons-material/AddBox';
+import MapIcon from '@mui/icons-material/Map';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 
 export const HomePage = () => {
 
@@ -44,8 +47,13 @@ export const HomePage = () => {
           </p>
           {/* <SearchBar />         */}
           <div className="hero-btn">
-            <Link to={"/news"}>Latest Updates</Link>
-            <Link to={currentUser ? "/report" : "/signin"}>Report Disaster</Link>
+            <Link to={'/news'}>
+              Latest Updates <ViewCarouselIcon className="icon" />
+            </Link>
+            <Link to={'/map'}>
+              Disaster Map <MapIcon className="icon" />
+            </Link>
+            {/* <Link to={currentUser ? "/report" : "/signin"}>Report Disaster <AddBoxIcon className="icon"/></Link> */}
           </div>
         </div>
       </div>

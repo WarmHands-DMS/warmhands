@@ -1,11 +1,44 @@
-import { useState, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import apiReq from '../../lib/apiReq';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import ViewDayIcon from '@mui/icons-material/ViewDay';
+import Logout from '@mui/icons-material/Logout';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 export const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const { currentUser } = useContext(AuthContext);
+  const [openMobile, setOpenMobile] = useState(false);
+  const { updateUser, currentUser } = useContext(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await apiReq.post('/auth/user/logout');
+      updateUser(null);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Material Menu
+   const [anchorEl, setAnchorEl] = React.useState(null);
+   const open = Boolean(anchorEl);
+   const handleClick = (event) => {
+     setAnchorEl(event.currentTarget);
+   };
+   const handleClose = () => {
+     setAnchorEl(null);
+   };
 
   // Function to determine if the link is active
   const isActive = (path) => location.pathname === path;
@@ -55,26 +88,147 @@ export const Navbar = () => {
         {currentUser ? (
           <div className="user-btn">
             <div className="desktop">
-              <div className="user">
+              {/* <div className="user">
                 <img
                   src={currentUser.avatar || '/no-avatar.png'}
                   alt="profile-pic"
                 />
                 <span>{currentUser.fname}</span>
               </div>
-              <Link className="profile-btn" to="/profile">
+              */}
+              <Link className="report-btn" to="/report">
                 {/* <div className="notification">2</div> */}
-                <span>Profile</span>
+                <span>Make Report</span>{' '}
+                <span>
+                  <PostAddIcon className="icon" />
+                </span>
               </Link>
+
+              <React.Fragment>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                  }}
+                >
+                  <div className="user-btn">
+                    <Tooltip title="Account settings">
+                      <IconButton
+                        onClick={handleClick}
+                        size="small"
+                        sx={{ ml: 2 }}
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                      >
+                        {currentUser.fname}
+                        <Avatar sx={{ width: 38, height: 38 }}>
+                          <img
+                            src={currentUser.avatar || '/no-avatar.png'}
+                            alt="profile-pic"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              borderRadius: '50%',
+                            }}
+                          />
+                        </Avatar>
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                </Box>
+                <Menu
+                  anchorEl={anchorEl}
+                  id="account-menu"
+                  open={open}
+                  onClose={handleClose}
+                  onClick={handleClose}
+                  slotProps={{
+                    paper: {
+                      elevation: 0,
+                      sx: {
+                        overflow: 'visible',
+                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        mt: 1.5,
+                        '& .MuiAvatar-root': {
+                          width: 32,
+                          height: 32,
+                          ml: -0.5,
+                          mr: 1,
+                        },
+                        '&::before': {
+                          content: '""',
+                          display: 'block',
+                          position: 'absolute',
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: 'background.paper',
+                          transform: 'translateY(-50%) rotate(45deg)',
+                          zIndex: 0,
+                        },
+                      },
+                    },
+                  }}
+                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                >
+                  <Link to="/profile?tab=profile">
+                    <MenuItem
+                      onClick={handleClose}
+                      className="menu-profile"
+                      style={{ margin: '0 5px 10px 5px', borderRadius: '5px' }}
+                    >
+                      <Avatar>
+                        <img
+                          src={currentUser.avatar || '/no-avatar.png'}
+                          alt="profile-pic"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '50%',
+                          }}
+                        />
+                      </Avatar>
+                      Profile
+                    </MenuItem>
+                  </Link>
+                  <Link to="/profile?tab=reports">
+                    <MenuItem
+                      onClick={handleClose}
+                      className="menu-reports"
+                      style={{ margin: '0 5px 10px 5px', borderRadius: '5px' }}
+                    >
+                      <Avatar sx={{ width: 32, height: 32 }}>
+                        <ViewDayIcon className="icon" />
+                      </Avatar>
+                      Reports
+                    </MenuItem>
+                  </Link>
+                  <Divider />
+                  <MenuItem
+                    style={{ margin: '10px 5px 0 5px', borderRadius: '5px' }}
+                    className="menu-logout"
+                    onClick={handleLogout}
+                  >
+                    <ListItemIcon className="icon">
+                      <Logout fontSize="small" />
+                    </ListItemIcon>
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </React.Fragment>
             </div>
-            <div className="mobile">
+            {/* <div className="mobile">
               <Link to="/profile" className="user">
                 <img
                   src={currentUser.avatar || '/no-avatar.png'}
                   alt="profile-pic"
                 />
               </Link>
-            </div>
+            </div> */}
           </div>
         ) : (
           <div className="nav-btn">
@@ -86,44 +240,72 @@ export const Navbar = () => {
             </Link>
           </div>
         )}
+
         <i
-          className={open ? 'hide' : 'fa-solid fa-bars fa-xl mobile-menu show'}
-          onClick={() => setOpen(!open)}
+          className={
+            openMobile ? 'hide' : 'fa-solid fa-bars fa-xl mobile-menu show'
+          }
+          style={{
+            marginBottom: '8px',
+          }}
+          onClick={() => setOpenMobile(!openMobile)}
         ></i>
         <i
           className={
-            !open ? 'hide' : 'fa-solid fa-circle-xmark fa-xl mobile-menu show'
+            !openMobile
+              ? 'hide'
+              : 'fa-solid fa-circle-xmark fa-xl mobile-menu show'
           }
           style={{ color: 'white' }}
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpenMobile(!openMobile)}
         ></i>
-        <div className={open ? 'menu active' : 'menu'}>
-          <Link to="/" className="mob-link" onClick={() => setOpen(!open)}>
+        <div className={openMobile ? 'menu active' : 'menu'}>
+          <Link
+            to="/"
+            className="mob-link"
+            onClick={() => setOpenMobile(!openMobile)}
+          >
             Home
           </Link>
-          <Link to="/news" className="mob-link" onClick={() => setOpen(!open)}>
+          <Link
+            to="/news"
+            className="mob-link"
+            onClick={() => setOpenMobile(!openMobile)}
+          >
             News
           </Link>
-          <Link to="/map" className="mob-link" onClick={() => setOpen(!open)}>
+          <Link
+            to="/map"
+            className="mob-link"
+            onClick={() => setOpenMobile(!openMobile)}
+          >
             Map
           </Link>
           <Link
             to="/contact"
             className="mob-link"
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpenMobile(!openMobile)}
           >
             Contact
           </Link>
-          <Link to="signin" className="signin" onClick={() => setOpen(!open)}>
-            Sign in
-          </Link>
-          <Link
-            to="/register"
-            className="register"
-            onClick={() => setOpen(!open)}
-          >
-            Register
-          </Link>
+          {!currentUser && (
+            <>
+              <Link
+                to="signin"
+                className="signin"
+                onClick={() => setOpenMobile(!openMobile)}
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/register"
+                className="register"
+                onClick={() => setOpenMobile(!openMobile)}
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

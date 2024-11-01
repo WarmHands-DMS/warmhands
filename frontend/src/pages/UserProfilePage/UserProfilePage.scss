@@ -34,21 +34,7 @@
 //                 flex-direction: column;
 //                 gap: 30px;
 
-//                 .profileImage {
-//                     position: relative;
-//                     display: flex;
-//                     justify-content: start;
-
-//                     img {
-//                         height: 186px;
-//                         width: 186px;
-//                         object-fit: cover;
-//                         border-radius: 50%;
-//                         border: 3px solid $primary-color;
-
-//                     }
-
-//                 }
+//
 
 //                 .btn-sec {
 //                     display: flex;
@@ -164,149 +150,160 @@
 // }
 
 .userProfilePage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
-  background: #494e57;
-
-  ::selection {
-  background: rgba(187, 134, 252, 0.5);
-  color: #fff;
-}
-
-.container {
-  max-width: 950px;
-  width: 100%;
-  padding: 50px 40px;
-  margin: 0px 20px;
-  border-radius: 12px;
-  background: #22272c;
-  box-shadow: 0px 4px 16px rgba(254, 205, 211, 0.1),
-    0px 8px 24px rgba(254, 205, 211, 0.1),
-    0px 16px 56px rgba(254, 205, 211, 0.1);
-}
-
-.container .topic {
-  font-size: 30px;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.content input {
-  display: none;
-}
-
-.content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.content .list {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 20%;
-  margin-right: 50px;
-}
-
-.content .list label {
-  cursor: pointer;
-  height: 60px;
-  line-height: 60px;
-  font-size: 22px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  padding-left: 25px;
-  transition: all 0.5s ease;
-  z-index: 10;
-}
-
-#home:checked ~ .list label.home,
-#blog:checked ~ .list label.blog,
-#help:checked ~ .list label.help,
-#code:checked ~ .list label.code,
-#about:checked ~ .list label.about {
-  color: #22272c;
-}
-
-.content .slider {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 60px;
-  width: 100%;
-  border-radius: 12px;
-  transition: all 0.5s ease;
-
-  background: #bb86fc;
-}
-
-#home:checked ~ .list .slider {
-  top: 0;
-}
-
-#blog:checked ~ .list .slider {
-  top: 60px;
-}
-
-#help:checked ~ .list .slider {
-  top: 120px;
-}
-
-#code:checked ~ .list .slider {
-  top: 180px;
-}
-
-#about:checked ~ .list .slider {
-  top: 240px;
-}
-
-.content .text-content {
-  width: 80%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   height: 100%;
-  color: rgba(255, 255, 255, 0.7);
-}
 
-.content .text {
-  display: none;
-}
+  .wrapper {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    gap: 10px;
 
-.content .text .title {
-  font-size: 25px;
-  margin-bottom: 10px;
-  font-weight: 500;
-}
+    .container {
+      flex: 2;
+      width: 20%;
 
-.container .text p {
-  text-align: justify;
-}
+      .main-title {
+        font-size: 30px;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
 
-.content .text-content .home {
-  display: block;
-}
+      .content {
+        height: fit-content;
+        padding: 40px 5px 10px 5px;
+        border: 2px solid rgb(199, 199, 199);
+        border-radius: 5px;
 
-#home:checked ~ .text-content .home,
-#blog:checked ~ .text-content .blog,
-#help:checked ~ .text-content .help,
-#code:checked ~ .text-content .code,
-#about:checked ~ .text-content .about {
-  display: block;
-}
+        input[type='radio'] {
+          display: none;
+        }
 
-#blog:checked ~ .text-content .home,
-#help:checked ~ .text-content .home,
-#code:checked ~ .text-content .home,
-#about:checked ~ .text-content .home {
-  display: none;
-}
+        .profile-summary {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
 
-.content .list label:hover {
-  color: #bb86fc;
-}
+          .name {
+            font-size: 22px;
+            font-weight: 500;
+            color: #111;
+          }
 
-}
+          .info {
+            font-size: 16px;
+            color: #444;
+          }
 
+          .profileImage {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+
+            img {
+              height: 162px;
+              width: 162px;
+              object-fit: cover;
+              border-radius: 50%;
+              border: 3px solid $primary-color;
+            }
+          }
+        }
+
+        .list {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          position: relative;
+          width: 100%;
+          margin-top: 30px;
+
+          .disable {
+            pointer-events: none;
+          }
+
+          label {
+            display: flex;
+            align-items: center;
+            height: 48px;
+            font-size: 16px;
+            width: 100%;
+            font-weight: 400;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            white-space: nowrap;
+            z-index: 15;
+            color: rgb(100, 100, 100);
+            gap: 3px;
+
+            &:hover {
+              background-color: #d0ebff;
+              color: $primary-color;
+
+              .icon {
+                color: $primary-color;
+              }
+            }
+          }
+
+          .logout {
+            &:hover {
+              background-color: #ffc6c6;
+              color: rgb(73, 73, 73);
+
+              .icon {
+                color: #8b0000;
+              }
+            }
+          }
+        }
+
+        .indicator {
+          height: 48px;
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 0;
+          border-radius: 8px;
+          background-color: $primary-color !important;
+          transition: all 0.2s ease;
+          z-index: 12;
+        }
+
+        #profile:checked ~ .list .indicator {
+          top: 0;
+        }
+
+        #reports:checked ~ .list .indicator {
+          top: 56px;
+        }
+
+        #profile:checked ~ .list .profile,
+        #reports:checked ~ .list .reports {
+          color: #eee;
+        }
+
+        #profile:checked ~ .tab-content .profile,
+        #reports:checked ~ .tab-content .reports {
+          display: block;
+        }
+
+        #reports:checked ~ .tab-content .profile {
+          display: none;
+        }
+      }
+    }
+
+    .tab-content {
+      flex: 6;
+      padding: 20px;
+      background: lightblue;
+    }
+  }
+}
