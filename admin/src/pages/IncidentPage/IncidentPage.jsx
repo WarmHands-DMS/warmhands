@@ -146,7 +146,7 @@ export const IncidentPage = () => {
           </div>
         </DialogActions>
       </Dialog>
-      <ToastContainer />
+      <ToastContainer containerId="incident" />
     </div>
   );
 };

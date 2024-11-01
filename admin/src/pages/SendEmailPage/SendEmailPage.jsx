@@ -12,17 +12,20 @@ export const SendEmailPage = () => {
   const incident = useLoaderData(); // Access data from loader
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
   const { currentAdmin } = useContext(AdminAuthContext);
+  const navigate = useNavigate();
   const location = useLocation();
+  const toastContainerId = 'sendEmail-toast';
 
-  useEffect(() => {
-    if (location.state?.toastMessage) {
-      toast.success(location.state.toastMessage);
-      navigate(location.pathname, { replace: true, state: {} });
-    }
-  }, [location, navigate]);
-  
+   useEffect(() => {
+     if (location.state?.toastMessage) {
+       toast.success(location.state.toastMessage, {
+         containerId: toastContainerId,
+       });
+       navigate(location.pathname, { replace: true, state: {} });
+     }
+   }, [location, navigate]);
+
   useEffect(() => {
     setSubject(`Incident Alert: ${incident.title} in ${incident.city}`);
 
@@ -107,7 +110,7 @@ View the full incident report here: http://http://localhost:5173/${
           <span onClick={handleSend}>Send</span>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer containerId={toastContainerId} />
     </div>
   );
 };

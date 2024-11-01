@@ -1,179 +1,184 @@
-.userProfilePage {
-    display: flex;
-    height: 100%;
+// .userProfilePage {
+//     display: flex;
+//     height: 100%;
     
 
-    .details {
-        flex: 3;
-        height: 100%;
+//     .details {
+//         flex: 3;
+//         height: 100%;
 
-        .wrapper {
-            padding-right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-            overflow-y: scroll;
-            height: 100%;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+//         .wrapper {
+//             padding-right: 30px;
+//             display: flex;
+//             flex-direction: column;
+//             gap: 50px;
+//             overflow-y: scroll;
+//             height: 100%;
+//             -ms-overflow-style: none;
+//             scrollbar-width: none;
 
 
-            .title {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 20px;
+//             .title {
+//                 display: flex;
+//                 flex-direction: row;
+//                 align-items: center;
+//                 justify-content: space-between;
+//                 margin-bottom: 20px;
 
-                h2 {
-                    white-space: nowrap;
-                }
+//                 h2 {
+//                     white-space: nowrap;
+//                 }
 
-            }
+//             }
 
-            .info {
-                display: flex;
-                flex-direction: column;
-                gap: 30px;
+//             .info {
+//                 display: flex;
+//                 flex-direction: column;
+//                 gap: 30px;
                 
 
-                .profileImage {
-                    position: relative;
-                    display: flex;
-                    justify-content: start;
+//                 .profileImage {
+//                     position: relative;
+//                     display: flex;
+//                     justify-content: start;
 
-                    img {
-                        height: 186px;
-                        width: 186px;
-                        object-fit: cover;
-                        border-radius: 50%;
-                        border: 3px solid $primary-color;
+//                     img {
+//                         height: 186px;
+//                         width: 186px;
+//                         object-fit: cover;
+//                         border-radius: 50%;
+//                         border: 3px solid $primary-color;
 
                         
-                    }
+//                     }
 
                     
 
                     
                     
-                }
+//                 }
 
-                .btn-sec {
-                    display: flex;
-                    align-items: center;
-                    justify-content: start;
-                    gap: 10px;
+//                 .btn-sec {
+//                     display: flex;
+//                     align-items: center;
+//                     justify-content: start;
+//                     gap: 10px;
 
-                    .update {
-                        background-color: $primary-color;
-                        border: none;
-                        width: 108px;
-                        height: 34px;
-                        border-radius: 10px;
-                        color: #eee;
-                        cursor: pointer;
-                        font-size: 15px;
+//                     .update {
+//                         background-color: $primary-color;
+//                         border: none;
+//                         width: 108px;
+//                         height: 34px;
+//                         border-radius: 10px;
+//                         color: #eee;
+//                         cursor: pointer;
+//                         font-size: 15px;
                     
-                    }
+//                     }
 
-                    .logout {
-                        width: 100px;
-                        background-color: maroon;
-                        border: 2px solid maroon;
-                        color: #ddd;
-                        padding: 6px 10px;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-size: 15px;
-                    }
-                }
+//                     .logout {
+//                         width: 100px;
+//                         background-color: maroon;
+//                         border: 2px solid maroon;
+//                         color: #ddd;
+//                         padding: 6px 10px;
+//                         border-radius: 8px;
+//                         cursor: pointer;
+//                         font-size: 15px;
+//                     }
+//                 }
 
                 
 
 
 
-            }
-        }
-    }
+//             }
+//         }
+//     }
 
-    .reports {
-        flex: 3;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
+//     .reports {
+//         flex: 3;
+//         height: 100%;
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         justify-content: space-between;
+//         gap: 20px;
 
-        .button {
-            height: 10%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+//         .button {
+//             height: 10%;
+//             width: 100%;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
 
             
 
-            button {
-                background-color: $primary-color;
-                border: none;
-                width: 100%;
-                height: 48px;
-                border-radius: 10px;
-                font-size: 16px;
-                color: #eee;
-                cursor: pointer;
-            }
-        }
+//             button {
+//                 background-color: $primary-color;
+//                 border: none;
+//                 width: 100%;
+//                 height: 48px;
+//                 border-radius: 10px;
+//                 font-size: 16px;
+//                 color: #eee;
+//                 cursor: pointer;
+//             }
+//         }
         
 
-        .wrapper {
-            background-color: $secondary-color;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-            height: 90%;
-            width: 100%;
+//         .wrapper {
+//             background-color: $secondary-color;
+//             padding: 30px;
+//             display: flex;
+//             flex-direction: column;
+//             gap: 50px;
+//             height: 90%;
+//             width: 100%;
 
-            .title {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 20px;
-                height: 5%;
+//             .title {
+//                 display: flex;
+//                 flex-direction: row;
+//                 align-items: center;
+//                 justify-content: space-between;
+//                 margin-bottom: 20px;
+//                 height: 5%;
 
-                h2 {
-                    white-space: nowrap;
-                }
+//                 h2 {
+//                     white-space: nowrap;
+//                 }
 
-                button {
-                    background-color: $primary-color;
-                    border: none;
-                    width: 78px;
-                    height: 34px;
-                    border-radius: 10px;
-                    color: #eee;
-                    cursor: pointer;
+//                 button {
+//                     background-color: $primary-color;
+//                     border: none;
+//                     width: 78px;
+//                     height: 34px;
+//                     border-radius: 10px;
+//                     color: #eee;
+//                     cursor: pointer;
                     
-                }
+//                 }
 
-            }
+//             }
 
-            .incidents {
-                height: 100%;
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-                overflow-y: scroll;
-                width: 100%;
+//             .incidents {
+//                 height: 100%;
+//                 -ms-overflow-style: none;
+//                 scrollbar-width: none;
+//                 overflow-y: scroll;
+//                 width: 100%;
 
-                .no-reports {
-                    width: 100%;
-                }
+//                 .no-reports {
+//                     width: 100%;
+//                 }
             
-            }
+//             }
 
-        }
-    }
+//         }
+//     }
+// }
+
+
+.userProfilePage {
+    
 }

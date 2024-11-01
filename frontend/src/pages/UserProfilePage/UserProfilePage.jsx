@@ -39,63 +39,7 @@ export const UserProfilePage = () => {
 
   return (
     <div className="userProfilePage">
-      {/* <div className="details">
-        <div className="wrapper">
-          <div className="user-info">
-            <div className="title">
-              <h2>User Information</h2>
-            </div>
-            <div className="info">
-              <div className="profileImage">
-                <img
-                  src={currentUser.avatar || 'no-avatar.png'}
-                  alt="profile-pic"
-                />
-              </div>
-              <div className="details">
-                <div>
-                  Name:{' '}
-                  <span>{currentUser.fname + ' ' + currentUser.lname}</span>
-                </div>
-                <div>
-                  E-mail: <span>{currentUser.email}</span>
-                </div>
-              </div>
-              <div className="btn-sec">
-                <button
-                  className="update"
-                  onClick={() => navigate('/profile/update')}
-                >
-                  Update
-                </button>
-                <button className="logout" onClick={handleLogout}>
-                  Logout
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="reports">
-        <Link className="button" to="/report">
-          <button>Report New Incident</button>
-        </Link>
-        <div className="wrapper">
-          <div className="title">
-            <h2>My Reports</h2>
-            {incidents.length > 2 ? <button>View All</button> : <div></div>}
-          </div>
-          <div className="incidents">
-            {incidents.length > 0 ? (
-              <List data={incidents} /> // Pass incidents as prop to List component
-            ) : (
-              <div className="no-reports">
-                <img src="/no-reports.svg" alt="No reports yet" />
-              </div>
-            )}
-          </div>
-        </div>
-      </div> */}
+      
     </div>
   );
 };

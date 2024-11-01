@@ -23,7 +23,7 @@ export const Sidebar = () => {
       try {
         await apiReq.post('/auth/admin/logout');
         updateAdmin(null);
-        navigate('/');
+        navigate(`/`, { state: { toastMessage: 'Admin Logout successfully!' } });
       } catch (error) {
         toast.error('Failed to logout');
         console.log(error);
@@ -96,11 +96,11 @@ export const Sidebar = () => {
           </ul>
         </div>
       </div>
-      <div className="bottom">
+      <div className="bottom" onClick={handleLogout}>
         <LogoutIcon className="icon" />
-        <span onClick={handleLogout}>Logout</span>
+        <span>Logout</span>
       </div>
-      <ToastContainer />
+      <ToastContainer containerId="sidebar" />
     </div>
   );
 }
