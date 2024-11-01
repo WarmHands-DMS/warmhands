@@ -1,7 +1,6 @@
 // .userProfilePage {
 //     display: flex;
 //     height: 100%;
-    
 
 //     .details {
 //         flex: 3;
@@ -16,7 +15,6 @@
 //             height: 100%;
 //             -ms-overflow-style: none;
 //             scrollbar-width: none;
-
 
 //             .title {
 //                 display: flex;
@@ -35,7 +33,6 @@
 //                 display: flex;
 //                 flex-direction: column;
 //                 gap: 30px;
-                
 
 //                 .profileImage {
 //                     position: relative;
@@ -49,13 +46,8 @@
 //                         border-radius: 50%;
 //                         border: 3px solid $primary-color;
 
-                        
 //                     }
 
-                    
-
-                    
-                    
 //                 }
 
 //                 .btn-sec {
@@ -73,7 +65,7 @@
 //                         color: #eee;
 //                         cursor: pointer;
 //                         font-size: 15px;
-                    
+
 //                     }
 
 //                     .logout {
@@ -87,10 +79,6 @@
 //                         font-size: 15px;
 //                     }
 //                 }
-
-                
-
-
 
 //             }
 //         }
@@ -112,8 +100,6 @@
 //             align-items: center;
 //             justify-content: center;
 
-            
-
 //             button {
 //                 background-color: $primary-color;
 //                 border: none;
@@ -125,7 +111,6 @@
 //                 cursor: pointer;
 //             }
 //         }
-        
 
 //         .wrapper {
 //             background-color: $secondary-color;
@@ -156,7 +141,7 @@
 //                     border-radius: 10px;
 //                     color: #eee;
 //                     cursor: pointer;
-                    
+
 //                 }
 
 //             }
@@ -171,14 +156,157 @@
 //                 .no-reports {
 //                     width: 100%;
 //                 }
-            
+
 //             }
 
 //         }
 //     }
 // }
 
-
 .userProfilePage {
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  background: #494e57;
+
+  ::selection {
+  background: rgba(187, 134, 252, 0.5);
+  color: #fff;
 }
+
+.container {
+  max-width: 950px;
+  width: 100%;
+  padding: 50px 40px;
+  margin: 0px 20px;
+  border-radius: 12px;
+  background: #22272c;
+  box-shadow: 0px 4px 16px rgba(254, 205, 211, 0.1),
+    0px 8px 24px rgba(254, 205, 211, 0.1),
+    0px 16px 56px rgba(254, 205, 211, 0.1);
+}
+
+.container .topic {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.content input {
+  display: none;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content .list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 20%;
+  margin-right: 50px;
+}
+
+.content .list label {
+  cursor: pointer;
+  height: 60px;
+  line-height: 60px;
+  font-size: 22px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  padding-left: 25px;
+  transition: all 0.5s ease;
+  z-index: 10;
+}
+
+#home:checked ~ .list label.home,
+#blog:checked ~ .list label.blog,
+#help:checked ~ .list label.help,
+#code:checked ~ .list label.code,
+#about:checked ~ .list label.about {
+  color: #22272c;
+}
+
+.content .slider {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+
+  background: #bb86fc;
+}
+
+#home:checked ~ .list .slider {
+  top: 0;
+}
+
+#blog:checked ~ .list .slider {
+  top: 60px;
+}
+
+#help:checked ~ .list .slider {
+  top: 120px;
+}
+
+#code:checked ~ .list .slider {
+  top: 180px;
+}
+
+#about:checked ~ .list .slider {
+  top: 240px;
+}
+
+.content .text-content {
+  width: 80%;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.content .text {
+  display: none;
+}
+
+.content .text .title {
+  font-size: 25px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.container .text p {
+  text-align: justify;
+}
+
+.content .text-content .home {
+  display: block;
+}
+
+#home:checked ~ .text-content .home,
+#blog:checked ~ .text-content .blog,
+#help:checked ~ .text-content .help,
+#code:checked ~ .text-content .code,
+#about:checked ~ .text-content .about {
+  display: block;
+}
+
+#blog:checked ~ .text-content .home,
+#help:checked ~ .text-content .home,
+#code:checked ~ .text-content .home,
+#about:checked ~ .text-content .home {
+  display: none;
+}
+
+.content .list label:hover {
+  color: #bb86fc;
+}
+
+}
+
