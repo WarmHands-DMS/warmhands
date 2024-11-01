@@ -12,19 +12,22 @@ export const NewsPage = () => {
     disasterType: 'all',
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8800/api/incidents');
-        setData(response.data);
-        setFilteredData(response.data); // Initially set filteredData to all incidents
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8800/api/incidents');
+      const approvedIncidents = response.data.filter(
+        (incident) => incident.isApproved === 'approved'
+      );
+      setData(approvedIncidents);
+      setFilteredData(approvedIncidents); // Set filtered data to approved incidents
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
-    fetchData();
-  }, []);
+  fetchData();
+}, []);
 
   useEffect(() => {
     const filterData = () => {

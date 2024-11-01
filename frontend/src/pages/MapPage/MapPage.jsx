@@ -9,7 +9,10 @@ export const MapPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8800/api/incidents');
-        setData(response.data);
+        const approvedIncidents = response.data.filter(
+          (incident) => incident.isApproved === 'approved'
+        );
+        setData(approvedIncidents); // Only set approved incidents
       } catch (error) {
         console.error('Error fetching data:', error);
       }

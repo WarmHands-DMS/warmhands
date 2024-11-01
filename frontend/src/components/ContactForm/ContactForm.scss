@@ -1,5 +1,38 @@
 .contactForm {
-    form {
+  .submit-msg {
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    display: none;
+
+    &.sending {
+      display: block;
+      background-color: #eee71173;
+    }
+
+    &.sent {
+      display: block;
+      background-color: #11ee2b73;
+    }
+  }
+
+  .input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(2px);
+    border: 2px solid grey;
+    margin-bottom: 14px;
+
+    .icon {
+      color: grey;
+    }
+  }
+
+  form {
     display: flex;
     flex-direction: column;
     width: 500px;
@@ -8,31 +41,31 @@
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
-
     input,
     textarea {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      outline: none;
+      border: none;
       font-size: 16px;
 
       &:focus {
         outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
       }
     }
 
     textarea {
       height: 100px;
       resize: vertical;
+      font-family: 'poppins', 'Roboto', 'Lato', sans-serif;
+      font-size: 15px;
+      padding: 5px 2px;
     }
 
     button {
       padding: 10px 15px;
-      background-color: #007bff;
+      background-color: #007fd4;
       color: white;
       font-size: 16px;
       border: none;
