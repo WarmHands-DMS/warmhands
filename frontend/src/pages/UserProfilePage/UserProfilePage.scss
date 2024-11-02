@@ -219,7 +219,7 @@
             font-size: 16px;
             color: #444;
 
-             @include md {
+            @include md {
               font-size: 15px;
             }
           }
@@ -359,6 +359,12 @@
         overflow-y: auto;
       }
 
+      .title-main {
+        font-size: 22px;
+        font-weight: 500;
+        color: #111;
+      }
+
       .profile {
         display: flex;
         flex-direction: column;
@@ -382,12 +388,6 @@
             border-radius: 50%;
             border: 3px solid $primary-color;
           }
-        }
-
-        .title-main {
-          font-size: 22px;
-          font-weight: 500;
-          color: #111;
         }
 
         .profileInfo {
@@ -462,6 +462,76 @@
               box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             }
           }
+        }
+      }
+
+      .reports {
+        display: flex;
+        flex-direction: column;
+
+        .title-section {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .add-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: $primary-color;
+            color: #eee;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+
+            &:hover {
+              box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+              .icon {
+                transition: 0.3s ease-in-out;
+                scale: 1.05;
+              }
+            }
+          }
+        }
+
+        .no-reports {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          position: relative;
+          margin-top: 46px;
+
+          img {
+            width: 80%;
+            height: 80%;
+          }
+
+          div {
+            padding: 10px 20px;
+            position: absolute;
+            background-color: #c3bd0087;
+            backdrop-filter: blur(4px);
+            font-size: 28px;
+            border-radius: 12px;
+            font-weight: 500;
+            color: #333;
+
+            @include md {
+              font-size: 22px;
+            }
+
+            @include sm {
+              font-size: 20px;
+            }
+          }
+        }
+
+        .reported {
+          margin-top: 28px;
         }
       }
     }

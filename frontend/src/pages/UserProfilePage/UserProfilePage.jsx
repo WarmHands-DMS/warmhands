@@ -13,6 +13,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { toast, ToastContainer } from 'react-toastify';
 
 export const UserProfilePage = () => {
@@ -287,9 +288,23 @@ export const UserProfilePage = () => {
           {activeTab === 'reports' && (
             <div className="reports text">
               <div className="title-section">
-                <div className="title">My Reports</div>
-                
+                <div className="title-main">My Reports</div>
+                <Link to="/report">
+                  <span className="add-btn">
+                    Add <AddBoxIcon className="icon" />
+                  </span>
+                </Link>
               </div>
+              {incidents.length > 0 ? (
+                <div className="reported">
+                  <List data={incidents} />
+                </div>
+              ) : (
+                <div className="no-reports">
+                  <div>Report and Save Others from Disasters</div>
+                  <img src="/no-reports.svg" alt="No reports yet" />
+                </div>
+              )}
             </div>
           )}
         </div>
