@@ -16,6 +16,7 @@
     width: 80%;
     border-radius: 10px;
     background-color: #eeeeee82;
+    box-shadow: 0 7px 50px $shadow-color;
 
     @include md {
       height: 100%;
@@ -36,7 +37,7 @@
     }
     
     
-  box-shadow: 0 7px 50px $shadow-color;
+  
 
     .video-section {
       position: relative;

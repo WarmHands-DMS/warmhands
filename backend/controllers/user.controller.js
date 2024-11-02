@@ -68,6 +68,49 @@ export const updateUsers = async (req, res) => {
     }
 }
 
+
+export const changeUserPassword = async (req, res) => {
+  const id = req.params.id;
+  const tokenUserId = req.userId;
+  const { currentPassword, newPassword } = req.body;
+
+  if (id !== tokenUserId) {
+    return res.status(403).json({ message: 'Not Authorized.' });
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: id },
+    });
+
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+    if (!isPasswordValid) {
+      return res
+        .status(401)
+        .json({ message: 'Current password is incorrect.' });
+    }
+
+    // Hash new password
+    const updatedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update password in the database
+    const updatedUser = await prisma.user.update({
+      where: { id: id },
+      data: { password: updatedPassword },
+    });
+    const { password: userPassword, ...rest } = updatedUser;
+    res.status(200).json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Failed to change password.' });
+  }
+};
+
+
+
 export const deleteUsers = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;

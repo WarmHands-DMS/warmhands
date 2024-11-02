@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import apiReq from '../../lib/apiReq';
 import { useContext, useEffect, useState } from 'react';
@@ -6,6 +7,13 @@ import { List } from '../../components/List/List';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ViewDayIcon from '@mui/icons-material/ViewDay';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const UserProfilePage = () => {
   const { updateUser, currentUser } = useContext(AuthContext);
@@ -13,6 +21,19 @@ export const UserProfilePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('profile');
+
+  // Material
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  console.log(currentUser);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -33,6 +54,52 @@ export const UserProfilePage = () => {
       navigate('/');
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handlePasswordChangeSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const formJson = Object.fromEntries(formData.entries());
+
+    const currentPassword = formJson.currentPassword;
+    const newPassword = formJson.newPassword;
+    const confirmNewPassword = formJson.confirmNewPassword;
+
+    // Check if the new passwords match
+    if (newPassword !== confirmNewPassword) {
+      toast.error('New passwords do not match.', {
+        containerId: 'profilePage',
+      });
+      return;
+    }
+
+    try {
+      // Send request to backend
+      const response = await apiReq.put(
+        `/users/password-change/${currentUser.id}`,
+        {
+          currentPassword,
+          newPassword,
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success('Password changed successfully!', {
+          containerId: 'profilePage',
+        });
+        handleClose();
+      } else {
+        toast.error(response.data.message || 'Failed to change password.', {
+          containerId: 'profilePage',
+        });
+      }
+    } catch (error) {
+      console.error('Error changing password:', error);
+      const errorMessage =
+        error.response?.data?.message ||
+        'An error occurred while changing the password.';
+      toast.error(errorMessage, { containerId: 'profilePage' });
     }
   };
 
@@ -106,7 +173,7 @@ export const UserProfilePage = () => {
                 <ViewDayIcon className="icon" />
                 <span className="topic">My Reports</span>
               </label>
-              <label htmlFor="logout" className="logout">
+              <label htmlFor="logout" className="logout" onClick={handleLogout}>
                 <LogoutIcon className="icon" />
                 <span className="topic">Log out</span>
               </label>
@@ -114,99 +181,178 @@ export const UserProfilePage = () => {
             </div>
           </div>
         </div>
-        <div className="tab-content">
+        <div className="tab-content scrollbar">
           {activeTab === 'profile' && (
             <div className="profile text">
-              <div className="title">Profile</div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                repellat neque maxime natus aspernatur consectetur reprehenderit
-                quibusdam fugit optio exercitationem eligendi error sequi
-                voluptates, placeat temporibus omnis iste alias qui.
-              </p>
+              <div className="title-main">Profile Information</div>
+              <div className="profileImage">
+                <img
+                  src={currentUser.avatar || 'no-avatar.png'}
+                  alt="profile-pic"
+                />
+              </div>
+              <div className="profileInfo">
+                <div className="detail-title">
+                  <div className="title">Full Name</div>
+                  <div className="title">Home Address</div>
+                  <div className="title">Email</div>
+                  <div className="title">Mobile</div>
+                  <div className="title">NIC</div>
+                  <div className="title">City</div>
+                  <div className="title">District</div>
+                  <div className="title">Province</div>
+                </div>
+                <div className="detail-info">
+                  <div className="detail">
+                    {currentUser.fname + ' ' + currentUser.lname}
+                  </div>
+                  <div className="detail">{currentUser.address}</div>
+                  <div className="detail">{currentUser.email}</div>
+                  <div className="detail">{currentUser.mobile}</div>
+                  <div className="detail">{currentUser.nic}</div>
+                  <div className="detail">{currentUser.city}</div>
+                  <div className="detail">{currentUser.district}</div>
+                  <div className="detail">{currentUser.province}</div>
+                </div>
+              </div>
+              <div className="btn-sec">
+                <button
+                  className="update"
+                  onClick={() => navigate('/profile/update')}
+                >
+                  Edit Profile
+                </button>
+                {/* <button className="password">
+                   Change Password
+                 </button> */}
+                <React.Fragment>
+                  <Button
+                    className="password"
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  >
+                    Change Password
+                  </Button>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    PaperProps={{
+                      component: 'form',
+                      onSubmit: handlePasswordChangeSubmit,
+                    }}
+                  >
+                    <DialogTitle>Change Your Password</DialogTitle>
+                    <DialogContent>
+                      <TextField
+                        autoFocus
+                        required
+                        margin="dense"
+                        id="currentPassword"
+                        name="currentPassword"
+                        label="Current Password"
+                        type="password"
+                        fullWidth
+                        variant="standard"
+                      />
+                      <TextField
+                        required
+                        margin="dense"
+                        id="newPassword"
+                        name="newPassword"
+                        label="New Password"
+                        type="password"
+                        fullWidth
+                        variant="standard"
+                      />
+                      <TextField
+                        required
+                        margin="dense"
+                        id="confirmNewPassword"
+                        name="confirmNewPassword"
+                        label="Confirm New Password"
+                        type="password"
+                        fullWidth
+                        variant="standard"
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Cancel</Button>
+                      <Button type="submit">Change</Button>
+                    </DialogActions>
+                  </Dialog>
+                </React.Fragment>
+              </div>
             </div>
           )}
           {activeTab === 'reports' && (
             <div className="reports text">
-              <div className="title">Reports</div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                repellat neque maxime natus aspernatur consectetur reprehenderit
-                quibusdam fugit optio exercitationem eligendi error sequi
-                voluptates, placeat temporibus omnis iste alias qui.
-              </p>
+              <div className="title-section">
+                <div className="title">My Reports</div>
+                
+              </div>
             </div>
           )}
         </div>
       </div>
+      <ToastContainer containerId="profilePage" />
     </div>
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-      // <div classNameName="details">
-      //   <div classNameName="wrapper">
-      //     <div classNameName="user-info">
-      //       <div classNameName="title">
-      //         <h2>User InhtmlFormation</h2>
-      //       </div>
-      //       <div classNameName="info">
-      //         <div classNameName="profileImage">
-      //           <img
-      //             src={currentUser.avatar || 'no-avatar.png'}
-      //             alt="profile-pic"
-      //           />
-      //         </div>
-      //         <div classNameName="details">
-      //           <div>
-      //             Name:{' '}
-      //             <span>{currentUser.fname + ' ' + currentUser.lname}</span>
-      //           </div>
-      //           <div>
-      //             E-mail: <span>{currentUser.email}</span>
-      //           </div>
-      //         </div>
-      //         <div classNameName="btn-sec">
-      //           <button
-      //             classNameName="update"
-      //             onClick={() => navigate('/profile/update')}
-      //           >
-      //             Update
-      //           </button>
-      //           <button classNameName="logout" onClick={handleLogout}>
-      //             Logout
-      //           </button>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
-      // <div classNameName="reports">
-      //   <Link classNameName="button" to="/report">
-      //     <button>Report New Incident</button>
-      //   </Link>
-      //   <div classNameName="wrapper">
-      //     <div classNameName="title">
-      //       <h2>My Reports</h2>
-      //       {incidents.length > 2 ? <button>View All</button> : <div></div>}
-      //     </div>
-      //     <div classNameName="incidents">
-      //       {incidents.length > 0 ? (
-      //         <List data={incidents} /> // Pass incidents as prop to List component
-      //       ) : (
-      //         <div classNameName="no-reports">
-      //           <img src="/no-reports.svg" alt="No reports yet" />
-      //         </div>
-      //       )}
-      //     </div>
-      //   </div>
-      // </div>
+// <div classNameName="details">
+//   <div classNameName="wrapper">
+//     <div classNameName="user-info">
+//       <div classNameName="title">
+//         <h2>User InhtmlFormation</h2>
+//       </div>
+//       <div classNameName="info">
+//         <div classNameName="profileImage">
+//           <img
+//             src={currentUser.avatar || 'no-avatar.png'}
+//             alt="profile-pic"
+//           />
+//         </div>
+//         <div classNameName="details">
+//           <div>
+//             Name:{' '}
+//             <span>{currentUser.fname + ' ' + currentUser.lname}</span>
+//           </div>
+//           <div>
+//             E-mail: <span>{currentUser.email}</span>
+//           </div>
+//         </div>
+//         <div classNameName="btn-sec">
+//           <button
+//             classNameName="update"
+//             onClick={() => navigate('/profile/update')}
+//           >
+//             Update
+//           </button>
+//           <button classNameName="logout" onClick={handleLogout}>
+//             Logout
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </div>
+// <div classNameName="reports">
+//   <Link classNameName="button" to="/report">
+//     <button>Report New Incident</button>
+//   </Link>
+//   <div classNameName="wrapper">
+//     <div classNameName="title">
+//       <h2>My Reports</h2>
+//       {incidents.length > 2 ? <button>View All</button> : <div></div>}
+//     </div>
+//     <div classNameName="incidents">
+//       {incidents.length > 0 ? (
+//         <List data={incidents} /> // Pass incidents as prop to List component
+//       ) : (
+//         <div classNameName="no-reports">
+//           <img src="/no-reports.svg" alt="No reports yet" />
+//         </div>
+//       )}
+//     </div>
+//   </div>
+// </div>

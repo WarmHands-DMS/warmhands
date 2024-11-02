@@ -161,9 +161,18 @@
     height: 100%;
     gap: 10px;
 
+    @include sm {
+      flex-direction: column;
+    }
+
     .container {
       flex: 2;
       width: 20%;
+
+      @include sm {
+        width: 100%;
+        flex: 1;
+      }
 
       .main-title {
         font-size: 30px;
@@ -177,6 +186,10 @@
         border: 2px solid rgb(199, 199, 199);
         border-radius: 5px;
 
+        @include sm {
+          padding: 10px 5px;
+        }
+
         input[type='radio'] {
           display: none;
         }
@@ -188,15 +201,27 @@
           align-items: center;
           text-align: center;
 
+          @include sm {
+            display: none;
+          }
+
           .name {
             font-size: 22px;
             font-weight: 500;
             color: #111;
+
+            @include md {
+              font-size: 18px;
+            }
           }
 
           .info {
             font-size: 16px;
             color: #444;
+
+             @include md {
+              font-size: 15px;
+            }
           }
 
           .profileImage {
@@ -211,6 +236,11 @@
               object-fit: cover;
               border-radius: 50%;
               border: 3px solid $primary-color;
+
+              @include md {
+                height: 148px;
+                width: 148px;
+              }
             }
           }
         }
@@ -222,6 +252,11 @@
           position: relative;
           width: 100%;
           margin-top: 30px;
+
+          @include sm {
+            margin-top: 0;
+            flex-direction: row;
+          }
 
           .disable {
             pointer-events: none;
@@ -253,6 +288,10 @@
           }
 
           .logout {
+            @include sm {
+              display: none;
+            }
+
             &:hover {
               background-color: #ffc6c6;
               color: rgb(73, 73, 73);
@@ -274,6 +313,10 @@
           background-color: $primary-color !important;
           transition: all 0.2s ease;
           z-index: 12;
+
+          @include sm {
+            width: 50%;
+          }
         }
 
         #profile:checked ~ .list .indicator {
@@ -282,6 +325,11 @@
 
         #reports:checked ~ .list .indicator {
           top: 56px;
+
+          @include sm {
+            top: 0;
+            left: 50%;
+          }
         }
 
         #profile:checked ~ .list .profile,
@@ -303,7 +351,119 @@
     .tab-content {
       flex: 6;
       padding: 20px;
-      background: lightblue;
+      height: 100%;
+      // background: lightblue;
+
+      @include sm {
+        padding: 10px 5px;
+        overflow-y: auto;
+      }
+
+      .profile {
+        display: flex;
+        flex-direction: column;
+
+        .profileImage {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          margin-bottom: 10px;
+          display: none;
+          margin-top: 28px;
+
+          @include sm {
+            display: block;
+          }
+
+          img {
+            height: 162px;
+            width: 162px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid $primary-color;
+          }
+        }
+
+        .title-main {
+          font-size: 22px;
+          font-weight: 500;
+          color: #111;
+        }
+
+        .profileInfo {
+          margin-top: 16px;
+          display: flex;
+
+          .detail-title {
+            font-size: 17px;
+
+            width: 25%;
+            font-weight: 500;
+            color: #222;
+
+            .title {
+              border-bottom: 1px solid #ccc;
+              padding: 20px 0;
+            }
+          }
+
+          .detail-info {
+            font-size: 17px;
+            width: 75%;
+            color: #555;
+
+            .detail {
+              border-bottom: 1px solid #ccc;
+              padding: 20px 0;
+            }
+          }
+        }
+
+        .btn-sec {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          gap: 10px;
+          margin: 24px 0;
+
+          .update {
+            background-color: $primary-color;
+            border: none;
+            border: 2px solid $primary-color;
+            border-radius: 4px;
+            color: #eee;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 9px 22px;
+            font-family: 'poppins', 'Roboto', 'Lato', sans-serif;
+
+            &:hover {
+              box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+              background-color: #007fd4d2;
+            }
+          }
+
+          .password {
+            border: 2px solid $primary-color;
+
+            color: #111;
+            padding: 9px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            white-space: nowrap;
+            transition: 0.2s ease-in-out;
+            font-family: 'poppins', 'Roboto', 'Lato', sans-serif;
+
+            &:hover {
+              background-color: $primary-color;
+              color: #eee;
+
+              box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+      }
     }
   }
 }
