@@ -132,19 +132,28 @@ export const deleteUsers = async (req, res) => {
 
 
 export const deleteUsersByAdmin = async (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    try {
-        await prisma.user.delete({
-            where: {id: id}
-        })
-        res.status(200).json({message: "User deleted."})
+  try {
+    // Delete incidents for this user with "Rejected" or "Pending" status
+    await prisma.incident.deleteMany({
+      where: {
+        userId: id,
+        isApproved: { in: ['rejected', 'pending'] },
+      },
+    });
 
-    } catch(error) {
-        console.log(error)
-        res.status(500).json({message: "Failed to delete user."})
-    }
-}
+    // Delete the user after removing unapproved incidents
+    await prisma.user.delete({
+      where: { id: id },
+    });
+
+    res.status(200).json({ message: 'User and related incidents deleted.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to delete user.' });
+  }
+};
 
 
 export const countUsersByCity = async (req, res) => {

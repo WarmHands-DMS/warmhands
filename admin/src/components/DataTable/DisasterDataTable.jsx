@@ -160,9 +160,9 @@ export const DisasterDataTable = () => {
     province: item.province,
     date: formatDate(item.createdAt),
     time: formatTime(item.createdAt),
-    reportedBy: item.user.fname,
+    reportedBy: item.user?.fname || '-',
     isApproved: item.isApproved,
-    sentEmail: item.sentEmail
+    sentEmail: item.sentEmail,
   }));
 
   const paginationModel = { page: 0, pageSize: 9 };

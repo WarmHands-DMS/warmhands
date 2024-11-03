@@ -107,17 +107,17 @@ export const UserDataTable = () => {
         </div>
       ),
     },
-    { field: 'email', headerName: 'Email', flex: 2, minWidth: 200 },
+    { field: 'email', headerName: 'Email', flex: 2, minWidth: 180 },
     { field: 'mobile', headerName: 'Mobile', flex: 1, minWidth: 120 },
     { field: 'nic', headerName: 'NIC', flex: 1, minWidth: 120 },
-    { field: 'address', headerName: 'Address', flex: 2, minWidth: 250 },
+    { field: 'address', headerName: 'Address', flex: 2, minWidth: 200 },
     { field: 'city', headerName: 'City', flex: 1, minWidth: 100 },
     { field: 'province', headerName: 'Province', flex: 1, minWidth: 100 },
     {
       field: 'incidentCount',
       headerName: 'Incidents Reported',
-      flex: 1 / 2,
-      minWidth: 80,
+      flex: 1 / 3,
+      minWidth: 50,
     },
   ];
 
@@ -146,7 +146,7 @@ export const UserDataTable = () => {
     },
   ];
 
-  const paginationModel = { page: 0, pageSize: 12 };
+  const paginationModel = { page: 0, pageSize: 8 };
 
   const rows = data.map((item) => ({
     id: item.id,
@@ -178,7 +178,7 @@ export const UserDataTable = () => {
           rows={rows}
           columns={columns.concat(actionColumn)}
           initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 12]}
+          pageSizeOptions={[5, 8]}
           checkboxSelection
           autoHeight
           sx={{ border: 0 }}
