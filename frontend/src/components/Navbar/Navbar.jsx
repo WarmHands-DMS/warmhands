@@ -123,7 +123,7 @@ export const Navbar = () => {
                         aria-expanded={open ? 'true' : undefined}
                       >
                         {currentUser.fname}
-                        <Avatar sx={{ width: 38, height: 38 }}>
+                        <Avatar sx={{ width: 38, height: 38, objectFit: "cover" }}>
                           <img
                             src={currentUser.avatar || '/no-avatar.png'}
                             alt="profile-pic"
@@ -131,6 +131,7 @@ export const Navbar = () => {
                               width: '100%',
                               height: '100%',
                               borderRadius: '50%',
+                              objectFit: "cover"
                             }}
                           />
                         </Avatar>

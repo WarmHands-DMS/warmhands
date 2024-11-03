@@ -8,7 +8,7 @@ router.get("/", getIncidents);
 router.get("/:id", getIncident);
 router.post("/", verifyToken, addIncident);
 router.put("/:id", verifyToken, updateIncident);
-router.delete("/:id", verifyToken, deleteIncident);
+router.delete("/user/:id", verifyToken, deleteIncident);
 
 router.put('/:id/approve', approveIncident);
 router.put('/:id/reject', rejectIncident);

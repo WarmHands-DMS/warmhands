@@ -38,11 +38,14 @@ function UploadWidget({ uwConfig, setState }) {
   const initializeCloudinaryWidget = () => {
     if (window.cloudinary && !widget) {
       const myWidget = window.cloudinary.createUploadWidget(
-        uwConfig,
+        {
+          ...uwConfig,
+          sources: ['local', 'camera', 'url'], 
+        },
         (error, result) => {
           if (!error && result && result.event === 'success') {
             console.log('Done! Here is the image info: ', result.info);
-            setState(prev => [...prev, result.info.secure_url]);
+            setState((prev) => [...prev, result.info.secure_url]);
           }
         }
       );

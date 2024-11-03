@@ -6,8 +6,8 @@ export const getIncidents = async (req, res) => {
       include: {
         user: {
           select: {
-            fname: true, // Include the user's first name
-            lname: true, // Include the user's last name
+            fname: true, 
+            lname: true, 
           },
         },
       },
@@ -80,6 +80,8 @@ export const deleteIncident = async (req, res) => {
     const id = req.params.id;
     const tokenUserId = req.userId;
 
+    console.log(id)
+
     try {
         const incident = await prisma.incident.findUnique({
             where: {id: id}
@@ -151,14 +153,6 @@ export const deleteIncidentByAdmin = async (req, res) => {
   const id = req.params.id;
 
   try {
-    // const incident = await prisma.incident.findUnique({
-    //   where: { id: id },
-    // });
-
-    // if (incident.userId !== tokenUserId) {
-    //   return res.status(403).json({ message: 'Not Authorized.' });
-    // }
-
     await prisma.incident.delete({
       where: { id: id },
     });

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import apiReq from '../../lib/apiReq';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { List } from '../../components/List/List';
+import { ProfileIncidentList } from '../../components/List/ProfileIncidentList';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ViewDayIcon from '@mui/icons-material/ViewDay';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -15,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { toast, ToastContainer } from 'react-toastify';
+import axios from 'axios';
 
 export const UserProfilePage = () => {
   const { updateUser, currentUser } = useContext(AuthContext);
@@ -33,8 +34,6 @@ export const UserProfilePage = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  console.log(currentUser);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -104,8 +103,10 @@ export const UserProfilePage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchIncidents = async () => {
+   
+
+ 
+    const fetchIncidents = React.useCallback(async () => {
       try {
         const response = await apiReq.get(
           'http://localhost:8800/api/incidents'
@@ -118,9 +119,28 @@ export const UserProfilePage = () => {
       } catch (error) {
         console.log(error);
       }
-    };
+    }, [currentUser.id]);
+   
+
+
+  const handleDeleteIncident = async (id) => {
+    console.log(id);
+    try {
+      await axios.delete(`http://localhost:8800/api/incidents/user/${id}`, {
+        withCredentials: true,
+      });
+      toast.success('Incident Deleted Successfully.', {
+        containerId: 'profilePage',
+      });
+      fetchIncidents();
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  };
+
+   useEffect(() => {
     fetchIncidents();
-  }, [currentUser.id]);
+  }, [fetchIncidents]);
 
   return (
     <div className="userProfilePage">
@@ -296,8 +316,8 @@ export const UserProfilePage = () => {
                 </Link>
               </div>
               {incidents.length > 0 ? (
-                <div className="reported">
-                  <List data={incidents} />
+                <div className="reported scrollbar">
+                  <ProfileIncidentList data={incidents} onDelete={handleDeleteIncident}/>
                 </div>
               ) : (
                 <div className="no-reports">

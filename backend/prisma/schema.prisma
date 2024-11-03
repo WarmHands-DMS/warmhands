@@ -36,6 +36,20 @@ model Admin {
   mobile String
   createdAt DateTime? @default(now())
   incidents Incident[]
+  sentMails Email[] 
+}
+
+model Email {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  message String
+  userCount Int?
+  city String
+  createdAt DateTime? @default(now())
+  sentBy Admin @relation(fields: [sentById], references: [id])
+  sentById String @db.ObjectId
+  incident Incident @relation(fields: [incidentId], references: [id]) 
+  incidentId String @db.ObjectId
 }
 
 model Incident {
@@ -59,7 +73,9 @@ model Incident {
   user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId String? @db.ObjectId
   incidentDetail IncidentDetail?
+  sentMails Email[] 
 }
+
 
 model IncidentDetail {
   id String @id @default(auto()) @map("_id") @db.ObjectId

@@ -17,6 +17,7 @@ export const SendEmailPage = () => {
   const location = useLocation();
   const toastContainerId = 'sendEmail-toast';
 
+
    useEffect(() => {
      if (location.state?.toastMessage) {
        toast.success(location.state.toastMessage, {
@@ -75,9 +76,25 @@ View the full disaster report here: http://localhost:5173/${
           },
           { withCredentials: true }
         );
+
+
+        await axios.post(
+          `http://localhost:8800/api/emails/add`,
+
+          {
+            title: subject,
+            userCount: incident.userCount,
+            city: incident.city,
+            message,
+            incidentId: incident.id
+          },
+          { withCredentials: true }
+        );
+
         toast.success('Emails sent successfully', {
           containerId: toastContainerId,
         });
+
         handleUpdateSentEmail();
         navigate(`/disasters`, {
           state: { toastMessage: 'Emails sent successfully!', refresh: true },

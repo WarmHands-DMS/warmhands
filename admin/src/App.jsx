@@ -8,6 +8,7 @@ import { IncidentPage } from './pages/IncidentPage/IncidentPage';
 import { SendEmailPage } from './pages/SendEmailPage/SendEmailPage';
 import { SigninPage } from './pages/SigninPage/SigninPage';
 import { AuthLayout } from './layout/Layout';
+import { EmailListPage } from './pages/EmailListPage/EmailListPage';
 
 // const router = createBrowserRouter([
 //   {
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: 'disasters',
         element: <DisasterListPage />,
+      },
+      {
+        path: 'mails',
+        element: <EmailListPage />,
       },
     ],
   },

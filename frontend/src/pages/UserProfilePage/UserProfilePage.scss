@@ -350,7 +350,7 @@
 
     .tab-content {
       flex: 6;
-      padding: 20px;
+      padding: 5px 20px;
       height: 100%;
       // background: lightblue;
 
@@ -468,6 +468,7 @@
       .reports {
         display: flex;
         flex-direction: column;
+        height: 100%;
 
         .title-section {
           display: flex;
@@ -532,6 +533,8 @@
 
         .reported {
           margin-top: 28px;
+          overflow-y: auto;
+          padding: 8px 8px 46px 8px;
         }
       }
     }
