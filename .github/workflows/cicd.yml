@@ -72,8 +72,8 @@ jobs:
 
       - name: Pull and deploy services with Docker Compose
         run: |
-          docker-compose -f /home/ubuntu/actions-runner/_work/warmhands/warmhands/docker-compose.yaml pull
-          docker-compose -f /home/ubuntu/actions-runner/_work/warmhands/warmhands/docker-compose.yaml up -d
+          docker-compose -f docker-compose.yaml pull
+          docker-compose -f docker-compose.yaml up -d
 
       - name: Validate Docker Compose Configuration
         run: docker-compose config
