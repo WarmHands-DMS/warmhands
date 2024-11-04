@@ -1,0 +1,4 @@
+DATABASE_URL="mongodb+srv://alertwarmhands:UqeSH08WeYo2Ape4@warmhands.lvi1ehg.mongodb.net/warmhands?retryWrites=true&w=majority&appName=WarmHands"
+JWT_SECRET_KEY = sglnas783n35259k@&*@safaf
+CLIENT_URL = http://107.21.74.214:5173
+ADMIN_URL = http://107.21.74.214:5174
