@@ -12,21 +12,70 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            software-properties-common
+          
+          # Add Docker’s official GPG key
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+          # Add Docker’s official repository
+          echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+
+          sudo apt-get update
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+          DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version  # Verify the installation
+        shell: bash
+
       - name: Login to Docker Hub
         run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
 
-      - name: Build Docker image
-        run: docker build -t kaxun/warmhands:latest .
-
-      - name: Publish Docker image to Docker Hub
-        run: docker push kaxun/warmhands:latest
+      - name: Build and push Docker images with Docker Compose
+        run: |
+          docker-compose build
+          docker-compose push
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Pull image from Docker Hub
-        run: docker pull kaxun/warmhands:latest
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            software-properties-common
+          
+          # Add Docker’s official GPG key
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-      - name: Run Docker container
-        run: docker run -d -p 5173:5173 --name warmhands-app-container kaxun/warmhands:latest
+          # Add Docker’s official repository
+          echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+
+          sudo apt-get update
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+          DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version  # Verify the installation
+        shell: bash
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
+
+      - name: Pull and deploy services with Docker Compose
+        run: |
+          docker-compose pull
+          docker-compose up -d
