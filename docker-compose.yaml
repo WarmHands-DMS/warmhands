@@ -1,32 +1,39 @@
-name: CI/CD Pipeline
+services:
 
-on:
-  push:
-    branches:
-      - kasun
+  backend:
+    build: ./backend
+    container_name: backend_container
+    ports:
+      - "8800:8800"
+    volumes:
+      - ./backend:/app  
+      - /app/node_modules  
+    environment:
+      MONGO_URL: mongodb+srv://alertwarmhands:UqeSH08WeYo2Ape4@warmhands.lvi1ehg.mongodb.net/warmhands?retryWrites=true&w=majority&appName=WarmHands
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  frontend:
+    build: ./frontend
+    container_name: frontend_container
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    
 
-      - name: Login to Docker Hub
-        run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
-
-      - name: Build Docker image
-        run: docker build -t kaxun/warmhands:latest .
-
-      - name: Publish Docker image to Docker Hub
-        run: docker push kaxun/warmhands:latest
-
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: Pull image from Docker Hub
-        run: docker pull kaxun/warmhands:latest
-
-      - name: Run Docker container
-        run: docker run -d -p 5173:5173 --name warmhands-app-container kaxun/warmhands:latest
+  admin:
+    build: ./admin
+    container_name: admin_container
+    ports:
+      - "5174:5174"
+    volumes:
+      - ./admin:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend 
