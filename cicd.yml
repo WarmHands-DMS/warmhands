@@ -1,0 +1,117 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: login to docker hub
+        uses: docker login -u ${{secrets.dockerUser}} -p ${{secrets.dockerPass}}
+
+      - name: build docker images
+        run: docker build -t kaxun/warmhands .
+
+      - name: publish image to docker hub
+        run: docker push kaxun/warmhands:latest
+
+ deploy:
+   needs: build
+   runs-on: self-hosted
+   steps:
+     - name: pull images from docker hub
+       run: docker pull kaxun/warmhands:latest
+     - name: run docker container
+       run: docker run -d -p 5173:5173 --name warmhands-app-container
+
+
+
+
+  frontend:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./frontend
+        run: npm test
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Deploy frontend
+        run: |
+          scp -r ./frontend/dist/ user@server:/path/to/frontend
+          ssh user@server "pm2 restart frontend"
+
+  backend:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./backend
+        run: npm test
+
+      - name: Deploy backend
+        run: |
+          scp -r ./backend/ user@server:/path/to/backend
+          ssh user@server "pm2 restart backend"
+
+  admin-dashboard:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./admin-dashboard
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./admin-dashboard
+        run: npm test
+
+      - name: Build admin dashboard
+        working-directory: ./admin-dashboard
+        run: npm run build
+
+      - name: Deploy admin dashboard
+        run: |
+          scp -r ./admin-dashboard/dist/ user@server:/path/to/admin-dashboard
+          ssh user@server "pm2 restart admin-dashboard"
