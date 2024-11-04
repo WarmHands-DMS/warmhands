@@ -40,7 +40,7 @@ jobs:
         run: docker-compose build
           
       - name: Publish Docker image to Docker Hub
-        run: docker-compose push kaxun/warmhands:latest
+        run: docker-compose push 
 
   deploy:
     needs: build
