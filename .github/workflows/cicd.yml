@@ -23,13 +23,10 @@ jobs:
           
           # Add Docker’s official GPG key
           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
           # Add Docker’s official repository
           echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
-
           sudo apt-get update
           sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-
           DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
           sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
@@ -43,7 +40,6 @@ jobs:
         run: |
           docker-compose build
           docker-compose push
-
   deploy:
     needs: build
     runs-on: self-hosted
@@ -59,13 +55,10 @@ jobs:
           
           # Add Docker’s official GPG key
           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
           # Add Docker’s official repository
           echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
-
           sudo apt-get update
           sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-
           DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
           sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
@@ -74,6 +67,8 @@ jobs:
 
       - name: Login to Docker Hub
         run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
+      - name: Print Working Directory
+        run: pwd
 
       - name: Pull and deploy services with Docker Compose
         run: |
@@ -81,4 +76,3 @@ jobs:
           docker-compose up -d
       - name: Validate Docker Compose Configuration
         run: docker-compose config
-
