@@ -14,7 +14,7 @@ jobs:
 
       - name: Install Docker Compose
         run: |
-          DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
+          DOCKER_COMPOSE_VERSION=1.29.2
           sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
         shell: bash
@@ -22,10 +22,14 @@ jobs:
       - name: Login to Docker Hub
         run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
 
-      - name: Build and push Docker images with Docker Compose
-        run: |
-          docker-compose build
-          docker-compose push
+      - name: Build Docker images with Docker Compose
+        run: docker-compose -f docker-compose.yaml build
+
+      - name: List Docker images (debugging step)
+        run: docker images
+
+      - name: Push Docker images to Docker Hub
+        run: docker-compose -f docker-compose.yaml push
 
   deploy:
     needs: build
@@ -33,7 +37,7 @@ jobs:
     steps:
       - name: Install Docker Compose
         run: |
-          DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
+          DOCKER_COMPOSE_VERSION=1.29.2
           sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
         shell: bash
@@ -43,5 +47,5 @@ jobs:
 
       - name: Pull and deploy services with Docker Compose
         run: |
-          docker-compose pull
-          docker-compose up -d
+          docker-compose -f docker-compose.yaml pull
+          docker-compose -f docker-compose.yaml up -d
