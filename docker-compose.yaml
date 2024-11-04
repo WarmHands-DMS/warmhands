@@ -27,8 +27,8 @@ jobs:
 
       - name: Build and push Docker images with Docker Compose
         run: |
-          docker-compose build
-          docker-compose push
+          docker compose build
+          docker compose push
 
   deploy:
     needs: build
@@ -49,5 +49,5 @@ jobs:
 
       - name: Pull and deploy services with Docker Compose
         run: |
-          docker-compose pull
-          docker-compose up -d
+          docker compose pull
+          docker compose up -d
