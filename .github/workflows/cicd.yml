@@ -37,7 +37,7 @@ jobs:
         run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
 
       - name: Build and push Docker images with Docker Compose
-        run: docker build -t kaxun/warmhands:v1
+        run: docker build -t kaxun/warmhands:v1 .
           
       - name: Publish Docker image to Docker Hub
         run: docker push kaxun/warmhands:v1
