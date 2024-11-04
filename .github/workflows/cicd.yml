@@ -12,32 +12,42 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker Compose
+      - name: Install Docker and Docker Compose
         run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '(?<=tag_name": ")[^"]*')" -o /usr/local/bin/docker-compose
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version  # Verify the installation
+        shell: bash
 
       - name: Login to Docker Hub
         run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
 
       - name: Build and push Docker images with Docker Compose
         run: |
-          docker-compose build
-          docker-compose push
+          docker compose build
+          docker compose push
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Set up Docker Compose
+      - name: Install Docker and Docker Compose
         run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '(?<=tag_name": ")[^"]*')" -o /usr/local/bin/docker-compose
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          DOCKER_COMPOSE_VERSION=1.29.2  # Specify a stable version
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version  # Verify the installation
+        shell: bash
 
       - name: Login to Docker Hub
         run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
 
       - name: Pull and deploy services with Docker Compose
         run: |
-          docker-compose pull
-          docker-compose up -d
+          docker compose pull
+          docker compose up -d
