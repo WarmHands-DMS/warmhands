@@ -30,26 +30,25 @@ jobs:
 
       - name: Push Docker images to Docker Hub
         run: docker-compose -f docker-compose.yaml push
-        
+
   deploy:
-  needs: build
-  runs-on: self-hosted
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Docker Compose
-      run: |
-        DOCKER_COMPOSE_VERSION=1.29.2
-        sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-      shell: bash
+      - name: Install Docker Compose
+        run: |
+          DOCKER_COMPOSE_VERSION=1.29.2
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+        shell: bash
 
-    - name: Login to Docker Hub
-      run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
 
-    - name: Pull and deploy services with Docker Compose
-      run: |
-        docker-compose -f docker-compose.yaml pull
-        docker-compose -f docker-compose.yaml up -d
-
+      - name: Pull and deploy services with Docker Compose
+        run: |
+          docker-compose -f docker-compose.yaml pull
+          docker-compose -f docker-compose.yaml up -d
