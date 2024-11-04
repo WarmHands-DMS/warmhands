@@ -1,0 +1,30 @@
+services:
+
+  backend:
+    build: ./backend
+    container_name: backend_container
+    ports:
+      - "8800:8800" 
+    environment:
+      MONGO_URL: mongodb+srv://alertwarmhands:UqeSH08WeYo2Ape4@warmhands.lvi1ehg.mongodb.net/warmhands?retryWrites=true&w=majority&appName=WarmHands
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_container
+    ports:
+      - "5173:5173"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    
+
+  admin:
+    build: ./admin
+    container_name: admin_container
+    ports:
+      - "5174:5174"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend 
