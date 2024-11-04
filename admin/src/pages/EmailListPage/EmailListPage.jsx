@@ -2,7 +2,7 @@ import { EmailDataTable } from '../../components/DataTable/EmailDataTable';
 
 export const EmailListPage = () => {
   return (
-    <div className="userListPage">
+    <div className="emailListPage">
       <EmailDataTable />
     </div>
   );

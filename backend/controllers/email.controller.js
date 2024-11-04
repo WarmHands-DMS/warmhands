@@ -3,7 +3,16 @@ import prisma from '../lib/prisma.js';
 export const getEmails = async (req, res) => {
   
   try {
-    const emails = await prisma.email.findMany();
+    const emails = await prisma.email.findMany({
+      include: {
+        sentBy: {
+          select: {
+            username: true
+          },
+        },
+        
+      },
+    });
     res.status(200).json(emails);
   } catch (error) {
     console.log(error);

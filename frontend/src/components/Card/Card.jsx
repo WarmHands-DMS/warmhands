@@ -21,7 +21,7 @@ export const Card = ({ item }) => {
   const imageUrl =
     item.images && item.images.length > 0
       ? item.images[0]
-      : 'path-to-default-image.png';
+      : '/no-image.svg';
 
   return (
     <div className="card">

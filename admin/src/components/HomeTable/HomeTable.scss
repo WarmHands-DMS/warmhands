@@ -28,17 +28,17 @@
         padding: 5px 10px;
         border-radius: 5px;
 
-        &.true {
+        &.approved {
             color: rgb(0, 97, 0);
             background-color: rgba(0, 128, 0, 0.215);
         }
 
-        &.false {
+        &.pending {
             color: rgb(144, 106, 9);
             background-color: rgba(218, 165, 32, 0.298);
         }
 
-        &.Rejected {
+        &.rejected {
             color: rgb(145, 0, 0);
             background-color: rgba(214, 0, 0, 0.201);
         }

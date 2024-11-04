@@ -16,6 +16,34 @@
         }
     }
 
+    .noImage {
+        flex: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        img {
+            scale: 1.5;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;    
+        }
+
+        span {
+            position: absolute;
+            padding: 10px 60px;
+            background-color: #c3000087;
+            backdrop-filter: blur(4px);
+            font-size: 28px;
+            border-radius: 12px;
+            font-weight: 500;
+            color: #eee;
+        }
+    }
+
     .smallImages {
         flex: 1;
         display: flex;
@@ -30,6 +58,9 @@
             border-radius: 10px;
             cursor: pointer;
         }
+    }
+    .hide {
+        display: none;
     }
 }
 
@@ -85,3 +116,4 @@
     
     }
 }
+

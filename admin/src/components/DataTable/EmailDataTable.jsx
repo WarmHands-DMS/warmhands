@@ -11,15 +11,13 @@ import {
   Button,
   DialogContentText,
 } from '@mui/material';
-// import { toast, ToastContainer } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 export const EmailDataTable = () => {
   const [data, setData] = useState([]); 
-  const [open, setOpen] = useState(false); // State for view modal visibility
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // State for delete dialog visibility
-  const [selectedUser, setSelectedUser] = useState(null); // State for selected user
-  // const [deleteId, setDeleteId] = useState(null); // Track user to delete
+  const [open, setOpen] = useState(false); 
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); 
+  const [selectedEmail, setSelectedEmail] = useState(null);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -33,18 +31,6 @@ export const EmailDataTable = () => {
       hour12: true,
     });
   };
-
-  // const deleteUser = async (id) => {
-  //   try {
-  //     await axios.delete(`http://localhost:8800/api/users/admin/${id}`);
-  //     setData((prevData) => prevData.filter((user) => user.id !== id));
-  //     toast.success('User removed successfully.', {
-  //       containerId: 'userTable',
-  //     });
-  //   } catch (error) {
-  //     console.error('Error deleting user:', error);
-  //   }
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,22 +49,10 @@ export const EmailDataTable = () => {
     fetchData();
   }, []);
 
-  // const handleOpenViewDialog = (user) => {
-  //   setSelectedUser(user);
-  //   setOpen(true);
-  // };
-
-  // const handleOpenDeleteDialog = (id) => {
-  //   setDeleteId(id);
-  //   setDeleteDialogOpen(true);
-  // };
-
-  // const handleDeleteConfirm = () => {
-  //   if (deleteId !== null) {
-  //     deleteUser(deleteId);
-  //     setDeleteDialogOpen(false);
-  //   }
-  // };
+  const handleOpenViewDialog = (email) => {
+    setSelectedEmail(email);
+    setOpen(true);
+  };
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 3 / 2, minWidth: 100 },
@@ -89,28 +63,25 @@ export const EmailDataTable = () => {
       minWidth: 150,
       renderCell: (params) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {/* <img
-            src={params.row.firstImage || '/no-avatar.png'}
-            alt="thumbnail"
-            className="cellImage"
-          /> */}
           <span>{params.row.title}</span>
         </div>
       ),
     },
     {
       field: 'userCount',
-      headerName: 'Received User Count',
-      flex: 1,
+      headerName: 'Sent Users',
+      flex: 1/3,
       minWidth: 100,
     },
-    { field: 'city', headerName: 'City', flex: 1, minWidth: 120 },
-    { field: 'sentById', headerName: 'Sent By', flex: 3 / 2, minWidth: 120 },
+    { field: 'city', headerName: 'City', flex: 2/31, minWidth: 120 },
+    { field: 'date', headerName: 'Date', flex: 1, minWidth: 120 },
+    { field: 'time', headerName: 'Time', flex: 1, minWidth: 120 },
+    { field: 'sentBy', headerName: 'Sent By', flex: 1/3, minWidth: 120 },
     {
       field: 'incidentId',
       headerName: 'Incident',
       flex: 3 / 2,
-      minWidth: 120,
+      minWidth: 160,
       renderCell: (params) => (
         <div
           style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
@@ -125,114 +96,87 @@ export const EmailDataTable = () => {
     },
   ];
 
-  // const actionColumn = [
-  //   {
-  //     field: 'action',
-  //     headerName: 'Action',
-  //     flex: 1.5,
-  //     minWidth: 150,
-  //     renderCell: (params) => (
-  //       <div className="disaster-buttons">
-  //         <span
-  //           className="view-btn"
-  //           onClick={() => handleOpenViewDialog(params.row)}
-  //         >
-  //           View
-  //         </span>
-  //         <span
-  //           className="delete-btn"
-  //           onClick={() => handleOpenDeleteDialog(params.row.id)}
-  //         >
-  //           Remove
-  //         </span>
-  //       </div>
-  //     ),
-  //   },
-  // ];
+  const actionColumn = [
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1.5,
+      minWidth: 150,
+      renderCell: (params) => (
+        <div className="disaster-buttons">
+          <span
+            className="view-btn"
+            onClick={() => handleOpenViewDialog(params.row)}
+          >
+            View
+          </span>
+        </div>
+      ),
+    },
+  ];
 
-  const paginationModel = { page: 0, pageSize: 8 };
+  const paginationModel = { page: 0, pageSize: 10 };
 
   const rows = data.map((item) => ({
     id: item.id,
     title: item.title,
     userCount: item.userCount,
     city: item.city,
-    sentById: item.sentById,
+    sentBy: item.sentBy.username,
     incidentId: item.incidentId,
     date: formatDate(item.createdAt),
     time: formatTime(item.createdAt),
+    message: item.message
   }));
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedUser(null);
+    setSelectedEmail(null);
   };
 
   return (
-    <div className="datatable">
+    <div className="datatable scrollbar">
       <span className="title">Users</span>
       <Paper sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
         <DataGrid
           rows={rows}
-          // columns={columns.concat(actionColumn)}
-          columns={columns}
+          columns={columns.concat(actionColumn)}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[5, 8]}
-          checkboxSelection
           autoHeight
           sx={{ border: 0 }}
         />
       </Paper>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>User Details</DialogTitle>
+        <DialogTitle>Email Details</DialogTitle>
         <DialogContent>
-          {selectedUser && (
-            <div>
-              <img
-                src={selectedUser.avatar}
-                alt={`${selectedUser.fname} profile`}
-                style={{ height: '100%', width: '100%' }}
-              />
+          {selectedEmail && (
+            <div className="viewBox">
               <p>
-                <strong>User ID:</strong> {selectedUser.id}
+                <strong>Email ID:</strong> {selectedEmail.id}
               </p>
               <p>
-                <strong>First Name:</strong> {selectedUser.fname}
+                <strong>Title:</strong> {selectedEmail.title}
               </p>
               <p>
-                <strong>Last Name:</strong> {selectedUser.lname}
+                <strong>City:</strong> {selectedEmail.city}
               </p>
               <p>
-                <strong>Email:</strong> {selectedUser.email}
+                <strong>Sent to:</strong> {selectedEmail.userCount}
               </p>
               <p>
-                <strong>Mobile:</strong> {selectedUser.mobile}
+                <strong>Sent by:</strong> {selectedEmail.sentBy}
               </p>
               <p>
-                <strong>NIC:</strong> {selectedUser.nic}
+                <strong>Sent Date:</strong> {selectedEmail.date}
               </p>
               <p>
-                <strong>Address:</strong> {selectedUser.address}
+                <strong>Sent Time:</strong> {selectedEmail.time}
               </p>
               <p>
-                <strong>City:</strong> {selectedUser.city}
-              </p>
-              <p>
-                <strong>District:</strong> {selectedUser.district}
-              </p>
-              <p>
-                <strong>Province:</strong> {selectedUser.province}
-              </p>
-              <p>
-                <strong>Date Created:</strong> {selectedUser.date}
-              </p>
-              <p>
-                <strong>Time Created:</strong> {selectedUser.time}
-              </p>
-              <p>
-                <strong>Incidents Reported:</strong>{' '}
-                {selectedUser.incidentCount || 0}
+                <strong>Message:</strong>
+                <div>{selectedEmail.message}</div>
               </p>
             </div>
           )}
@@ -258,12 +202,9 @@ export const EmailDataTable = () => {
           <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
             Cancel
           </Button>
-          <Button  color="secondary">
-            Delete
-          </Button>
+          <Button color="secondary">Delete</Button>
         </DialogActions>
       </Dialog>
-      {/* <ToastContainer containerId="userTable" /> */}
     </div>
   );
 };

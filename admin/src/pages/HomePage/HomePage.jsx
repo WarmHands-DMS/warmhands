@@ -1,7 +1,7 @@
 import { Widget } from '../../components/Widget/Widget';
 import { Chart } from '../../components/Chart/Chart';
 import { FeatureChart } from '../../components/FeatureChart/FeatureChart';
-import { Table } from '../../components/Table/Table';
+import { HomeTable } from '../../components/HomeTable/HomeTable';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 ;
@@ -111,7 +111,7 @@ export const HomePage = () => {
         <span className="main-title">Lists</span>
         <div className="list">
           <div className="listTitle">Recent Disasters (Reported)</div>
-          <Table data={data} />
+          <HomeTable data={data} />
         </div>
       </div>
     </div>

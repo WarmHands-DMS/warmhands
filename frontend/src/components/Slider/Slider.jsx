@@ -12,13 +12,13 @@ export const Slider = ({images}) => {
       <div className="slider">
         {imageIndex !== null && (
           <div className="fullSlider">
-            <div className="arrow" onClick={() => changeSlide("left")}>
+            <div className="arrow" onClick={() => changeSlide('left')}>
               <i className="fa-solid fa-2xl fa-arrow-left-long"></i>
             </div>
             <div className="imageContainer">
               <img src={images[imageIndex]} alt="" />
             </div>
-            <div className="arrow" onClick={() => changeSlide("right")}>
+            <div className="arrow" onClick={() => changeSlide('right')}>
               <i className="fa-solid fa-2xl fa-arrow-right-long"></i>
             </div>
             <div className="close" onClick={() => setImageIndex(null)}>
@@ -26,10 +26,17 @@ export const Slider = ({images}) => {
             </div>
           </div>
         )}
-        <div className="bigImage">
-          <img src={images[0]} alt="image" onClick={() => setImageIndex(0)} />
+        <div className={images.length === 0 ? 'noImage' : 'bigImage'}>
+          {images.length === 0 ? (
+            <>
+              <img src="/no-image.svg" alt="image" />
+              <span>No Images Uploaded.</span>
+            </>
+          ) : (
+            <img src={images[0]} alt="image" onClick={() => setImageIndex(0)} />
+          )}
         </div>
-        <div className="smallImages">
+        <div className={images.length === 0 ? 'hide' : 'smallImages'}>
           {images.slice(1).map((image, index) => (
             <img
               key={index}

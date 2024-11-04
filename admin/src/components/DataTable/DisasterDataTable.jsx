@@ -97,8 +97,6 @@ export const DisasterDataTable = () => {
       ),
     },
     { field: 'city', headerName: 'City', flex: 1, minWidth: 100 },
-    { field: 'district', headerName: 'District', flex: 1, minWidth: 100 },
-    { field: 'province', headerName: 'Province', flex: 1, minWidth: 100 },
     { field: 'date', headerName: 'Date', flex: 1, minWidth: 120 },
     { field: 'time', headerName: 'Time', flex: 1, minWidth: 120 },
     { field: 'reportedBy', headerName: 'Reported By', flex: 1, minWidth: 120 },
@@ -116,7 +114,7 @@ export const DisasterDataTable = () => {
         </div>
       ),
     },
-    { field: 'sentEmail',type: "boolean", headerName: 'Email', flex: 1/2, minWidth: 40 },
+    { field: 'sentEmail',type: "boolean", headerName: 'Email Sent', flex: 1/2, minWidth: 40 },
   ];
 
   const actionColumn = [
@@ -156,21 +154,19 @@ export const DisasterDataTable = () => {
     title: item.title,
     firstImage: item.images?.[0] || '', // Get the first image from the images array
     city: item.city,
-    district: item.district,
-    province: item.province,
     date: formatDate(item.createdAt),
     time: formatTime(item.createdAt),
     reportedBy: item.user?.fname || '-',
     isApproved: item.isApproved,
-    sentEmail: item.sentEmail,
+    sentEmail: item.sentEmail
   }));
 
-  const paginationModel = { page: 0, pageSize: 9 };
+  const paginationModel = { page: 0, pageSize: 10 };
 
   return (
-    <div className="datatable">
+    <div className="datatable scrollbar">
       <span className="title">Disasters</span>
-      <Paper sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
+      <Paper className="paper" sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
         <DataGrid
           rows={rows}
           columns={columns.concat(actionColumn)}

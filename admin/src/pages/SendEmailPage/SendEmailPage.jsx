@@ -2,16 +2,17 @@ import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
-import './SendEmailPage.scss';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { AdminAuthContext } from '../../context/AuthContext';
 
+
 export const SendEmailPage = () => {
   const incident = useLoaderData(); // Access data from loader
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { currentAdmin } = useContext(AdminAuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -63,6 +64,7 @@ View the full disaster report here: http://localhost:5173/${
   };
 
   const handleSend = async () => {
+    setIsLoading(true);
     if (incident.userCount === 0) {
       toast.error('There are no users in this district.', { containerId: toastContainerId });
     } else {
@@ -77,7 +79,6 @@ View the full disaster report here: http://localhost:5173/${
           { withCredentials: true }
         );
 
-
         await axios.post(
           `http://localhost:8800/api/emails/add`,
 
@@ -86,7 +87,7 @@ View the full disaster report here: http://localhost:5173/${
             userCount: incident.userCount,
             city: incident.city,
             message,
-            incidentId: incident.id
+            incidentId: incident.id,
           },
           { withCredentials: true }
         );
@@ -102,6 +103,8 @@ View the full disaster report here: http://localhost:5173/${
       } catch (error) {
         toast.error('Failed to send emails', { containerId: toastContainerId });
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
   }};
 
@@ -135,16 +138,16 @@ View the full disaster report here: http://localhost:5173/${
         <div className="form-group">
           <label>Message</label>
           <textarea
-            rows="22"
+            rows="15"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
         </div>
         <div className="email-btns">
           <span onClick={goBack}>Cancel</span>
-          <span onClick={handleSend}>
+          <button onClick={!isLoading ? handleSend : null} disabled={isLoading} className={isLoading ? "disabled" : ""}>
             {incident.sentEmail ? 'Send Again' : 'Send'}
-          </span>
+          </button>
         </div>
       </div>
       {incident.sentEmail && (

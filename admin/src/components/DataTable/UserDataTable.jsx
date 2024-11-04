@@ -112,7 +112,6 @@ export const UserDataTable = () => {
     { field: 'nic', headerName: 'NIC', flex: 1, minWidth: 120 },
     { field: 'address', headerName: 'Address', flex: 2, minWidth: 200 },
     { field: 'city', headerName: 'City', flex: 1, minWidth: 100 },
-    { field: 'province', headerName: 'Province', flex: 1, minWidth: 100 },
     {
       field: 'incidentCount',
       headerName: 'Incidents Reported',
@@ -146,7 +145,7 @@ export const UserDataTable = () => {
     },
   ];
 
-  const paginationModel = { page: 0, pageSize: 8 };
+  const paginationModel = { page: 0, pageSize: 10 };
 
   const rows = data.map((item) => ({
     id: item.id,
@@ -159,7 +158,6 @@ export const UserDataTable = () => {
     district: item.district,
     address: item.address,
     city: item.city,
-    province: item.province,
     date: formatDate(item.createdAt),
     time: formatTime(item.createdAt),
     incidentCount: item.incidentCount || 0,
@@ -171,7 +169,7 @@ export const UserDataTable = () => {
   };
 
   return (
-    <div className="datatable">
+    <div className="datatable scrollbar">
       <span className="title">Users</span>
       <Paper sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
         <DataGrid

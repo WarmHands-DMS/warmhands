@@ -9,47 +9,8 @@ import { SendEmailPage } from './pages/SendEmailPage/SendEmailPage';
 import { SigninPage } from './pages/SigninPage/SigninPage';
 import { AuthLayout } from './layout/Layout';
 import { EmailListPage } from './pages/EmailListPage/EmailListPage';
-
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <HomePage />
-//   },
-//   {
-//     path: '/signin',
-//     element: <SigninPage />
-//   },
-
-//   {
-//     path: 'login',
-//     element: <LoginPage />,
-//   },
-//   {
-//     path: '/:id',
-//     element: <IncidentPage />,
-//     loader: IncidentPageLoader,
-//   },
-//   {
-//     path: '/:id/send-emails',
-//     element: <SendEmailPage />,
-//     loader: SendEmailPageLoader,
-//   },
-//   {
-//     path: 'users',
-//     element: <UserListPage />,
-//     children: [
-//       // {
-//       //   path: ':userId',
-//       //   element: <SinglePage />,
-//       // },
-     
-//     ],
-//   },
-//   {
-//     path: 'disasters',
-//     element: <DisasterListPage />,
-//   },
-// ]);
+import { AdminListPage } from './pages/AdminListPage/AdminLisPage';
+import { AdminProfilePage } from './pages/AdminProfilePage/AdminProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -81,12 +42,6 @@ const router = createBrowserRouter([
       {
         path: 'users',
         element: <UserListPage />,
-        children: [
-          // {
-          //   path: ':userId',
-          //   element: <SinglePage />,
-          // },
-        ],
       },
       {
         path: 'disasters',
@@ -95,6 +50,14 @@ const router = createBrowserRouter([
       {
         path: 'mails',
         element: <EmailListPage />,
+      },
+      {
+        path: 'admins',
+        element: <AdminListPage />,
+      },
+      {
+        path: 'profile',
+        element: <AdminProfilePage />,
       },
     ],
   },

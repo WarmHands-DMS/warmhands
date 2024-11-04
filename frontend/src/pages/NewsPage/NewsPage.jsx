@@ -69,7 +69,7 @@ useEffect(() => {
   return (
     <div className="newsPage">
       <div className="listContainer">
-        <div className="wrapper">
+        <div className="wrapper scrollbar">
           <Filter onFilterChange={handleFilterChange} />
           {filteredData.map((item) => (
             <Card key={item.id} item={item} />

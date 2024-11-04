@@ -1,50 +1,99 @@
+$primary-color: #007fd4;
+
 .navbar {
-    height: 55px;
-    border-bottom: 0.5px solid rgb(222, 222, 222);
+  height: 55px;
+  border-bottom: 0.5px solid rgb(222, 222, 222);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: #555;
+  width: 100%;
+
+  .nav-wrapper {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    font-size: 14px;
-    color: #555;
-    width: 100%;
+    gap: 20px;
+    margin-right: 36px;
 
-    .nav-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-right: 20px;
+    .admin {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 25px;
+      justify-content: space-between;
+      padding-left: 16px;
 
-        .icon {
-            font-size: 26px;
-        }
+      img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
 
-        .admin {
-          display: flex;
-          align-items: center;
-          border: 2px solid #007fd4;
-          background-color: #007fd4;
-          padding-right: 10px;
-          border-radius: 25px;
-
-
-          img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 10px;
-          }
-
-          span {
-            color: #eee;
-            font-size: 16px;
-          }
-        }
-
-        
+      span {
+        font-size: 16px;
+      }
     }
+  }
+
+  .MuiIconButton-root {
+    color: #111;
+    display: flex;
+    gap: 5px;
+    background-color: white;
+    border: 2px solid $primary-color;
+    padding: 2px 2px 2px 12px;
+    border-radius: 32px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #007fd4;
+      color: #eee;
+
+      .MuiAvatar-root {
+        transition: all 0.4s ease-in;
+        outline: 2px solid $primary-color;
+      }
+    }
+  }
 }
 
+.profile-text {
+  text-decoration: none;
+  color: #111;
+  border: none;
+}
 
+.MuiAvatar-root {
+  border: 1px solid $primary-color;
+}
 
+.menu-logout {
+  &:hover {
+    background-color: #ffc6c6 !important;
+    color: rgb(73, 73, 73);
 
+    .icon {
+      color: #8b0000;
+    }
+  }
+}
+
+.menu-profile {
+  &:hover {
+    background-color: #d0ebff !important;
+    color: $primary-color;
+
+    .icon {
+      color: $primary-color;
+    }
+  }
+}
+
+.MuiList-root {
+  a {
+    text-decoration: none;
+  }
+}

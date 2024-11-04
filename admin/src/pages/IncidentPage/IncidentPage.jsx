@@ -1,4 +1,3 @@
-import './IncidentPage.scss';
 import { Slider } from '../../components/Slider/Slider';
 import { Map } from '../../components/Map/Map';
 import { useLoaderData, useNavigate } from 'react-router-dom';
@@ -129,16 +128,18 @@ export const IncidentPage = () => {
                     {displayTime.slice(12, 17)} {displayTime.slice(21, 23)}
                   </h5>
                 </div>
-                <div className="userInfo">
-                  <div>
-                    <p>Reported By</p>
-                    <img
-                      src={incident.user.avatar || '/no-avatar.png'}
-                      alt="user"
-                    />
-                    <span>{incident.user.fname}</span>
+                {incident.user && (
+                  <div className="userInfo">
+                    <div>
+                      <p>Reported By</p>
+                      <img
+                        src={incident.user.avatar || '/no-avatar.png'}
+                        alt="user"
+                      />
+                      <span>{incident.user.fname || '-'}</span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <div
                 className="bottom"
@@ -182,7 +183,7 @@ export const IncidentPage = () => {
         >
           {incident.isApproved === 'approved' ? (
             <>
-              Confirmed <CheckCircleIcon style={{fontSize: 20}}/>
+              Confirmed <CheckCircleIcon style={{ fontSize: 20 }} />
             </>
           ) : (
             'Confirm'

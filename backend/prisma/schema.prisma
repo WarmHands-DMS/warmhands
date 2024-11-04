@@ -34,6 +34,7 @@ model Admin {
   department String
   nic String
   mobile String
+  isMaster Boolean
   createdAt DateTime? @default(now())
   incidents Incident[]
   sentMails Email[] 

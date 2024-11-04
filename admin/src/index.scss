@@ -1,24 +1,33 @@
 $primary-color: #007fd4;
-$primary-color-hover: #87cfff;
 $secondary-color: #eff8ff;
-$shadow-color: #007fd457;
+$shadow-color: #007fd435;
+$hover-color: #0070bb;
 
 $primary-gradient: linear-gradient(90deg, #75d0ff 0%, #0096e8 35%, #0065ab 100%);
 
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-body {
-    font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
-    overflow: hidden;
-}
 
 @import "./pages/HomePage/HomePage.scss";
+@import "./pages/SendEmailPage/SendEmailPage.scss";
+@import "./pages/IncidentPage/IncidentPage.scss";
+@import "./pages/EmailListPage/EmailListPage.scss";
+@import "./pages/AdminListPage/AdminLisPage.scss";
+@import "./pages/DisasterListPage/DisasterListPage.scss";
+@import "./pages/UserListPage/UserListPage.scss";
+@import "./pages/SigninPage/SigninPage.scss";
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+    overflow: hidden;
 }
 
 .scrollbar::-webkit-scrollbar-track {
