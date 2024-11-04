@@ -30,8 +30,8 @@ jobs:
 
       - name: Push Docker images to Docker Hub
         run: docker-compose -f docker-compose.yaml push
-
-deploy:
+        
+  deploy:
   needs: build
   runs-on: self-hosted
   steps:
@@ -52,3 +52,4 @@ deploy:
       run: |
         docker-compose -f docker-compose.yaml pull
         docker-compose -f docker-compose.yaml up -d
+
