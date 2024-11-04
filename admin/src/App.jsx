@@ -11,6 +11,7 @@ import { AuthLayout } from './layout/Layout';
 import { EmailListPage } from './pages/EmailListPage/EmailListPage';
 import { AdminListPage } from './pages/AdminListPage/AdminLisPage';
 import { AdminProfilePage } from './pages/AdminProfilePage/AdminProfilePage';
+import { RegisterPage } from './pages/RegisterPage/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <AdminProfilePage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
       },
     ],
   },

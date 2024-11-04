@@ -1,9 +1,41 @@
+$primary-color: #007fd4;
+
 .datatable {
     height: 90%;
     margin-bottom: 30px;
     padding: 20px;
     width: 100%;
     overflow: auto;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        a {
+            text-decoration: none;
+        }
+
+         .add-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: $primary-color;
+            color: #eee;
+            padding: 10px 26px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+
+            &:hover {
+              box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+              .icon {
+                transition: 0.3s ease-in-out;
+                scale: 1.05;
+              }
+            }
+          }
+    }
 
     .title {
         font-size: 18px;

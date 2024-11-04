@@ -82,6 +82,8 @@ export const logoutUser = (req, res) => {
 
 //Admin Side
 export const registerAdmin = async (req, res) => {
+  const tokenAdminId = req.adminId;
+
   const {
     fullName,
     username,
@@ -90,11 +92,24 @@ export const registerAdmin = async (req, res) => {
     nic,
     mobile,
     avatar,
-    department
+    department,
+    isMaster
   } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
+    // Check if the requesting admin is a master admin
+    const requestingAdmin = await prisma.admin.findUnique({
+      where: { id: tokenAdminId },
+      select: { isMaster: true },
+    });
+
+    if (!requestingAdmin.isMaster) {
+      return res.status(403).json({
+        message: 'You are not authorized to Register Admins.',
+      });
+    }
+
     const newAdmin = await prisma.admin.create({
       data: {
         fullName,
@@ -105,6 +120,7 @@ export const registerAdmin = async (req, res) => {
         mobile,
         avatar,
         department,
+        isMaster,
       },
     });
 

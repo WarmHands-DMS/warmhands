@@ -77,10 +77,12 @@ export const Sidebar = () => {
             </Link>
 
             <p className="title">ACCOUNT</p>
-            <li>
-              <AccountIcon className="icon" />
-              <span>Profile</span>
-            </li>
+            <Link to={'/profile'}>
+              <li>
+                <AccountIcon className="icon" />
+                <span>Profile</span>
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

@@ -17,6 +17,8 @@ $primary-gradient: linear-gradient(90deg, #75d0ff 0%, #0096e8 35%, #0065ab 100%)
 @import "./pages/DisasterListPage/DisasterListPage.scss";
 @import "./pages/UserListPage/UserListPage.scss";
 @import "./pages/SigninPage/SigninPage.scss";
+@import "./pages/AdminProfilePage/AdminProfilePage.scss";
+@import "./pages/RegisterPage/RegisterPage.scss";
 
 * {
     padding: 0;

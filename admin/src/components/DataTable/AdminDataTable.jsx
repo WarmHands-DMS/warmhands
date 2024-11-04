@@ -1,7 +1,9 @@
 import './DataTable.scss';
+import { Link } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react';
+import { AdminAuthContext } from '../../context/AuthContext';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import {
   Dialog,
@@ -12,44 +14,57 @@ import {
   DialogContentText,
 } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 export const AdminDataTable = () => {
-  const [data, setData] = useState([]); // State to hold user data
+  const { currentAdmin } = useContext(AdminAuthContext);
+  const [data, setData] = useState([]); // State to hold admin data
   const [open, setOpen] = useState(false); // State for view modal visibility
-  // const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // State for delete dialog visibility
-  const [selectedUser, setSelectedUser] = useState(null); // State for selected user
-  // const [deleteId, setDeleteId] = useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // State for delete dialog visibility
+  const [selectedAdmin, setSelectedAdmin] = useState(null); // State for selected admin
+  const [deleteId, setDeleteId] = useState(null);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { timeZone: 'Asia/Colombo' });
   };
+console.log(currentAdmin.isMaster)
 
-  // const formatTime = (dateString) => {
-  //   const date = new Date(dateString);
-  //   return date.toLocaleTimeString('en-US', {
-  //     timeZone: 'Asia/Colombo',
-  //     hour12: true,
-  //   });
-  // };
+const deleteAdmin = async (id) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8800/api/admins/delete/${id}`,
+      {
+        withCredentials: true,
+      }
+    );
 
-  // const deleteUser = async (id) => {
-  //   try {
-  //     await axios.delete(`http://localhost:8800/api/users/admin/${id}`);
-  //     setData((prevData) => prevData.filter((user) => user.id !== id));
-  //     toast.success('User removed successfully.', {
-  //       containerId: 'userTable',
-  //     });
-  //   } catch (error) {
-  //     console.error('Error deleting user:', error);
-  //   }
-  // };
+    toast.success(response.data.message || 'Admin removed successfully.', {
+      containerId: 'adminTable',
+    });
+
+    setData((prevData) => prevData.filter((admin) => admin.id !== id));
+  } catch (error) {
+    
+    if (error.response && error.response.data && error.response.data.message) {
+      toast.error(error.response.data.message, {
+        containerId: 'adminTable',
+      });
+    } else {
+      toast.error('Error deleting admin: ' + error.message, {
+        containerId: 'adminTable',
+      });
+    }
+    console.error('Error deleting admin:', error);
+  }
+};
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8800/api/admins');
-        setData(response.data); // Use response.data instead of response
+        setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -59,21 +74,21 @@ export const AdminDataTable = () => {
   }, []);
 
   const handleOpenViewDialog = (admin) => {
-    setSelectedUser(admin);
+    setSelectedAdmin(admin);
     setOpen(true);
   };
 
-  // const handleOpenDeleteDialog = (id) => {
-  //   setDeleteId(id);
-  //   setDeleteDialogOpen(true);
-  // };
+  const handleOpenDeleteDialog = (id) => {
+    setDeleteId(id);
+    setDeleteDialogOpen(true);
+  };
 
-  // const handleDeleteConfirm = () => {
-  //   if (deleteId !== null) {
-  //     deleteUser(deleteId);
-  //     setDeleteDialogOpen(false);
-  //   }
-  // };
+  const handleDeleteConfirm = () => {
+    if (deleteId !== null) {
+      deleteAdmin(deleteId);
+      setDeleteDialogOpen(false);
+    }
+  };
 
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1, minWidth: 100 },
@@ -93,7 +108,7 @@ export const AdminDataTable = () => {
         </div>
       ),
     },
-    { field: 'username', headerName: 'Username', flex: 1, minWidth: 120 },
+    { field: 'username', headerName: 'username', flex: 1, minWidth: 120 },
     { field: 'email', headerName: 'Email', flex: 1, minWidth: 180 },
     { field: 'nic', headerName: 'NIC', flex: 1, minWidth: 120 },
     { field: 'department', headerName: 'Department', flex: 1, minWidth: 120 },
@@ -124,7 +139,7 @@ export const AdminDataTable = () => {
           </span>
           <span
             className="delete-btn"
-            // onClick={() => handleOpenDeleteDialog(params.row.id)}
+            onClick={() => handleOpenDeleteDialog(params.row.id)}
           >
             Remove
           </span>
@@ -150,12 +165,21 @@ export const AdminDataTable = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedUser(null);
+    setSelectedAdmin(null);
   };
 
   return (
     <div className="datatable scrollbar">
-      <span className="title">Users</span>
+      <div className="header">
+        <span className="title">Admins</span>
+        {currentAdmin.isMaster && (
+          <Link to="/register">
+            <span className="add-btn">
+              New Admin <AddBoxIcon className="icon" />
+            </span>
+          </Link>
+        )}
+      </div>
       <Paper sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
         <DataGrid
           rows={rows}
@@ -169,54 +193,42 @@ export const AdminDataTable = () => {
       </Paper>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>User Details</DialogTitle>
+        <DialogTitle>Admin Details</DialogTitle>
         <DialogContent>
-          {selectedUser && (
+          {selectedAdmin && (
             <div>
               <img
-                src={selectedUser.avatar}
-                alt={`${selectedUser.fname} profile`}
+                src={selectedAdmin.avatar}
+                alt={`${selectedAdmin.username} profile`}
                 style={{ height: '100%', width: '100%' }}
               />
               <p>
-                <strong>User ID:</strong> {selectedUser.id}
+                <strong>Admin ID:</strong> {selectedAdmin.id}
               </p>
               <p>
-                <strong>First Name:</strong> {selectedUser.fname}
+                <strong>Full Control:</strong>{' '}
+                {!selectedAdmin.isMaster ? 'Yes' : 'No'}
               </p>
               <p>
-                <strong>Last Name:</strong> {selectedUser.lname}
+                <strong>Full Name:</strong> {selectedAdmin.fullName}
               </p>
               <p>
-                <strong>Email:</strong> {selectedUser.email}
+                <strong>Email:</strong> {selectedAdmin.email}
               </p>
               <p>
-                <strong>Mobile:</strong> {selectedUser.mobile}
+                <strong>Department:</strong> {selectedAdmin.department}
               </p>
               <p>
-                <strong>NIC:</strong> {selectedUser.nic}
+                <strong>City:</strong> {selectedAdmin.city}
               </p>
               <p>
-                <strong>Address:</strong> {selectedUser.address}
+                <strong>NIC:</strong> {selectedAdmin.nic}
               </p>
               <p>
-                <strong>City:</strong> {selectedUser.city}
+                <strong>Mobile:</strong> {selectedAdmin.mobile}
               </p>
               <p>
-                <strong>District:</strong> {selectedUser.district}
-              </p>
-              <p>
-                <strong>Province:</strong> {selectedUser.province}
-              </p>
-              <p>
-                <strong>Date Created:</strong> {selectedUser.date}
-              </p>
-              <p>
-                <strong>Time Created:</strong> {selectedUser.time}
-              </p>
-              <p>
-                <strong>Incidents Reported:</strong>{' '}
-                {selectedUser.incidentCount || 0}
+                <strong>Date Registered:</strong> {selectedAdmin.date}
               </p>
             </div>
           )}
@@ -228,14 +240,14 @@ export const AdminDataTable = () => {
         </DialogActions>
       </Dialog>
 
-      {/* <Dialog
+      <Dialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
       >
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this user?
+            Are you sure you want to delete this admin?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -246,8 +258,8 @@ export const AdminDataTable = () => {
             Delete
           </Button>
         </DialogActions>
-      </Dialog> */}
-      <ToastContainer containerId="userTable" />
+      </Dialog>
+      <ToastContainer containerId="adminTable" />
     </div>
   );
 };

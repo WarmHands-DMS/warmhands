@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import nodemailer from 'nodemailer';
 
 export const getUsers = async (req, res) => {
-    console.log("it works user")
     try {
         const users = await prisma.user.findMany();
         res.status(200).json(users);

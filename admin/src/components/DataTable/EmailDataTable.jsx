@@ -136,7 +136,7 @@ export const EmailDataTable = () => {
 
   return (
     <div className="datatable scrollbar">
-      <span className="title">Users</span>
+      <span className="title">Emails</span>
       <Paper sx={{ height: '100%', width: '100%', marginTop: '10px' }}>
         <DataGrid
           rows={rows}
