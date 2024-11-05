@@ -1,89 +1,155 @@
 .contact-page {
   display: flex;
   height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
   
 
   .wrapper{
-      display: flex;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: space-between;
+    gap: 50px;
+
+    @include md {
       flex-direction: column;
-      padding: 20px;
-      align-items: center;
-      overflow-y: scroll;
-      height: 100%;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-  }
-    
+    }
+
+
+
+    .emergency {
+      width: 50%;
+      height: 90%;
+      border: 4px solid rgb(222, 0, 0);
+      padding: 20px 30px;
+      border-radius: 20px;
+      background-color: rgb(207, 9, 9);
+
+      @include md {
+        height: 95%;
+        width: 100%;
+        padding: 10px 5px 20px 5px;
+      }
+    }
+
 
     h2 {
-      font-size: 2.5rem;
-      color: #333;
+      font-size: 2rem;
+      color: #eee;
       margin-bottom: 30px;
       text-align: center;
+      white-space: nowrap;
+
+      @include md {
+        font-size: 1.6rem;
+      }
     }
 
     .contact-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      display: flex;
+      flex-direction: column;
       gap: 20px;
       width: 100%;
-      max-width: 1200px;
       padding: 0 20px;
+
+      @include md {
+      flex-direction: column;
     }
 
-    .contact-card {
-      background-color: #fff;
+      .contact-card {
+      background-color: #ffffff99;
       border-radius: 15px;
       padding: 20px;
       text-align: center;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(2px);
+
+      @include md {
+        display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 1rem;
+      padding: 10px;
+    }
       
       &:hover {
-        transform: translateY(-10px);
+        transform: translateY(-1px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       }
 
-      h3 {
-        font-size: 1.5rem;
-        color: #007bff;
+       h3 {
+        font-size: 1.4rem;
+        color: #2c2c2c;
         margin-bottom: 10px;
+
+        @include md {
+      flex-direction: row;
+      font-size: 1rem;
+      text-align: left;
+    }
       }
 
       p {
         font-size: 1.2rem;
-        color: #555;
+        color: #181818;
+
+        @include md {
+      font-size: 1rem;
+      white-space: nowrap;
+    }
       }
+    }
     }
 
     .contact-us {
-    margin-top: 40px;
-      width: 100%;
-      max-width: 800px;
+      margin-top: 40px;
+      width: 50%;
       display: flex;
       flex-direction: column;
       align-items: center;
-  }
 
-  .contact-us h2 {
-    color:#007fd4; 
-    margin-bottom: 15px; 
-  }
+      
 
-  .contact-us p {
-    color: #666; 
-    margin-bottom: 20px; 
-    margin-top: 50px;
-  }
+      h2 {
+        color:#007fd4; 
+        margin-bottom: 15px; 
+        font-size: 1.8rem;
+      }
 
-  .contact-us ul {
-  
-    padding: 0; 
-  }
+      p {
+        color: #666; 
+        margin-bottom: 20px; 
+        margin-top: 50px;
+      }
 
-  .contact-us li {
-    margin: 10px 0; 
-    font-size: 16px; 
-    color: #444; 
+      
+      ul {
+        padding: 0; 
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+
+         li {
+          margin: 4px 0; 
+          font-size: 16px; 
+          color: #444;
+
+          span {
+            color: #111;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
   }
+    
 }

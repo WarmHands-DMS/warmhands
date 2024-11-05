@@ -9,13 +9,16 @@
     
 
     .wrapper {
-      margin: 30px 50px 100px 0px;
+      margin: 30px 50px 10px 0px;
 
       form {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 20px;
+        width: 100%;
+        background-color: transparent;
+        box-shadow: none;
 
         .input-single {
             display: flex;
@@ -71,10 +74,12 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
+                   
 
 
                     input {
                         width: 100%;
+                        margin-bottom: 0;
                     }
                 }
 
@@ -180,6 +185,7 @@
           align-items: center;
           justify-content: start;
           margin-top: 20px;
+          margin-bottom: 0;
           
           
           .sendButton {

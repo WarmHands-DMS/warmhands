@@ -1,50 +1,77 @@
 import { HomePage } from './pages/HomePage/HomePage';
-import { LoginPage } from './pages/LoginPage/LoginPage';
-// import { SinglePage } from './pages/SinglePage/SinglePage';
-import { New } from './pages/New/New';
+import 'react-toastify/dist/ReactToastify.css';
 import { DisasterListPage } from './pages/DisasterListPage/DisasterListPage';
 import { UserListPage } from './pages/UserListPage/UserListPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { singlePageLoader } from './lib/loaders';
+import { IncidentPageLoader, SendEmailPageLoader } from './lib/loaders';
 import { IncidentPage } from './pages/IncidentPage/IncidentPage';
+import { SendEmailPage } from './pages/SendEmailPage/SendEmailPage';
+import { SigninPage } from './pages/SigninPage/SigninPage';
+import { AuthLayout } from './layout/Layout';
+import { EmailListPage } from './pages/EmailListPage/EmailListPage';
+import { AdminListPage } from './pages/AdminListPage/AdminLisPage';
+import { AdminProfilePage } from './pages/AdminProfilePage/AdminProfilePage';
+import { RegisterPage } from './pages/RegisterPage/RegisterPage';
 
 const router = createBrowserRouter([
   {
+    path: '/signin',
+    element: <SigninPage />,
+  },
+  {
     path: '/',
-    element: <HomePage />,
-    errorElement: <div>Something went wrong!</div>, // Optional error fallback
-  },
-  {
-    path: 'login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/:id',
-    element: <IncidentPage />,
-    loader: singlePageLoader,
-  },
-  {
-    path: 'users',
-    element: <UserListPage />,
+    element: <AuthLayout />,
     children: [
-      // {
-      //   path: ':userId',
-      //   element: <SinglePage />,
-      // },
       {
-        path: 'new',
-        element: <New />,
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/signin',
+        element: <SigninPage />,
+      },
+      {
+        path: '/:id',
+        element: <IncidentPage />,
+        loader: IncidentPageLoader,
+      },
+      {
+        path: '/:id/send-emails',
+        element: <SendEmailPage />,
+        loader: SendEmailPageLoader,
+      },
+      {
+        path: 'users',
+        element: <UserListPage />,
+      },
+      {
+        path: 'disasters',
+        element: <DisasterListPage />,
+      },
+      {
+        path: 'mails',
+        element: <EmailListPage />,
+      },
+      {
+        path: 'admins',
+        element: <AdminListPage />,
+      },
+      {
+        path: 'profile',
+        element: <AdminProfilePage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
       },
     ],
-  },
-  {
-    path: 'disasters',
-    element: <DisasterListPage />,
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+   return (
+       <RouterProvider router={router} />
+   );
 }
 
 export default App;

@@ -2,19 +2,26 @@
     display: flex;
     gap: 20px;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 8px;
     box-shadow: 5px 3px 10px rgb(0 0 0 / 0.2);
+
+    &:hover {
+        box-shadow: 5px 3px 10px rgb(0 0 0 / 0.4);
+        transition: .3s ease-in-out;
+    }
 
 
     .imageContainer {
         flex: 2;
         height: 200px;
+        overflow: hidden;
+        
 
         img {
             height: 100%;
             width: 100%;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 6px;
         }
     }
 
@@ -23,35 +30,68 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 0;
+        gap: 10;
 
         .top {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
             
-            h5 {
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+
+            .title-section {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+
+                h5 {
                 white-space: nowrap;
-            }
+                background-color: #c7e7fd;
+                backdrop-filter: blur(2px);
+                padding: 2px 10px;
+                border-radius: 4px;
+                color: #111;
+                }
 
-            .title {
-                color: #000;
-                font-size: 20px;
-                transition: all 0.2s ease;
-
-                &:hover {
+                .title {
                     color: #000;
-                    scale: 1.01;
+                    font-size: 20px;
+                    transition: all 0.2s ease;
+                    font-weight: 600;
+
+                    &:hover {
+                        color: #000;
+                        scale: 1.01;
+                    }
                 }
             }
+
+            .description {
+                width: 100%;
+            .long-text {
+                max-height: 4.5em; /* Adjust based on line height and number of lines you want */
+                line-height: 1.5em; /* Set line height for proper spacing */
+                overflow: hidden; /* Hide overflow text */
+                display: -webkit-box; /* For Safari */
+                display: block;
+                -webkit-box-orient: vertical; 
+                -webkit-line-clamp: 3; /* Limit to 3 lines */
+                text-overflow: ellipsis; /* Add ellipsis at the end */
+                }
         }
+            
+        }
+
 
         .bottom {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
+            
 
             span {
                 display: flex;
@@ -63,9 +103,11 @@
                 background-color: whitesmoke;
                 padding: 5px;
                 border-radius: 5px;
+                
 
                 i {
                     padding-bottom: 2px;
+                    transform: translateY(1px);
                 }
             }
 
@@ -80,3 +122,192 @@
     }
 }
 
+.profileIncidentCard {
+    display: flex;
+    box-shadow: 5px 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 8px; 
+    padding: 10px;
+    flex-direction: column;
+
+    &.approved {
+        background-color: rgba(0, 97, 0, 0.109);
+        border: 3px solid  rgba(0, 128, 0, 0.215);
+    }
+
+    &.pending {
+        background-color:  rgba(144, 106, 9, 0.109);
+        border: 3px solid  rgba(218, 165, 32, 0.298);
+    }
+
+    &.rejected {
+        background-color: rgba(145, 0, 0, 0.12);
+        border: 3px solid  rgba(214, 0, 0, 0.201);
+    }
+    
+
+
+    .incidentDetail {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgb(202, 202, 202);
+
+
+    .imageContainer {
+        flex: 1;
+        height: 120px;
+        width: 120px;
+        overflow: hidden;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    }
+
+    .textContainer {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10;
+
+        .top {
+            display: flex;
+            flex-direction: column;
+            
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+
+            .title-section {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+
+                h5 {
+                white-space: nowrap;
+                background-color: #c7e7fdc3;
+                backdrop-filter: blur(2px);
+                padding: 2px 10px;
+                border-radius: 4px;
+                color: #111;
+                }
+
+                .title {
+                    color: #000;
+                    font-size: 18px;
+                    font-weight: 600;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        color: #000;
+                        scale: 1.01;
+                    }
+                }
+            }
+
+            .description {
+                width: 100%;
+                font-size: 14px;
+
+                .long-text {
+                    max-height: 4.5em; /* Adjust based on line height and number of lines you want */
+                    line-height: 1.5em; /* Set line height for proper spacing */
+                    overflow: hidden; /* Hide overflow text */
+                    display: -webkit-box; /* For Safari */
+                    display: block;
+                    -webkit-box-orient: vertical; 
+                    -webkit-line-clamp: 3; /* Limit to 3 lines */
+                    text-overflow: ellipsis; /* Add ellipsis at the end */
+                }
+            }
+            
+        }
+
+
+        .bottom {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 14px;
+                gap: 5px;
+                background-color: rgba(245, 245, 245, 0.758);
+                backdrop-filter: blur(10px);
+                padding: 5px;
+                border-radius: 5px;
+
+                i {
+                    padding-bottom: 2px;
+                    transform: translateY(1px);
+                }
+            }
+
+            .date {
+                white-space: nowrap;
+            }
+
+            .time {
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.btn-section {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+
+    .status {
+        padding: 6px 32px;
+        border-radius: 5px;
+        font-size: 14px;
+
+        &.approved {
+            color: rgb(0, 97, 0);
+            background-color: rgba(0, 128, 0, 0.215);
+        }
+
+        &.pending {
+            color: rgb(144, 106, 9);
+            background-color: rgba(218, 165, 32, 0.298);
+        }
+
+        &.rejected {
+            color: rgb(145, 0, 0);
+            background-color: rgba(214, 0, 0, 0.201);
+        }
+    }
+    .icon {
+        color: #eee;
+        background-color: rgb(145, 0, 0);
+        padding: 5px;
+        font-size: 32px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: .2s ease-in-out;
+
+        &:hover {
+            color: rgb(145, 0, 0);
+            border: 2px solid rgb(145, 0, 0);
+            background-color: rgba(214, 0, 0, 0.201);
+        }
+    }
+}
+
+}

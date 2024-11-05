@@ -1,12 +1,15 @@
-import React, { useState } from 'react';  
+import { useState } from 'react';  
 import './ContactForm.scss';
+import PersonIcon from '@mui/icons-material/Person';
+import MailIcon from '@mui/icons-material/Mail';
+
 
 export default function Contact() {
-  const [result, setResult] = useState("");  
+  const [result, setResult] = useState(null);  
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setResult("Sending....");
+    setResult("Sending...");
     const formData = new FormData(event.target);
 
     formData.append("access_key", "82db7e58-4468-4277-9723-e35311bf0bf2");
@@ -26,17 +29,50 @@ export default function Contact() {
       setResult(data.message);
     }
   };
+  console.log(result)
 
   return (
-    <div>
+    <div className="contactForm">
       <form onSubmit={onSubmit}>
-        Name: <input type="text" name="name" required /><br/>
-        Email: <input type="email" name="email" required /><br/>
-        Message: <textarea name="message" required></textarea><br/>
-
+        <h2>Contact Us</h2>
+        Name
+        <div className="input">
+          <PersonIcon className="icon" />
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Your Name"
+            required
+          />
+        </div>
+        Email
+        <div className="input">
+          <MailIcon className="icon" />
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter Your Email"
+            required
+          />
+        </div>
+        Message
+        <div className="input">
+          <textarea name="message" required />
+        </div>
+        <br />
         <button type="submit">Send Message</button>
       </form>
-      <span>{result}</span>
+      <span
+        className={`submit-msg ${
+          result === 'Sending...'
+            ? 'sending'
+            : result === 'Form Submitted Successfully'
+            ? 'sent'
+            : ''
+        }`}
+      >
+        {result}
+      </span>
     </div>
   );
 }

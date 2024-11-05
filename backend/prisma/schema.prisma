@@ -24,6 +24,34 @@ model User {
   incidents Incident[]
 }
 
+model Admin {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  fullName String
+  username String @unique
+  email String
+  avatar String?
+  password String
+  department String
+  nic String
+  mobile String
+  isMaster Boolean
+  createdAt DateTime? @default(now())
+  incidents Incident[]
+  sentMails Email[] 
+}
+
+model Email {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  message String
+  userCount Int?
+  city String
+  createdAt DateTime? @default(now())
+  sentBy Admin @relation(fields: [sentById], references: [id])
+  sentById String @db.ObjectId
+  incident Incident @relation(fields: [incidentId], references: [id]) 
+  incidentId String @db.ObjectId
+}
 
 model Incident {
   id String @id @default(auto()) @map("_id") @db.ObjectId
@@ -38,17 +66,23 @@ model Incident {
   longitude String
   latitude String
   createdAt DateTime @default(now())
-  isApproved Boolean  @default(false)
-  user User @relation(fields: [userId], references: [id])
-  userId String @db.ObjectId
+  isApproved String  @default("pending")
+  sentEmail Boolean @default(false)
+  approvedAt DateTime? 
+  approvedBy Admin? @relation(fields: [approvedById], references: [id])
+  approvedById String? @db.ObjectId
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String? @db.ObjectId
   incidentDetail IncidentDetail?
+  sentMails Email[] 
 }
+
 
 model IncidentDetail {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   deaths Int?
   casualities Int?
-  incident Incident @relation(fields:[incidentId], references: [id])
+  incident Incident @relation(fields:[incidentId], references: [id], onDelete: Cascade)
   incidentId String @db.ObjectId @unique
 }
 

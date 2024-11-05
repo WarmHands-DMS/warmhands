@@ -6,8 +6,8 @@ export const getIncidents = async (req, res) => {
       include: {
         user: {
           select: {
-            fname: true, // Include the user's first name
-            lname: true, // Include the user's last name
+            fname: true, 
+            lname: true, 
           },
         },
       },
@@ -80,6 +80,8 @@ export const deleteIncident = async (req, res) => {
     const id = req.params.id;
     const tokenUserId = req.userId;
 
+    console.log(id)
+
     try {
         const incident = await prisma.incident.findUnique({
             where: {id: id}
@@ -99,4 +101,65 @@ export const deleteIncident = async (req, res) => {
         console.log(error);
         res.status(500).json({ message: 'Failed to delete incident' });
     }
+};
+
+export const updateIncidentMailSent = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const updatedIncident = await prisma.incident.update({
+      where: { id: id },
+      data: { sentEmail: true },
+    });
+
+    res.status(200).json(updatedIncident);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to update incident.' });
+  }
+};
+
+export const approveIncident = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const updatedIncident = await prisma.incident.update({
+      where: { id: id },
+      data: { isApproved: "approved" },
+    });
+
+    res.status(200).json(updatedIncident); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to approve incident.' });
+  }
+};
+
+export const rejectIncident = async (req, res) => {
+  const id = req.params.id; 
+  try {
+    const rejectIncident = await prisma.incident.update({
+      where: { id: id },
+      data: { isApproved: 'rejected' },
+    });
+
+    res.status(200).json(rejectIncident); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to reject incident.' });
+  }
+};
+
+
+export const deleteIncidentByAdmin = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    await prisma.incident.delete({
+      where: { id: id },
+    });
+
+    res.status(200).json({ message: 'Incident deleted successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Failed to delete incident' });
+  }
 };

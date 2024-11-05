@@ -1,5 +1,3 @@
-import React from 'react';
-import './ContactPage.scss'; // Import the SCSS file
 import {ContactCard} from "../../components/ContctCard/ContactCard";
 import ContactForm from '../../components/ContactForm/ContactForm';
 
@@ -15,31 +13,37 @@ export const ContactPage = () => {
   return (
     <div className="contact-page">
       <div className="wrapper">
-
-        <div>
+        <div className="emergency">
           <h2>Emergency Contacts</h2>
           <div className="contact-cards">
             {contactDetails.map((contact, index) => (
-              <ContactCard key={index} title={contact.title} number={contact.number} />
+              <ContactCard
+                key={index}
+                title={contact.title}
+                number={contact.number}
+              />
             ))}
           </div>
         </div>
-        
+
         <div className="contact-us">
-          <h2>Contact Us</h2>
           <ContactForm />
-          <p>If you have any queries, feel free to contact us via email or phone.</p>
+          <p>
+            If you have any queries, feel free to contact us via email or phone.
+          </p>
           <ul>
-            <li>Email: alert.warmhands@gmail.com</li>
-            <li>Phone: 011-1234567</li>
-            <li>Address: 123 Main Street, Colombo, Sri Lanka</li>
+            <li>
+              <span>Email: </span>alert.warmhands@gmail.com
+            </li>
+            <li>
+              <span>Phone: </span>011-1234567
+            </li>
+            <li>
+              <span>Address: </span>123 Main Street, Colombo, Sri Lanka
+            </li>
           </ul>
         </div>
-
-
       </div>
-      
-      
     </div>
   );
 };

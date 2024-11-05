@@ -8,6 +8,8 @@ import authRoute from "./routes/auth.route.js";
 import testRoute from "./routes/test.route.js"
 import userRoute from "./routes/user.route.js"
 import incidentRoute from './routes/incident.route.js';
+import emailRoute from "./routes/email.route.js";
+import adminRoute from "./routes/admin.route.js";
 
 dotenv.config();
 const port = 8800;
@@ -25,6 +27,8 @@ app.use("/api/test", testRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/incidents", incidentRoute);
+app.use('/api/emails', emailRoute);
+app.use('/api/admins', adminRoute);
 
 app.listen(port, () => {
     console.log(`server is running on ${port}`);

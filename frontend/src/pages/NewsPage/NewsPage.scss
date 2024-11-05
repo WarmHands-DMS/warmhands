@@ -15,11 +15,13 @@
             gap: 30px; 
             overflow-y: scroll;
             height: 100%;
+            padding-bottom: 60px;
 
             @include md {
                 -ms-overflow-style: none;
                 scrollbar-width: none;
                 padding-right: 20px;
+                padding-bottom: 40px;
             }
 
             form {

@@ -1,0 +1,185 @@
+.registerPage {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 20px;
+
+  .title {
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: gray;
+  }
+
+  .adminRegister {
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(130, 130, 130, 0.47);
+    padding: 20px;
+    margin: 0 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .profileImage {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+
+      img {
+        width: 128px;
+        height: 128px;
+        margin-bottom: 24px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid $primary-color;
+      }
+
+      span {
+        position: absolute;
+        bottom: 10px;
+        color: #eee;
+        cursor: pointer;
+
+        .cloudinary-button {
+          border: none;
+          padding: 3px 14px;
+          background-color: #007fd4b7;
+          color: #eee;
+          font-size: 14px;
+          border-radius: 10px;
+          transition: 0.2s ease-in-out;
+
+          &:hover {
+            background: $primary-color;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+
+    .information {
+      font-size: 16px;
+
+      span {
+        font-weight: 600;
+      }
+    }
+
+    .form-group-2 {
+      width: 100%;
+      display: flex;
+      gap: 42px;
+
+      .form-group {
+        width: 59%;
+      }
+    }
+
+    .full-control {
+      display: flex;
+      margin-top: 20px;
+      justify-content: center;
+
+      label {
+        display: flex;
+        align-items: center;
+        input {
+            height: 16px;
+            width: 16px;
+            margin-right: 10px;
+        
+        }
+
+      }
+
+
+      
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 12px;
+
+      label {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      input {
+        border: 1px solid rgba(128, 128, 128, 0.493);
+        padding: 4px 6px;
+        font-size: 15px;
+        border-radius: 5px;
+        font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+
+        &:focus {
+          border: 1px solid rgb(79, 79, 79);
+          outline: none;
+        }
+      }
+
+      textarea {
+        border: 1px solid rgba(128, 128, 128, 0.493);
+        padding: 4px 6px;
+        font-size: 15px;
+        border-radius: 5px;
+        font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+
+        &:focus {
+          border: 1px solid rgb(79, 79, 79);
+          outline: none;
+        }
+      }
+    }
+
+    .email-btns {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 20px;
+
+      span {
+        padding: 7px 18px;
+        margin-right: 18px;
+        border-radius: 8px;
+        color: #eee;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-color: rgba(172, 0, 0, 0.509);
+        border: 2px solid rgb(161, 7, 7);
+        font-size: 16px;
+
+        &:hover {
+          background-color: rgb(172, 0, 0);
+        }
+      }
+
+      .disabled {
+        cursor: not-allowed;
+      }
+
+      button {
+        padding: 7px 18px;
+        margin-right: 18px;
+        border-radius: 8px;
+        color: #eee;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-color: rgba(0, 97, 0, 0.609);
+        border: 2px solid rgb(0, 41, 0);
+        font-size: 16px;
+
+        &:hover {
+          background-color: rgb(0, 97, 0);
+        }
+      }
+    }
+  }
+}

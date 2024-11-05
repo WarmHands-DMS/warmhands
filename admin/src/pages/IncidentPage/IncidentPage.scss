@@ -1,147 +1,167 @@
-.incident-page {
+.incidentPage {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 20px;
+
+  .top {
+    flex: 9;
     display: flex;
-    height: 100vh;
+    height: 100%;
+    gap: 10px;
 
-    .incident-container {
-        flex: 8;
-        height: 100%;
+    .details {
+      flex: 3;
+      height: 100%;
+      overflow-y: scroll;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
 
-        .incident {
-            height: 100%;
+      .wrapper {
+        padding-right: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .info {
+          display: flex;
+          flex-direction: column;
+
+          .top {
             display: flex;
-            flex-direction: column;
-            padding: 20px;
+            flex-direction: row;
+            justify-content: space-between;
 
-             .wrapper {
+            .disasterInfo {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+            }
+
+            .userInfo {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+
+              div {
                 display: flex;
                 flex-direction: column;
-                flex-grow: 1;
-                overflow-y: auto;
-                height: 100%;
-                padding-bottom: 20px;
+                align-items: center;
+                background-color: #f4f4f4;
+                padding-bottom: 6px;
+                gap: 4px;
+                border-radius: 6px;
 
-                .top {  
-                    flex: 9;
-                    display: flex;
-                    height: 100%;
-                    gap: 10px;
-
-                    .details {
-                        flex: 3;
-                        height: 100%;
-                        overflow-y: scroll;
-                        -ms-overflow-style: none;
-                        scrollbar-width: none;
-
-                        .wrapper {
-                            padding-right: 50px;
-                            display: flex;
-                            flex-direction: column;
-                            gap: 30px;
-
-                            .info {
-                                display: flex;
-                                flex-direction: column;
-
-                                .top {
-                                    display: flex;
-                                    flex-direction: row;                
-                                    justify-content: space-between;
-
-                                    .disasterInfo {
-                                        display: flex;
-                                        flex-direction: column;
-                                        gap: 8px;
-                                    }
-
-                                    .userInfo {
-                                        display: flex;
-                                        flex-direction: column;
-                                        justify-content: flex-end;
-
-                                        div {
-                                            display: flex;
-                                            flex-direction: column;
-                                            align-items: center;
-                                            background-color: #f4f4f4;
-                                            padding-bottom: 6px;
-                                            gap: 4px;
-                                            border-radius: 6px;
-
-                                            p {
-                                                background-color: #222;
-                                                color: #f4f4f4;
-                                                font-size: 14px;
-                                                padding: 4px;
-                                                border-radius: 6px 6px 0 0;
-                                                white-space: nowrap;
-                                            }
-
-                                            img {
-                                            height: 46px;
-                                            width: 46px;
-                                            border-radius: 50%;
-                                            object-fit: cover;
-                                            }
-
-                                            span {
-                                                white-space: nowrap;
-                                                font-size: 14px;
-
-                                            }
-                                        }
-                                    }
-                                        
-                                        
-                                }
-
-                                .bottom {
-                                    margin-top: 50px;
-                                    color: #222;
-                                }
-                            }
-                        }
-
-                    }
-
-                    .features {
-                        flex: 2;
-                        border: 2px solid #007fd4;
-                        background: #007fd41a;
-                        border-radius: 10px;
-
-                        .wrapper {
-                            padding: 20px;
-
-                            .location {
-                                display: flex;
-                                flex-direction: column;
-                                gap: 10px;
-
-                                .title {
-                                font-weight: bold;
-                                }
-
-                                .mapContainer {
-                                    width: 100%;
-                                    height: 350px;
-                                    
-                                    .map {
-                                        border-radius: 15px;
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-
+                p {
+                  background-color: #222;
+                  color: #f4f4f4;
+                  font-size: 14px;
+                  padding: 4px;
+                  border-radius: 6px 6px 0 0;
+                  white-space: nowrap;
                 }
 
-                .bottom {
-                    flex: 2;
-                    ;
+                img {
+                  height: 46px;
+                  width: 46px;
+                  border-radius: 50%;
+                  object-fit: cover;
                 }
+
+                span {
+                  white-space: nowrap;
+                  font-size: 14px;
+                }
+              }
             }
+          }
+
+          .bottom {
+            margin-top: 50px;
+            color: #222;
+          }
         }
+      }
     }
+
+    .features {
+      flex: 2;
+      border: 2px solid #007fd4;
+      background: #007fd41a;
+      border-radius: 10px;
+
+      .wrapper {
+        padding: 20px;
+
+        .location {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .title {
+            font-weight: bold;
+          }
+
+          .mapContainer {
+            width: 100%;
+            height: 350px;
+
+            .map {
+              border-radius: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .bottom {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      padding: 7px 18px;
+      margin-right: 18px;
+      border-radius: 8px;
+      color: #eee;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .reject-btn {
+      background-color: rgba(172, 0, 0, 0.509);
+      border: 2px solid rgb(161, 7, 7);
+
+      &:hover {
+        background-color: rgb(172, 0, 0);
+      }
+    }
+
+    .rejected-btn {
+      background-color: rgb(172, 0, 0);
+      border: 2px solid rgb(161, 7, 7);
+      pointer-events: none;
+    }
+
+    .confirm-btn {
+      background-color: rgba(0, 97, 0, 0.609);
+      border: 2px solid rgb(0, 41, 0);
+
+      &:hover {
+        background-color: rgb(0, 97, 0);
+      }
+    }
+
+    .confirmed-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-color: rgb(0, 97, 0);
+    }
+  }
 }

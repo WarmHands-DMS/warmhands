@@ -1,0 +1,78 @@
+.adminProfile {
+  width: 100%;
+
+  .title-main {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .profileImage {
+    position: relative;
+    display: flex;
+    justify-content: start;
+    margin-bottom: 10px;
+    margin-top: 28px;
+
+    img {
+      height: 232px;
+      width: 232px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid $primary-color;
+    }
+    .admin {
+      background-color: rgba(0, 128, 0, 0.604);
+      position: absolute;
+      padding: 8px 20px;
+      bottom: -10px;
+      left: 72px;
+      color: #eee;
+      backdrop-filter: blur(3px);
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .moderator {
+        background-color: rgba(128, 100, 0, 0.604);
+        position: absolute;
+        padding: 8px 20px;
+        bottom: -10px;
+        left: 72px;
+        color: #eee;
+        backdrop-filter: blur(3px);
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+  }
+
+  .profileInfo {
+    margin-top: 16px;
+    display: flex;
+
+    .detail-title {
+      font-size: 17px;
+      width: 40%;
+      font-weight: 500;
+      color: #222;
+
+      .title {
+        border-bottom: 1px solid #ccc;
+        padding: 20px 0;
+      }
+    }
+
+    .detail-info {
+      font-size: 17px;
+      width: 60%;
+      color: #555;
+
+      .detail {
+        border-bottom: 1px solid #ccc;
+        padding: 20px 0;
+      }
+    }
+  }
+}

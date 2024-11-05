@@ -1,4 +1,4 @@
-import './Table.scss';
+import './HomeTable.scss';
 import TableBasic from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-export const Table = ({ data }) => {
+export const HomeTable = ({ data }) => {
   const rows = data;
 
   // Remove duplicates while keeping the latest entry
@@ -30,6 +30,10 @@ export const Table = ({ data }) => {
       hour12: true,
     }).format(new Date(dateString));
   };
+
+   const capitalizeFirstLetter = (string) => {
+     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+   };
 
   return (
     <TableContainer component={Paper} className="table">
@@ -65,7 +69,7 @@ export const Table = ({ data }) => {
               </TableCell>
               <TableCell className="tableCell">
                 <span className={`status ${row.isApproved}`}>
-                  {row.isApproved === false ? 'Pending' : 'Approved'}
+                  {capitalizeFirstLetter(row.isApproved)}
                 </span>
               </TableCell>
             </TableRow>

@@ -100,12 +100,50 @@ nav {
     }
 
     .user-btn {
+      display: flex;
+      align-items: center;
+      
       .desktop {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 10px;
         gap: 10px;
+
+        
+
+        .MuiIconButton-root {
+          color: #111;
+          display: flex;
+          gap: 5px;
+          background-color: white;
+          border: 2px solid $primary-color;
+          padding: 2px 2px 2px 12px;
+          border-radius: 32px;
+          font-size: 16px;
+          font-family: 'poppins', 'Roboto', 'Lato', sans-serif;
+          
+
+          &:hover {
+            .MuiAvatar-root {
+              transition: all .4s ease-in;
+              outline: 2px solid $primary-color;
+
+        }
+          }
+          
+        }
+
+        
+
+        .MuiAvatar-root {
+          border: 1px solid $primary-color;
+
+        }
+
+        .MuiButtonBase-root {
+          font-family: 'poppins', 'Roboto', 'Lato', sans-serif;
+        }
 
         .user {
           display: flex;
@@ -127,13 +165,36 @@ nav {
           }
         }
 
-        .profile-btn {
-          border: 2px solid $primary-color;
-          padding: 9px 20px;
-          border-radius: 10px;
+        .report-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: row;
+          gap: 4px;
+          border: 4px solid $primary-color;
+          padding: 2px 20px;
+          border-radius: 25px;
           background-color: $primary-color;
           color: #fff;
           position: relative;
+          white-space: nowrap;
+          font-size: 16px;
+          transition: all 0.3s ease-in-out;
+
+          .icon {
+            transform: translateY(2px);
+            color: white;
+          }
+          
+
+          &:hover {
+            background-color: #007fd4d2;
+
+            .icon {
+              transition: all .3s ease-in-out;
+              transform: translateY(0px);
+            }
+          }
 
           @include sm {
             display: none;
@@ -200,6 +261,7 @@ nav {
           border-radius: 12px;
           margin-right: 1.5rem; 
           white-space: nowrap;
+          
 
           @include md {
             margin-right: 1rem;
@@ -298,7 +360,8 @@ nav {
 
     .menu {
       position: absolute;
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.93);
+      backdrop-filter: blur(8px);
       color: white;
       height: 100%;
       width: 50%;
@@ -324,4 +387,26 @@ nav {
 
 .mobile-menu {
   z-index: 2050;
+}
+
+.menu-logout {
+            &:hover {
+              background-color: #ffc6c6 !important;
+              color: rgb(73, 73, 73);
+
+              .icon {
+                color: #8b0000;
+              }
+            }
+          }
+
+.menu-reports, .menu-profile {
+  &:hover {
+              background-color: #d0ebff !important;
+              color: $primary-color;
+
+              .icon {
+                color: $primary-color;
+              }
+            }
 }

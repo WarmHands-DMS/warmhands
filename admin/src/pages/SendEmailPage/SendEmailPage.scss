@@ -1,0 +1,128 @@
+.sendEmailPage {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 20px;
+
+  .email-sent-message {
+    margin: 10px 20px;
+    padding: 10px 20px;
+    width: fit-content;
+    background-color: rgba(0, 131, 0, 0.564);
+    border: 2px solid green;
+    color: #111;
+    cursor: default;
+    border-radius: 12px;
+  }
+
+  .title {
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: gray;
+  }
+
+  .email {
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(130, 130, 130, 0.47);
+    padding: 20px;
+    margin: 0 20px;
+    border-radius: 5px;
+
+    .information {
+      font-size: 16px;
+
+      span {
+        font-weight: 600;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 12px;
+
+      label {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      input {
+        border: 1px solid rgba(128, 128, 128, 0.493);
+        padding: 4px 6px;
+        font-size: 15px;
+        border-radius: 5px;
+        font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+
+        &:focus {
+          border: 1px solid rgb(79, 79, 79);
+          outline: none;
+        }
+      }
+
+      textarea {
+        border: 1px solid rgba(128, 128, 128, 0.493);
+        padding: 4px 6px;
+        font-size: 15px;
+        border-radius: 5px;
+        font-family: 'Nunito', 'poppins', 'Roboto', 'Lato', sans-serif;
+
+        &:focus {
+          border: 1px solid rgb(79, 79, 79);
+          outline: none;
+        }
+      }
+    }
+
+    .email-btns {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 20px;
+      
+
+      span {
+        padding: 7px 18px;
+        margin-right: 18px;
+        border-radius: 8px;
+        color: #eee;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-color: rgba(172, 0, 0, 0.509);
+        border: 2px solid rgb(161, 7, 7);
+        font-size: 16px;
+
+        &:hover {
+          background-color: rgb(172, 0, 0);
+        }
+        
+      }
+
+      .disabled {
+        cursor: not-allowed;
+      }
+
+      button {
+        padding: 7px 18px;
+        margin-right: 18px;
+        border-radius: 8px;
+        color: #eee;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-color: rgba(0, 97, 0, 0.609);
+        border: 2px solid rgb(0, 41, 0);
+        font-size: 16px;
+
+        &:hover {
+          background-color: rgb(0, 97, 0);
+        }
+        
+
+      }
+
+    }
+  }
+}
