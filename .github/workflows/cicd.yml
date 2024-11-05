@@ -3,34 +3,54 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - kasun
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Start Docker
+        run: sudo systemctl start docker      
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install Docker Compose
+        run: |
+          DOCKER_COMPOSE_VERSION=1.29.2
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+        shell: bash
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
+
+      - name: Build Docker images with Docker Compose
+        run: docker-compose -f docker-compose.yaml build
+
+      - name: List Docker images (debugging step)
+        run: docker images
+
+      - name: Push Docker images to Docker Hub
+        run: docker-compose -f docker-compose.yaml push
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: login to docker hub
-        uses: docker login -u ${{secrets.dockerUser}} -p ${{secrets.dockerPass}}
+      - name: Install Docker Compose
+        run: |
+          DOCKER_COMPOSE_VERSION=1.29.2
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+        shell: bash
 
-      - name: build docker images
-        run: docker build -t kaxun/warmhands .
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.dockerPass }}" | docker login -u "${{ secrets.dockerUser }}" --password-stdin
 
-      - name: publish image to docker hub
-        run: docker push kaxun/warmhands:latest
-
- deploy:
-   needs: build
-   runs-on: self-hosted
-   steps:
-     - name: pull images from docker hub
-       run: docker pull kaxun/warmhands:latest
-     - name: run docker container
-       run: docker run -d -p 5173:5173 --name warmhands-app-container
-
-
-
-
- 
+      - name: Pull and deploy services with Docker Compose
+        run: |
+          docker-compose -f docker-compose.yaml pull
+          docker-compose -f docker-compose.yaml up -d
