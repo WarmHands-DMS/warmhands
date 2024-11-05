@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import dotenv from "dotenv";
 
 import authRoute from "./routes/auth.route.js";
-import testRoute from "./routes/test.route.js"
 import userRoute from "./routes/user.route.js"
 import incidentRoute from './routes/incident.route.js';
 import emailRoute from "./routes/email.route.js";
@@ -23,7 +22,6 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use("/api/test", testRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/incidents", incidentRoute);
