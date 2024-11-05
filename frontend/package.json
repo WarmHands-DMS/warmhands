@@ -29,7 +29,8 @@
     "react-router-dom": "^6.25.1",
     "react-search-autocomplete": "^8.5.2",
     "react-toastify": "^10.0.5",
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "vercel": "^37.14.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
