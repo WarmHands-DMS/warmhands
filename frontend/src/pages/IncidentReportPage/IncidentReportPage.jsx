@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { MapWithPinInput } from '../../components/Map/Map';
@@ -18,6 +18,30 @@ export const IncidentReportPage = () => {
   const [images, setImages] = useState([]); // State for images
   const [isLoading, setIsLoading] = useState(false); // Loading state to prevent duplicate submissions
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Request geolocation when the component mounts
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLat(latitude);
+          setLng(longitude);
+        },
+        (error) => {
+          console.error('Error getting location: ', error);
+          alert(
+            'Unable to retrieve your location. Please check your location settings.'
+          );
+        }
+      );
+    }
+  }, []);
+
+  const handlePinChange = (latitude, longitude) => {
+    setLat(latitude);
+    setLng(longitude);
+  };
 
   // const localTime = new Date(); // Capture local time
   // const utcTime = localTime.toISOString(); // Convert local time to UTC
@@ -48,10 +72,7 @@ export const IncidentReportPage = () => {
     availableDistricts.find((dist) => dist.name === selectedDistrict)?.cities ||
     [];
 
-  const handlePinChange = (latitude, longitude) => {
-    setLat(latitude);
-    setLng(longitude);
-  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -187,6 +208,8 @@ export const IncidentReportPage = () => {
                 onPinChange={handlePinChange}
                 height={'400px'}
                 width={'100%'}
+                initialLat={lat}
+                initialLng={lng}
               />
             </div>
 

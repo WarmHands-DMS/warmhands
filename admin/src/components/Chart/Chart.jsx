@@ -1,4 +1,5 @@
-import "./Chart.scss";
+import axios from 'axios';
+import './Chart.scss';
 import {
   AreaChart,
   Area,
@@ -8,119 +9,176 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-
-const data = [
-  {
-    name: 'January',
-    flood: 4000,
-    fire: 2400,
-    cyclone: 2400,
-    landslide: 400,
-    tsunami: 1000,
-    earthquake: 1400,
-  },
-  {
-    name: 'February',
-    flood: 3200,
-    fire: 2100,
-    cyclone: 1800,
-    landslide: 500,
-    tsunami: 1200,
-    earthquake: 1100,
-  },
-  {
-    name: 'March',
-    flood: 4500,
-    fire: 2500,
-    cyclone: 3000,
-    landslide: 700,
-    tsunami: 900,
-    earthquake: 1700,
-  },
-  {
-    name: 'April',
-    flood: 3700,
-    fire: 1900,
-    cyclone: 2600,
-    landslide: 600,
-    tsunami: 1300,
-    earthquake: 1200,
-  },
-  {
-    name: 'May',
-    flood: 4000,
-    fire: 2300,
-    cyclone: 2200,
-    landslide: 800,
-    tsunami: 1100,
-    earthquake: 1500,
-  },
-  {
-    name: 'June',
-    flood: 2800,
-    fire: 2700,
-    cyclone: 2100,
-    landslide: 550,
-    tsunami: 1000,
-    earthquake: 900,
-  },
-  {
-    name: 'July',
-    flood: 3500,
-    fire: 2400,
-    cyclone: 2400,
-    landslide: 750,
-    tsunami: 1400,
-    earthquake: 1300,
-  },
-  {
-    name: 'August',
-    flood: 4300,
-    fire: 2600,
-    cyclone: 2900,
-    landslide: 670,
-    tsunami: 1500,
-    earthquake: 1800,
-  },
-  {
-    name: 'September',
-    flood: 3600,
-    fire: 2200,
-    cyclone: 2800,
-    landslide: 680,
-    tsunami: 1200,
-    earthquake: 1600,
-  },
-  {
-    name: 'October',
-    flood: 3100,
-    fire: 2000,
-    cyclone: 2500,
-    landslide: 520,
-    tsunami: 900,
-    earthquake: 1100,
-  },
-  {
-    name: 'November',
-    flood: 3900,
-    fire: 2300,
-    cyclone: 2700,
-    landslide: 590,
-    tsunami: 1300,
-    earthquake: 1400,
-  },
-  {
-    name: 'December',
-    flood: 4100,
-    fire: 2800,
-    cyclone: 3000,
-    landslide: 720,
-    tsunami: 1600,
-    earthquake: 1700,
-  },
-];
+import { useEffect, useState } from 'react';
 
 export const Chart = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8800/api/incidents');
+        const transformedData = transformData(response.data);
+        setData(transformedData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    if (location.state?.refresh) {
+      fetchData();
+    }
+
+    fetchData();
+  }, []);
+
+  // Function to transform fetched data into a count of disasters by month
+  const transformData = (incidents) => {
+    const disasterCountByMonth = {
+      January: {
+        name: 'January',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      February: {
+        name: 'February',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      March: {
+        name: 'March',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      April: {
+        name: 'April',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      May: {
+        name: 'May',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      June: {
+        name: 'June',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      July: {
+        name: 'July',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      August: {
+        name: 'August',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      September: {
+        name: 'September',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      October: {
+        name: 'October',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      November: {
+        name: 'November',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+      December: {
+        name: 'December',
+        flood: 0,
+        fire: 0,
+        cyclone: 0,
+        landslide: 0,
+        tsunami: 0,
+        earthquake: 0,
+      },
+    };
+
+    incidents.forEach((disaster) => {
+      // Extract year and month
+      const date = new Date(disaster.createdAt);
+      const month = date.toLocaleString('default', { month: 'long' }); // Get the full month name
+
+      // Increment the count based on disaster type
+      switch (disaster.type.toLowerCase()) {
+        case 'flood':
+          disasterCountByMonth[month].flood++;
+          break;
+        case 'fire':
+          disasterCountByMonth[month].fire++;
+          break;
+        case 'cyclone':
+          disasterCountByMonth[month].cyclone++;
+          break;
+        case 'landslide':
+          disasterCountByMonth[month].landslide++;
+          break;
+        case 'tsunami':
+          disasterCountByMonth[month].tsunami++;
+          break;
+        case 'earthquake':
+          disasterCountByMonth[month].earthquake++;
+          break;
+        default:
+          break;
+      }
+    });
+
+    // Convert the object to an array
+    return Object.values(disasterCountByMonth);
+  };
+
   return (
     <>
       <div className="chart">

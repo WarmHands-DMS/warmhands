@@ -6,13 +6,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 
 export const HomeTable = ({ data }) => {
   const rows = data;
 
   // Remove duplicates while keeping the latest entry
   const uniqueRows = [
-    ...new Map(rows.map((item) => [item.title, item])).values(),
+    ...new Map(
+      rows
+        .filter((item) => item.isApproved === 'pending') // Filter rows with status "Pending"
+        .map((item) => [item.title, item]) // Create a Map entry using title as the key
+    ).values(),
   ];
 
   // Sort unique rows by createdAt in descending order
@@ -52,7 +57,9 @@ export const HomeTable = ({ data }) => {
         <TableBody>
           {uniqueRows.map((row) => (
             <TableRow key={row.id}>
-              <TableCell className="tableCell">{row.id}</TableCell>
+              <Link to={`/${row.id}`}>
+                <TableCell className="tableCell">{row.id}</TableCell>
+              </Link>
               <TableCell className="tableCell">{row.type}</TableCell>
               <TableCell className="tableCell">
                 <div className="cellWrapper">

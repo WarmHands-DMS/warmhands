@@ -1,7 +1,6 @@
 import './Widget.scss';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'; // Import the down arrow icon
-import ReportIcon from '@mui/icons-material/Report';
 import FloodIcon from '@mui/icons-material/Flood';
 import FireIcon from '@mui/icons-material/LocalFireDepartment';
 import CycloneIcon from '@mui/icons-material/Cyclone';
@@ -120,7 +119,7 @@ export const Widget = ({ type, totalCount, previousCount }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">{totalCount}</span>
-        <span className="link">{data.link}</span>
+        
       </div>
       <div className="right">
         <div

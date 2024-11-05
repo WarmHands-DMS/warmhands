@@ -8,12 +8,12 @@
     .wrapper {
         display: flex;
         flex-direction: column;
-        height: 100%;
-        width: 50%;
+        height: 90%;
+        width: 70%;
         border-radius: 20px;
         background-color: rgba(255, 255, 255, 0.691);
         box-shadow: 0px 3px 10px $shadow-color;
-        padding: 0 20px 10px 20px;
+        padding: 30px 20px 20px 20px;
 
         @include md {
             width: 60%;
@@ -45,6 +45,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    margin: 10px 0;
                     
 
                     img {
@@ -85,14 +86,22 @@
             height: 100%;
 
             .form {
-                height: 80%;
+                height: 70%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 overflow: hidden;
+                width: 60%;
                 gap: 16px;
                 padding: 20px 10px;
-                overflow-y: scroll;
+
+                @include md {
+                    width: 80%;
+                }
+
+                @include sm {
+                    width: 100%;
+                }
 
 
                 .profileImage {

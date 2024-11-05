@@ -10,6 +10,7 @@ export const getIncidents = async (req, res) => {
             lname: true, 
           },
         },
+        incidentDetail: true
       },
     });
     res.status(200).json(incidents);

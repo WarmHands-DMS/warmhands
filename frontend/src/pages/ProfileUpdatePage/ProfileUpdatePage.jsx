@@ -105,7 +105,7 @@ export const ProfileUpdatePage = () => {
           </div>
         </div>
         <form className="update-form" onSubmit={handleSubmit}>
-          <div className="form scrollbar">
+          <div className="form">
             <div className="input-multi">
               <div className="input-single">
                 <label htmlFor="">First Name</label>
